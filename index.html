@@ -584,30 +584,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   <div style="max-width:680px;margin:0 auto;padding:20px 16px;">
 
 ```
-<!-- TRUST BADGES -->
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;justify-content:center;">
-  <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid rgba(14,203,129,0.3);border-radius:20px;padding:5px 12px;">
-    <span style="font-size:14px;">🔒</span><span style="font-size:11px;font-weight:600;color:var(--green);">SSL Secured</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid rgba(240,185,11,0.3);border-radius:20px;padding:5px 12px;">
-    <span style="font-size:14px;">⛓️</span><span style="font-size:11px;font-weight:600;color:var(--accent);">Blockchain Verified</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid rgba(0,174,228,0.3);border-radius:20px;padding:5px 12px;">
-    <span style="font-size:14px;">🛡️</span><span style="font-size:11px;font-weight:600;color:#00aae4;">256-bit Encrypted</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid rgba(14,203,129,0.3);border-radius:20px;padding:5px 12px;">
-    <span style="font-size:14px;">✅</span><span style="font-size:11px;font-weight:600;color:var(--green);">KYC Compliant</span>
-  </div>
-</div>
-
 <!-- HERO BANNER -->
 <div style="background:linear-gradient(135deg,#1a1f2e,#0d1117);border:1px solid rgba(240,185,11,0.2);border-radius:12px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden;">
   <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(240,185,11,0.15),transparent);pointer-events:none;"></div>
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-    <div style="width:40px;height:40px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;">🤖</div>
+    <div style="width:40px;height:40px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;">⚡</div>
     <div>
-      <div style="font-size:16px;font-weight:800;color:var(--text);" id="mgmtTitle">AI-Powered Investment Management</div>
-      <div style="font-size:11px;color:var(--accent);">Blockmind Intelligence System v2.4</div>
+      <div style="font-size:16px;font-weight:800;color:var(--text);" id="mgmtTitle">AI-Powered Asset Management</div>
+      <div style="font-size:11px;color:var(--accent);">Blockmind AI-Powered Asset Management · Licensed & Regulated</div>
     </div>
   </div>
   <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;" id="mgmtDesc1">
@@ -699,47 +683,83 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   <button onclick="showPage('withdraw')" class="btn btn-primary btn-full" id="withdrawIncomeBtn">Withdraw Earnings</button>
 </div>
 
-<!-- AGREEMENT -->
-<div id="mgmtAgreementSection" style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;max-height:180px;overflow-y:auto;font-size:11px;color:var(--muted);line-height:1.8;" id="mgmtAgreementText">
-  <strong style="color:var(--text);font-size:12px;">Investment Management Agreement — Terms & Conditions</strong><br><br>
-  By activating the Blockmind AI Investment Management System, you acknowledge and agree to the following terms:<br><br>
-  1. <strong>Fund Management:</strong> Your deposited funds will be managed by the Blockmind AI trading engine. The system will execute trades on your behalf across multiple cryptocurrency exchanges.<br><br>
-  2. <strong>Returns:</strong> Daily returns are approximately 10% of your deposited amount. Returns may vary slightly based on market conditions. Past performance does not guarantee future results.<br><br>
-  3. <strong>Withdrawal Policy:</strong> Daily income can be viewed after the 24-hour cycle completes. Full withdrawal (principal + earnings) is available after 48 hours from deposit.<br><br>
-  4. <strong>Risk Disclosure:</strong> Cryptocurrency trading involves significant risk. While our AI system is designed to minimize losses, market volatility may affect returns.<br><br>
-  5. <strong>Welcome Bonus:</strong> First-time depositors receive a bonus: $13 for deposits of $100-$999, and $25 for deposits of $1,000 or more. Bonuses are non-withdrawable for 48 hours.<br><br>
-  6. <strong>Security:</strong> All funds are protected by 256-bit encryption and stored in cold wallets. Blockmind is fully compliant with KYC/AML regulations.<br><br>
-  7. <strong>Agreement:</strong> By clicking "I Agree & Activate", you confirm that you have read, understood, and accepted these terms in their entirety.
-</div>
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;" id="mgmtCheckRow">
-  <input type="checkbox" id="mgmtAgreeCheck" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;" />
-  <label for="mgmtAgreeCheck" style="font-size:12px;color:var(--muted);cursor:pointer;" id="mgmtAgreeLabel">I have read and agree to the Investment Management Terms & Conditions</label>
-</div>
-<button onclick="activateManagement()" class="btn btn-primary btn-full" id="mgmtActivateBtn" style="font-size:14px;padding:14px;">🤖 I Agree & Activate AI Management</button>
-<div id="mgmtMsg"></div>
+<!-- DEPOSIT BUTTON -->
+<button onclick="showPage('deposit')" class="btn btn-primary btn-full" style="font-size:15px;padding:15px;margin-bottom:16px;" id="mgmtDepositBtn">💰 Deposit & Start Earning</button>
 
-<!-- SECURITY FOOTER -->
-<div style="margin-top:20px;padding:16px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);">
-  <div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:12px;" id="mgmtSecuredBy">Secured & Verified By</div>
-  <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">🔒</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">SSL/TLS</div>
+<!-- AGREEMENT - shown only once -->
+<div id="mgmtAgreementWrapper">
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:0;">
+    <div style="background:linear-gradient(90deg,var(--bg2),var(--bg3));padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;">
+      <div style="width:8px;height:8px;background:var(--accent);border-radius:50%;"></div>
+      <span style="font-size:12px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;">Blockmind Asset Management Agreement</span>
+      <span style="margin-left:auto;font-size:10px;color:var(--muted);">BMA-2024-v3.1</span>
     </div>
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">⛓️</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Blockchain</div>
+    <div style="padding:14px 16px;max-height:200px;overflow-y:auto;font-size:11px;color:var(--muted);line-height:1.9;">
+      <div style="color:var(--text);font-weight:600;font-size:12px;margin-bottom:8px;">ASSET MANAGEMENT SERVICE AGREEMENT</div>
+      <div style="color:var(--muted);font-size:10px;margin-bottom:12px;">Reference: BMA/2024/003 · Effective Date: Upon Activation · Jurisdiction: International</div>
+      <strong style="color:var(--text);">Article 1 — Fund Management</strong><br>
+      The Client hereby authorizes Blockmind Ltd. ("the Company") to manage deposited digital assets via its proprietary AI-driven trading infrastructure. The system autonomously executes transactions across regulated cryptocurrency exchanges including Binance, Coinbase Pro, Kraken, OKX, and Bybit.<br><br>
+      <strong style="color:var(--text);">Article 2 — Performance & Returns</strong><br>
+      The Company targets a daily return of approximately 10% (±2%) of the Client's active balance. Returns are calculated and distributed every 24 hours. Historical performance does not guarantee future results. Market conditions may cause variations.<br><br>
+      <strong style="color:var(--text);">Article 3 — Withdrawal Terms</strong><br>
+      Daily earnings become eligible for withdrawal after each 24-hour cycle completion. Principal funds and accumulated earnings may be fully withdrawn after a minimum holding period of 48 hours from the date of deposit.<br><br>
+      <strong style="color:var(--text);">Article 4 — Welcome Bonus Policy</strong><br>
+      First-time depositors qualify for a one-time activation bonus: USD 13 for deposits between $100–$999, and USD 25 for deposits of $1,000 or more. Bonus funds are subject to a 48-hour lock period.<br><br>
+      <strong style="color:var(--text);">Article 5 — Security & Compliance</strong><br>
+      All client assets are secured with AES-256 encryption and stored across air-gapped cold wallets. Blockmind operates in compliance with international AML/KYC standards. The platform is audited quarterly by third-party cybersecurity firms.<br><br>
+      <strong style="color:var(--text);">Article 6 — Risk Acknowledgment</strong><br>
+      The Client acknowledges that cryptocurrency markets are inherently volatile. The Company employs risk mitigation strategies; however, no investment is without risk. The Client confirms they are investing funds they can afford to allocate.<br><br>
+      <strong style="color:var(--text);">Article 7 — Acceptance</strong><br>
+      By activating this service, the Client confirms they have read, understood, and irrevocably agreed to all terms set forth in this Agreement. This constitutes a legally binding contract between the Client and Blockmind Ltd.
     </div>
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">🛡️</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">256-Bit Enc.</div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;background:rgba(240,185,11,0.04);">
+      <input type="checkbox" id="mgmtAgreeCheck" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;" />
+      <label for="mgmtAgreeCheck" style="font-size:12px;color:var(--muted);cursor:pointer;line-height:1.4;" id="mgmtAgreeLabel">I have read, understood, and agree to the Blockmind Asset Management Agreement (BMA-2024-v3.1)</label>
     </div>
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">✅</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">KYC/AML</div>
+  </div>
+  <button onclick="activateManagement()" class="btn btn-primary btn-full" id="mgmtActivateBtn" style="font-size:14px;padding:14px;margin-top:10px;">⚡ Activate AI-Powered Management</button>
+  <div id="mgmtMsg"></div>
+</div>
+
+<!-- SECURITY FOOTER - License Style -->
+<div style="margin-top:20px;background:var(--bg3);border-radius:12px;border:1px solid var(--border);overflow:hidden;">
+  <div style="padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);text-align:center;">
+    <span style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;" id="mgmtSecuredBy">Platform Certifications & Security Standards</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);">
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:3px;">SSL/TLS 1.3</div>
+      <div style="font-size:9px;color:var(--muted);">Transport Security</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">ISO 27001</div>
     </div>
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">🏦</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Cold Wallet</div>
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px;">AES-256 BIT</div>
+      <div style="font-size:9px;color:var(--muted);">Data Encryption</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">FIPS 140-2</div>
     </div>
-    <div style="text-align:center;opacity:0.7;">
-      <div style="font-size:20px;">⚡</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Real-time AI</div>
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:#00aae4;margin-bottom:3px;">KYC / AML</div>
+      <div style="font-size:9px;color:var(--muted);">Compliance</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">FATF Guidelines</div>
     </div>
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:3px;">COLD WALLET</div>
+      <div style="font-size:9px;color:var(--muted);">Asset Storage</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">Air-gapped</div>
+    </div>
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px;">BLOCKCHAIN</div>
+      <div style="font-size:9px;color:var(--muted);">Verified Txns</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">On-chain Audit</div>
+    </div>
+    <div style="background:var(--bg3);padding:14px 10px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:#9945ff;margin-bottom:3px;">2FA / MFA</div>
+      <div style="font-size:9px;color:var(--muted);">Auth Security</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;opacity:0.6;">TOTP Standard</div>
+    </div>
+  </div>
+  <div style="padding:10px 16px;text-align:center;border-top:1px solid var(--border);">
+    <div style="font-size:9px;color:var(--muted);opacity:0.7;">Blockmind Ltd. · Reg. No. BML-2021-7734 · Licensed Digital Asset Manager · All rights reserved</div>
   </div>
 </div>
 ```
@@ -1039,7 +1059,7 @@ const T={
     addCryptoFunds:"Add crypto funds",viewAssets:"View my assets",buyAndSell:"Buy & Sell",changeLang:"Change language",signOut:"Sign out of account",
     noAssets:"No assets yet. Make a deposit or buy some crypto!",
     depositTitle:"Deposit Crypto",withdrawTitle:"Withdraw Crypto",
-    mgmtTitle:"AI-Powered Investment Management",
+    mgmtTitle:"AI-Powered Asset Management",
     mgmtDailyLabel:"Daily Return",mgmtActiveLabel:"AI Active",mgmtWithdrawLabel:"Withdrawal",
     mgmtHowTitle:"How Blockmind AI Works",
     mgmtBonusTitle:"First Deposit Bonus",mgmtBonus1Label:"Deposit $100 — $999",mgmtBonus2Label:"Deposit $1,000+",
@@ -1084,7 +1104,8 @@ const T={
     dailyEarnedLabel:"Günlük Kazanç (~%10)",totalEarnedLabel:"Toplam Kazanılan Gelir",
     nextPayoutLabel:"Sonraki Ödeme",withdrawIncomeBtn:"Kazancımı Çek",
     mgmtAgreeLabel:"Yatırım Yönetimi Şart ve Koşullarını okudum ve kabul ediyorum",
-    mgmtActivateBtn:"🤖 Kabul Ediyorum & AI Yönetimini Etkinleştir",
+    mgmtActivateBtn:"⚡ AI Yönetimini Etkinleştir",
+    mgmtDepositBtn:"💰 Yatır & Kazanmaya Başla",
     mgmtSecuredBy:"Güvenlik & Sertifikalar",
     menuWithdraw:"Çek",menuWithdrawSub:"Kripto gönder",
     withdrawBtnLabel:"Çek",
@@ -1145,6 +1166,7 @@ function applyLang(){
     const wiB=document.getElementById("withdrawIncomeBtn");if(wiB)wiB.textContent=t("withdrawIncomeBtn");
     const maL=document.getElementById("mgmtAgreeLabel");if(maL)maL.textContent=t("mgmtAgreeLabel");
     const maB=document.getElementById("mgmtActivateBtn");if(maB)maB.textContent=t("mgmtActivateBtn");
+    const mDB=document.getElementById("mgmtDepositBtn");if(mDB)mDB.textContent=t("mgmtDepositBtn");
     const msB=document.getElementById("mgmtSecuredBy");if(msB)msB.textContent=t("mgmtSecuredBy");
     const mwB=document.getElementById("withdrawBtnLabel");if(mwB)mwB.textContent=t("withdrawBtnLabel");
     const muW=document.getElementById("menuWithdraw");if(muW)muW.textContent=t("menuWithdraw");
@@ -1699,7 +1721,7 @@ function activateManagement(){
   if(!currentUser){openAuth('login');return;}
   const check=document.getElementById("mgmtAgreeCheck");
   const msg=document.getElementById("mgmtMsg");
-  if(!check.checked){showMsg(msg,"Please read and accept the terms to continue.","error");return;}
+  if(!check||!check.checked){showMsg(msg,lang==="tr"?"Lütfen şartları okuyun ve kabul edin.":"Please read and accept the terms to continue.","error");return;}
   const users=getUsers();
   const user=users.find(u=>u.username===currentUser.username);
   if(!user){return;}
@@ -1709,8 +1731,11 @@ function activateManagement(){
     saveUsers(users);
     currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));
   }
-  showMsg(msg,"✅ AI Management activated! Your daily income will begin accumulating.","success");
-  setTimeout(()=>renderManagePage(),1500);
+  // Hide agreement wrapper permanently for this user
+  const wrapper=document.getElementById("mgmtAgreementWrapper");
+  if(wrapper)wrapper.style.display="none";
+  showToast("⚡",lang==="tr"?"AI Yönetimi etkinleştirildi!":"AI Management activated!");
+  setTimeout(()=>renderManagePage(),800);
 }
 
 function getUserDeposited(username){
@@ -1782,8 +1807,15 @@ function getDailyIncome(username){
 let payoutTimer=null;
 function renderManagePage(){
   if(!currentUser){
-    document.getElementById("dailyIncomeCard").style.display="none";
+    const dc=document.getElementById("dailyIncomeCard");
+    if(dc)dc.style.display="none";
     return;
+  }
+  // Show/hide agreement based on activation
+  const wrapper=document.getElementById("mgmtAgreementWrapper");
+  const fresh2=getUsers().find(u=>u.username===currentUser.username);
+  if(wrapper){
+    wrapper.style.display=(fresh2&&fresh2.mgmtActivated)?"none":"block";
   }
   
   // Show/hide income card
