@@ -1,243 +1,260 @@
 <!DOCTYPE html>
 
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blockmind — Crypto Platform</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#080b12;--bg2:#0d1120;--bg3:#111827;--card:#0f1623;--border:#1e2d45;--accent:#00d4ff;--green:#00e676;--red:#ff3d57;--gold:#f7b731;--text:#e8f0fe;--muted:#6b7fa3;--font:'Syne',sans-serif;--mono:'JetBrains Mono',monospace;}
+:root{--bg:#0b0e11;--bg2:#131722;--bg3:#1e2329;--card:#1e2329;--border:#2b3139;--accent:#f0b90b;--accent2:#d4a017;--green:#0ecb81;--red:#f6465d;--gold:#f0b90b;--text:#eaecef;--muted:#848e9c;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;padding-bottom:70px;}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
-::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;background:rgba(8,11,18,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(–border);}
-.logo{font-size:19px;font-weight:800;}.logo span{color:var(–accent);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:56px;background:var(–bg2);border-bottom:1px solid var(–border);}
+.logo{font-size:18px;font-weight:800;letter-spacing:-0.5px;color:var(–text);}
+.logo span{color:var(–accent);}
 .nav-right{display:flex;align-items:center;gap:8px;}
-.lang-btn{background:var(–bg3);border:1px solid var(–border);color:var(–muted);padding:5px 10px;border-radius:7px;cursor:pointer;font-family:var(–font);font-size:12px;}
-.profile-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;cursor:pointer;border:2px solid var(–border);transition:border-color 0.2s;}
-.profile-avatar:hover{border-color:var(–accent);}
+.lang-btn{background:transparent;border:1px solid var(–border);color:var(–muted);padding:4px 10px;border-radius:4px;cursor:pointer;font-family:var(–font);font-size:12px;font-weight:500;}
+.lang-btn:hover{border-color:var(–accent);color:var(–accent);}
+.profile-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;border:2px solid var(–border);}
 
 /* TICKER */
-.ticker-bar{position:fixed;top:60px;left:0;right:0;z-index:99;background:var(–bg2);border-bottom:1px solid var(–border);padding:7px 0;overflow:hidden;}
-.ticker-track{display:flex;gap:36px;width:max-content;animation:ticker 30s linear infinite;}
+.ticker-bar{position:fixed;top:56px;left:0;right:0;z-index:99;background:var(–bg2);border-bottom:1px solid var(–border);padding:6px 0;overflow:hidden;}
+.ticker-track{display:flex;gap:32px;width:max-content;animation:ticker 35s linear infinite;}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{display:flex;align-items:center;gap:7px;white-space:nowrap;}
-.ticker-sym{font-family:var(–mono);font-size:11px;font-weight:500;color:var(–accent);}
-.ticker-price{font-family:var(–mono);font-size:11px;}
+.ticker-item{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.ticker-sym{font-family:var(–mono);font-size:11px;font-weight:600;color:var(–text);}
+.ticker-price{font-family:var(–mono);font-size:11px;color:var(–muted);}
 .ticker-change{font-family:var(–mono);font-size:10px;}
 .up{color:var(–green);}.down{color:var(–red);}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(8,11,18,0.95);backdrop-filter:blur(20px);border-top:1px solid var(–border);display:flex;height:65px;padding-bottom:env(safe-area-inset-bottom);}
-.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all 0.2s;border:none;background:transparent;color:var(–muted);font-family:var(–font);font-size:10px;font-weight:600;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(–bg2);border-top:1px solid var(–border);display:flex;height:60px;}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:transparent;color:var(–muted);font-family:var(–font);font-size:10px;font-weight:500;}
 .bnav-item.active{color:var(–accent);}
-.bnav-item svg{width:22px;height:22px;transition:all 0.2s;}
+.bnav-item svg{width:20px;height:20px;}
 .bnav-item.active svg{stroke:var(–accent);}
 
 /* PAGES */
-.page{display:none;padding-top:108px;min-height:100vh;position:relative;z-index:1;}
+.page{display:none;padding-top:100px;min-height:100vh;position:relative;z-index:1;}
 .page.active{display:block;}
 
 /* BUTTONS */
-.btn{padding:8px 16px;border-radius:10px;font-family:var(–font);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;}
+.btn{padding:8px 16px;border-radius:4px;font-family:var(–font);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;}
 .btn-outline{background:transparent;border:1px solid var(–border);color:var(–text);}
+.btn-outline:hover{border-color:var(–accent);color:var(–accent);}
 .btn-primary{background:var(–accent);color:#000;}
-.btn-primary:hover{background:#00b8d9;}
+.btn-primary:hover{background:var(–accent2);}
 .btn-green{background:var(–green);color:#000;}
 .btn-red{background:var(–red);color:#fff;}
-.btn-full{width:100%;padding:13px;font-size:14px;border-radius:12px;margin-top:8px;}
-.btn-lg{padding:13px 28px;font-size:15px;border-radius:14px;}
+.btn-full{width:100%;padding:12px;font-size:14px;border-radius:4px;margin-top:8px;}
+.btn-lg{padding:12px 28px;font-size:15px;}
 
 /* HOME */
-.hero-section{max-width:1000px;margin:0 auto;padding:28px 16px;}
-.hero-title{font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-2px;}
+.hero-section{max-width:1000px;margin:0 auto;padding:24px 16px;}
+.hero-title{font-size:clamp(24px,4vw,42px);font-weight:800;line-height:1.1;letter-spacing:-1px;color:var(–text);}
 .hero-title span{color:var(–accent);}
-.hero-sub{color:var(–muted);font-size:15px;margin:12px 0 24px;max-width:480px;line-height:1.6;}
+.hero-sub{color:var(–muted);font-size:14px;margin:10px 0 20px;max-width:480px;line-height:1.6;}
 .hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
 .divider{height:1px;background:var(–border);margin:20px 0;}
-.section-title{font-size:16px;font-weight:700;margin-bottom:14px;}
-.live-dot{display:inline-block;width:7px;height:7px;background:var(–green);border-radius:50%;margin-right:6px;animation:pulse2 1.5s ease infinite;}
-@keyframes pulse2{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
-.coins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:32px;}
-.coin-card{background:var(–card);border:1px solid var(–border);border-radius:14px;padding:16px;transition:all 0.3s;}
-.coin-card:hover{border-color:var(–accent);transform:translateY(-2px);}
-.coin-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.coin-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;}
-.coin-name{font-weight:700;font-size:13px;}.coin-sym{font-family:var(–mono);font-size:11px;color:var(–muted);}
-.coin-price{font-family:var(–mono);font-size:18px;font-weight:500;margin-bottom:4px;}
+.section-title{font-size:15px;font-weight:700;margin-bottom:12px;color:var(–text);}
+.live-dot{display:inline-block;width:6px;height:6px;background:var(–green);border-radius:50%;margin-right:6px;animation:pulse2 2s ease infinite;}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:0.3}}
+.coins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:28px;}
+.coin-card{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:14px;transition:all 0.2s;cursor:pointer;}
+.coin-card:hover{border-color:var(–accent);background:#252b32;}
+.coin-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.coin-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.coin-name{font-weight:600;font-size:13px;color:var(–text);}
+.coin-sym{font-family:var(–mono);font-size:10px;color:var(–muted);}
+.coin-price{font-family:var(–mono);font-size:16px;font-weight:600;margin-bottom:3px;color:var(–text);}
 .coin-change{font-family:var(–mono);font-size:11px;}
 
-/* MARKETS PAGE */
+/* MARKETS */
 .markets-wrap{max-width:900px;margin:0 auto;padding:20px 16px;}
-.market-search{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:12px;padding:11px 14px;color:var(–text);font-family:var(–font);font-size:14px;outline:none;margin-bottom:16px;}
+.market-search{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:10px 14px;color:var(–text);font-family:var(–font);font-size:13px;outline:none;margin-bottom:14px;}
 .market-search:focus{border-color:var(–accent);}
-.market-table{background:var(–card);border:1px solid var(–border);border-radius:16px;overflow:hidden;}
-.market-head{background:var(–bg3);padding:12px 16px;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr;gap:8px;}
-.market-row{padding:12px 16px;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr;gap:8px;border-top:1px solid var(–border);align-items:center;cursor:pointer;transition:background 0.2s;}
-.market-row:hover{background:rgba(0,212,255,0.04);}
-.mth{font-size:11px;color:var(–muted);text-transform:uppercase;letter-spacing:1px;}
-.mtd{font-family:var(–mono);font-size:13px;}
-.trade-btn-sm{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:var(–font);}
+.market-table{background:var(–card);border:1px solid var(–border);border-radius:8px;overflow:hidden;}
+.market-head{background:var(–bg3);padding:10px 16px;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr;gap:8px;}
+.market-row{padding:12px 16px;display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr;gap:8px;border-top:1px solid var(–border);align-items:center;cursor:pointer;transition:background 0.15s;}
+.market-row:hover{background:#252b32;}
+.mth{font-size:11px;color:var(–muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.mtd{font-family:var(–mono);font-size:13px;color:var(–text);}
 
-/* TRADE PAGE */
-.trade-wrap{max-width:600px;margin:0 auto;padding:20px 16px;}
-.trade-tabs{display:flex;background:var(–bg3);border-radius:14px;padding:4px;margin-bottom:20px;}
-.trade-tab{flex:1;padding:9px;border:none;background:transparent;font-family:var(–font);font-size:14px;font-weight:600;border-radius:11px;cursor:pointer;transition:all 0.2s;color:var(–muted);}
+/* TRADE */
+.trade-wrap{max-width:560px;margin:0 auto;padding:20px 16px;}
+.trade-tabs{display:flex;background:var(–bg3);border-radius:6px;padding:3px;margin-bottom:18px;border:1px solid var(–border);}
+.trade-tab{flex:1;padding:8px;border:none;background:transparent;font-family:var(–font);font-size:13px;font-weight:600;border-radius:4px;cursor:pointer;transition:all 0.15s;color:var(–muted);}
 .trade-tab.active-buy{background:var(–green);color:#000;}
 .trade-tab.active-sell{background:var(–red);color:#fff;}
 .trade-tab.active-convert{background:var(–accent);color:#000;}
-.trade-card{background:var(–card);border:1px solid var(–border);border-radius:20px;padding:24px;}
-.trade-label{font-size:12px;color:var(–muted);margin-bottom:6px;}
-.trade-input-wrap{position:relative;margin-bottom:16px;}
-.trade-input{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:12px;padding:13px 100px 13px 14px;color:var(–text);font-family:var(–mono);font-size:16px;outline:none;transition:border-color 0.2s;}
+.trade-card{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:20px;}
+.trade-label{font-size:12px;color:var(–muted);margin-bottom:5px;font-weight:500;}
+.trade-input-wrap{position:relative;margin-bottom:14px;}
+.trade-input{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:11px 90px 11px 12px;color:var(–text);font-family:var(–mono);font-size:15px;outline:none;}
 .trade-input:focus{border-color:var(–accent);}
-.trade-coin-badge{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:var(–bg2);border:1px solid var(–border);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;color:var(–text);cursor:pointer;}
-.trade-coin-select{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:12px;padding:12px 14px;color:var(–text);font-family:var(–font);font-size:14px;outline:none;margin-bottom:16px;cursor:pointer;}
-.trade-info{background:var(–bg3);border-radius:12px;padding:14px;margin-bottom:16px;}
-.trade-info-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;}
+.trade-coin-badge{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(–bg2);border:1px solid var(–border);border-radius:4px;padding:4px 8px;font-size:12px;font-weight:600;color:var(–text);}
+.trade-coin-select{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:10px 12px;color:var(–text);font-family:var(–font);font-size:13px;outline:none;margin-bottom:14px;}
+.trade-coin-select:focus{border-color:var(–accent);}
+.trade-info{background:var(–bg3);border-radius:4px;padding:12px;margin-bottom:14px;border:1px solid var(–border);}
+.trade-info-row{display:flex;justify-content:space-between;padding:3px 0;}
 .trade-info-label{font-size:12px;color:var(–muted);}
-.trade-info-val{font-family:var(–mono);font-size:13px;}
-.convert-arrow{text-align:center;font-size:22px;margin:8px 0;cursor:pointer;color:var(–accent);}
+.trade-info-val{font-family:var(–mono);font-size:12px;color:var(–text);}
+.convert-arrow{text-align:center;font-size:20px;margin:6px 0;cursor:pointer;color:var(–accent);}
 
-/* WALLET PAGE */
-.wallet-wrap{max-width:700px;margin:0 auto;padding:20px 16px;}
-.wallet-header{background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(0,212,255,0.03));border:1px solid rgba(0,212,255,0.2);border-radius:20px;padding:24px;margin-bottom:20px;text-align:center;}
-.wallet-total-label{font-size:13px;color:var(–muted);margin-bottom:6px;}
-.wallet-total{font-family:var(–mono);font-size:36px;font-weight:500;color:var(–accent);}
-.wallet-btns{display:flex;gap:10px;justify-content:center;margin-top:16px;}
-.wallet-btn{display:flex;flex-direction:column;align-items:center;gap:5px;background:var(–bg3);border:1px solid var(–border);border-radius:14px;padding:12px 20px;cursor:pointer;font-family:var(–font);font-size:12px;font-weight:600;color:var(–text);transition:all 0.2s;}
+/* WALLET */
+.wallet-wrap{max-width:680px;margin:0 auto;padding:20px 16px;}
+.wallet-header{background:var(–bg3);border:1px solid var(–border);border-radius:8px;padding:24px;margin-bottom:16px;text-align:center;}
+.wallet-total-label{font-size:12px;color:var(–muted);margin-bottom:4px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.wallet-total{font-family:var(–mono);font-size:32px;font-weight:700;color:var(–text);}
+.wallet-total span{font-size:18px;color:var(–muted);}
+.wallet-btns{display:flex;gap:8px;justify-content:center;margin-top:14px;}
+.wallet-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(–bg2);border:1px solid var(–border);border-radius:8px;padding:10px 18px;cursor:pointer;font-family:var(–font);font-size:11px;font-weight:600;color:var(–muted);transition:all 0.15s;}
 .wallet-btn:hover{border-color:var(–accent);color:var(–accent);}
-.wallet-btn svg{width:20px;height:20px;}
-.coin-balance-list{display:flex;flex-direction:column;gap:10px;}
-.coin-balance-item{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;}
-.cbi-left{display:flex;align-items:center;gap:12px;}
-.cbi-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.cbi-name{font-weight:700;font-size:14px;}
-.cbi-sym{font-family:var(–mono);font-size:12px;color:var(–muted);}
+.wallet-btn svg{width:18px;height:18px;}
+.coin-balance-list{display:flex;flex-direction:column;gap:1px;background:var(–border);border-radius:8px;overflow:hidden;border:1px solid var(–border);}
+.coin-balance-item{background:var(–card);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;transition:background 0.15s;}
+.coin-balance-item:hover{background:#252b32;}
+.cbi-left{display:flex;align-items:center;gap:10px;}
+.cbi-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.cbi-name{font-weight:600;font-size:14px;color:var(–text);}
+.cbi-sym{font-family:var(–mono);font-size:11px;color:var(–muted);}
 .cbi-right{text-align:right;}
-.cbi-amount{font-family:var(–mono);font-size:15px;font-weight:500;}
-.cbi-usd{font-family:var(–mono);font-size:12px;color:var(–muted);}
+.cbi-amount{font-family:var(–mono);font-size:14px;font-weight:500;color:var(–text);}
+.cbi-usd{font-family:var(–mono);font-size:11px;color:var(–muted);}
 
-/* PROFILE PAGE */
-.profile-wrap{max-width:600px;margin:0 auto;padding:20px 16px;}
-.profile-hero{background:var(–card);border:1px solid var(–border);border-radius:20px;padding:28px;text-align:center;margin-bottom:16px;}
-.profile-avatar-big{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;margin:0 auto 14px;border:3px solid var(–border);}
-.profile-name{font-size:20px;font-weight:800;}
-.profile-username{font-family:var(–mono);font-size:13px;color:var(–muted);margin-top:4px;}
-.profile-joined{font-size:12px;color:var(–muted);margin-top:6px;}
-.profile-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;}
-.profile-stat{background:var(–bg3);border-radius:12px;padding:12px;text-align:center;}
-.profile-stat-val{font-family:var(–mono);font-size:16px;font-weight:500;color:var(–accent);}
-.profile-stat-label{font-size:10px;color:var(–muted);margin-top:3px;}
-.profile-section{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:20px;margin-bottom:12px;}
-.profile-section-title{font-size:14px;font-weight:700;margin-bottom:14px;color:var(–accent);}
-.ref-link-box{display:flex;align-items:center;gap:8px;background:var(–bg3);border:1px solid var(–border);border-radius:10px;padding:10px 12px;}
+/* PROFILE */
+.profile-wrap{max-width:560px;margin:0 auto;padding:20px 16px;}
+.profile-hero{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:24px;text-align:center;margin-bottom:12px;}
+.profile-avatar-big{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;margin:0 auto 12px;border:2px solid var(–border);}
+.profile-name{font-size:18px;font-weight:700;color:var(–text);}
+.profile-username{font-family:var(–mono);font-size:12px;color:var(–muted);margin-top:3px;}
+.profile-joined{font-size:11px;color:var(–muted);margin-top:4px;}
+.profile-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;}
+.profile-stat{background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:10px;text-align:center;}
+.profile-stat-val{font-family:var(–mono);font-size:15px;font-weight:600;color:var(–accent);}
+.profile-stat-label{font-size:10px;color:var(–muted);margin-top:2px;font-weight:500;}
+.profile-section{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:16px;margin-bottom:10px;}
+.profile-section-title{font-size:13px;font-weight:700;margin-bottom:12px;color:var(–text);text-transform:uppercase;letter-spacing:0.5px;}
+.ref-link-box{display:flex;align-items:center;gap:8px;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:10px 12px;}
 .ref-link-text{font-family:var(–mono);font-size:11px;flex:1;word-break:break-all;color:var(–accent);}
-.copy-btn{background:var(–accent);color:#000;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(–font);white-space:nowrap;}
-.profile-menu-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(–border);cursor:pointer;transition:all 0.2s;}
+.copy-btn{background:var(–accent);color:#000;border:none;border-radius:4px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(–font);white-space:nowrap;}
+.profile-menu-item{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(–border);cursor:pointer;transition:all 0.15s;}
 .profile-menu-item:last-child{border-bottom:none;}
 .profile-menu-item:hover .pmi-label{color:var(–accent);}
-.pmi-left{display:flex;align-items:center;gap:12px;}
-.pmi-icon{font-size:18px;}
-.pmi-label{font-size:14px;font-weight:600;}
-.pmi-sub{font-size:12px;color:var(–muted);}
+.pmi-left{display:flex;align-items:center;gap:10px;}
+.pmi-icon{font-size:16px;width:24px;text-align:center;}
+.pmi-label{font-size:13px;font-weight:500;color:var(–text);}
+.pmi-sub{font-size:11px;color:var(–muted);}
+
+/* LANG MODAL */
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:380px;overflow-y:auto;}
+.lang-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(–bg3);border:1px solid var(–border);border-radius:6px;cursor:pointer;transition:all 0.15s;}
+.lang-item:hover{border-color:var(–accent);}
+.lang-item.active{border-color:var(–accent);background:rgba(240,185,11,0.08);}
+.lang-item.inactive{opacity:0.5;cursor:not-allowed;}
+.lang-flag{font-size:18px;}
+.lang-name{font-size:13px;font-weight:500;color:var(–text);}
+.lang-badge{font-size:10px;background:var(–accent);color:#000;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:auto;}
+.lang-soon{font-size:10px;color:var(–muted);margin-left:auto;}
 
 /* DEPOSIT */
-.deposit-wrap{max-width:800px;margin:0 auto;padding:20px 16px;}
-.network-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;}
-.net-tab{padding:6px 14px;background:var(–card);border:1px solid var(–border);border-radius:9px;cursor:pointer;font-family:var(–font);font-size:12px;color:var(–muted);transition:all 0.2s;}
-.net-tab.active{background:rgba(0,212,255,0.1);border-color:var(–accent);color:var(–accent);}
-.address-card{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:20px;margin-bottom:16px;}
-.addr-label{font-size:12px;color:var(–muted);margin-bottom:6px;}
-.addr-box{display:flex;align-items:center;gap:8px;background:var(–bg3);border:1px solid var(–border);border-radius:10px;padding:11px 13px;}
-.addr-text{font-family:var(–mono);font-size:12px;flex:1;word-break:break-all;color:var(–accent);}
-.confirm-section{background:var(–card);border:1px solid var(–border);border-radius:16px;padding:20px;margin-top:20px;}
-.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.deposit-wrap{max-width:760px;margin:0 auto;padding:20px 16px;}
+.network-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.net-tab{padding:5px 12px;background:var(–bg3);border:1px solid var(–border);border-radius:4px;cursor:pointer;font-family:var(–font);font-size:12px;font-weight:500;color:var(–muted);transition:all 0.15s;}
+.net-tab.active{background:rgba(240,185,11,0.1);border-color:var(–accent);color:var(–accent);}
+.address-card{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:18px;margin-bottom:14px;}
+.addr-label{font-size:11px;color:var(–muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.addr-box{display:flex;align-items:center;gap:8px;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:10px 12px;}
+.addr-text{font-family:var(–mono);font-size:11px;flex:1;word-break:break-all;color:var(–accent);}
+.confirm-section{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:18px;margin-top:16px;}
+.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:500px){.confirm-grid{grid-template-columns:1fr;}}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:16px;}
+/* AUTH MODAL - BINANCE STYLE */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(–bg2);border:1px solid var(–border);border-radius:22px;padding:28px;width:100%;max-width:400px;position:relative;animation:slideUp 0.3s ease;max-height:90vh;overflow-y:auto;}
-@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-close{position:absolute;top:13px;right:13px;background:var(–bg3);border:none;color:var(–muted);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
-.modal-title{font-size:20px;font-weight:800;margin-bottom:4px;}
+.modal{background:var(–bg2);border:1px solid var(–border);border-radius:8px;padding:32px;width:100%;max-width:400px;position:relative;animation:slideUp 0.25s ease;max-height:92vh;overflow-y:auto;}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:18px;padding:4px;transition:color 0.15s;}
+.modal-close:hover{color:var(–text);}
+.modal-logo{text-align:center;margin-bottom:20px;}
+.modal-logo-text{font-size:20px;font-weight:800;color:var(–text);}
+.modal-logo-text span{color:var(–accent);}
+.modal-title{font-size:22px;font-weight:700;margin-bottom:6px;color:var(–text);}
 .modal-sub{color:var(–muted);font-size:13px;margin-bottom:20px;}
-.modal-tabs{display:flex;margin-bottom:18px;background:var(–bg3);border-radius:11px;padding:3px;}
-.modal-tab{flex:1;padding:7px;border:none;background:transparent;color:var(–muted);font-family:var(–font);font-size:13px;font-weight:600;border-radius:9px;cursor:pointer;transition:all 0.2s;}
-.modal-tab.active{background:var(–accent);color:#000;}
-.form-group{margin-bottom:12px;}
-.form-label{font-size:12px;color:var(–muted);margin-bottom:5px;display:block;}
-.form-input{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:10px;padding:11px 13px;color:var(–text);font-family:var(–font);font-size:14px;outline:none;transition:border-color 0.2s;}
+.modal-tabs{display:flex;margin-bottom:20px;border-bottom:2px solid var(–border);}
+.modal-tab{flex:1;padding:8px;border:none;background:transparent;color:var(–muted);font-family:var(–font);font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.modal-tab.active{color:var(–accent);border-bottom-color:var(–accent);}
+.form-group{margin-bottom:14px;}
+.form-label{font-size:12px;color:var(–muted);margin-bottom:5px;display:block;font-weight:500;}
+.form-input{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:11px 12px;color:var(–text);font-family:var(–font);font-size:14px;outline:none;transition:border-color 0.15s;}
 .form-input:focus{border-color:var(–accent);}
-.msg{font-size:13px;text-align:center;margin-top:10px;padding:9px;border-radius:8px;}
-.msg.success{background:rgba(0,230,118,0.1);color:var(–green);border:1px solid rgba(0,230,118,0.2);}
-.msg.error{background:rgba(255,61,87,0.1);color:var(–red);border:1px solid rgba(255,61,87,0.2);}
+.form-input::placeholder{color:var(–muted);}
+.forgot-link{font-size:12px;color:var(–accent);cursor:pointer;float:right;margin-top:-10px;margin-bottom:10px;display:block;text-align:right;}
+.forgot-link:hover{color:var(–accent2);}
+.msg{font-size:12px;text-align:center;margin-top:10px;padding:8px;border-radius:4px;}
+.msg.success{background:rgba(14,203,129,0.1);color:var(–green);border:1px solid rgba(14,203,129,0.2);}
+.msg.error{background:rgba(246,70,93,0.1);color:var(–red);border:1px solid rgba(246,70,93,0.2);}
+.divider-or{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(–muted);font-size:12px;}
+.divider-or::before,.divider-or::after{content:’’;flex:1;height:1px;background:var(–border);}
+.terms-text{font-size:11px;color:var(–muted);text-align:center;margin-top:12px;line-height:1.5;}
 
-/* COIN PICKER MODAL */
-.coin-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:300px;overflow-y:auto;}
-.coin-pick-item{display:flex;align-items:center;gap:8px;padding:10px;background:var(–bg3);border:1px solid var(–border);border-radius:10px;cursor:pointer;transition:all 0.2s;}
-.coin-pick-item:hover{border-color:var(–accent);}
-.coin-pick-item.selected{border-color:var(–accent);background:rgba(0,212,255,0.08);}
+/* FORGOT PASSWORD MODAL */
+.forgot-info{font-size:13px;color:var(–muted);margin-bottom:16px;line-height:1.5;}
 
 /* ADMIN */
-.admin-wrap{max-width:1000px;margin:0 auto;padding:20px 16px;}
-.admin-title{font-size:22px;font-weight:800;margin-bottom:4px;}
-.admin-badge{background:rgba(255,61,87,0.15);color:var(–red);border:1px solid rgba(255,61,87,0.2);padding:3px 10px;border-radius:7px;font-size:11px;font-weight:700;}
-.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px;}
-.admin-card{background:var(–card);border:1px solid var(–border);border-radius:13px;padding:16px;}
-.admin-card-label{font-size:10px;color:var(–muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.admin-card-val{font-family:var(–mono);font-size:18px;font-weight:500;color:var(–accent);}
-.section-tabs{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap;}
-.sec-tab{padding:6px 16px;background:var(–bg3);border:1px solid var(–border);border-radius:9px;cursor:pointer;font-family:var(–font);font-size:12px;font-weight:600;color:var(–muted);transition:all 0.2s;}
-.sec-tab.active{background:rgba(0,212,255,0.1);border-color:var(–accent);color:var(–accent);}
-.data-table{background:var(–card);border:1px solid var(–border);border-radius:14px;overflow:hidden;}
-.data-head{background:var(–bg3);padding:11px 16px;display:grid;gap:8px;}
-.data-row{padding:11px 16px;display:grid;gap:8px;border-top:1px solid var(–border);align-items:center;}
-.data-row:hover{background:rgba(0,212,255,0.02);}
-.th{font-size:10px;color:var(–muted);text-transform:uppercase;letter-spacing:1px;}
-.td{font-family:var(–mono);font-size:12px;}
-.action-btn{background:transparent;border:1px solid var(–border);color:var(–muted);padding:4px 9px;border-radius:6px;cursor:pointer;font-size:11px;font-family:var(–font);transition:all 0.2s;}
+.admin-wrap{max-width:960px;margin:0 auto;padding:20px 16px;}
+.admin-title{font-size:20px;font-weight:700;margin-bottom:4px;color:var(–text);}
+.admin-badge{background:rgba(246,70,93,0.15);color:var(–red);border:1px solid rgba(246,70,93,0.3);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:18px;}
+.admin-card{background:var(–card);border:1px solid var(–border);border-radius:6px;padding:14px;}
+.admin-card-label{font-size:10px;color:var(–muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;font-weight:600;}
+.admin-card-val{font-family:var(–mono);font-size:18px;font-weight:600;color:var(–accent);}
+.section-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.sec-tab{padding:5px 14px;background:var(–bg3);border:1px solid var(–border);border-radius:4px;cursor:pointer;font-family:var(–font);font-size:12px;font-weight:600;color:var(–muted);transition:all 0.15s;}
+.sec-tab.active{background:rgba(240,185,11,0.1);border-color:var(–accent);color:var(–accent);}
+.data-table{background:var(–card);border:1px solid var(–border);border-radius:8px;overflow:hidden;}
+.data-head{background:var(–bg3);padding:10px 14px;display:grid;gap:8px;}
+.data-row{padding:10px 14px;display:grid;gap:8px;border-top:1px solid var(–border);align-items:center;}
+.data-row:hover{background:#1a1f28;}
+.th{font-size:10px;color:var(–muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.td{font-family:var(–mono);font-size:12px;color:var(–text);}
+.action-btn{background:transparent;border:1px solid var(–border);color:var(–muted);padding:3px 8px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(–font);font-weight:600;transition:all 0.15s;}
 .action-btn.approve{border-color:var(–green);color:var(–green);}
 .action-btn.del{border-color:var(–red);color:var(–red);}
-.badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;}
-.badge-pending{background:rgba(247,183,49,0.15);color:var(–gold);}
-.badge-confirmed{background:rgba(0,230,118,0.15);color:var(–green);}
-.badge-bonus{background:rgba(0,212,255,0.15);color:var(–accent);}
-.empty-state{text-align:center;padding:36px;color:var(–muted);font-size:13px;}
-.admin-login{max-width:360px;margin:0 auto;padding:50px 16px;}
-.admin-login-card{background:var(–card);border:1px solid rgba(255,61,87,0.3);border-radius:22px;padding:32px;}
+.badge{display:inline-block;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700;}
+.badge-pending{background:rgba(240,185,11,0.15);color:var(–gold);}
+.badge-confirmed{background:rgba(14,203,129,0.15);color:var(–green);}
+.empty-state{text-align:center;padding:32px;color:var(–muted);font-size:13px;}
+.admin-login{max-width:340px;margin:0 auto;padding:48px 16px;}
+.admin-login-card{background:var(–card);border:1px solid var(–border);border-radius:8px;padding:28px;}
 
-.toast{position:fixed;bottom:80px;right:16px;z-index:300;background:var(–bg2);border:1px solid var(–border);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:8px;transform:translateY(100px);opacity:0;transition:all 0.3s;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.toast{position:fixed;bottom:72px;right:12px;z-index:300;background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:10px 14px;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all 0.25s;max-width:260px;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
 .toast.show{transform:translateY(0);opacity:1;}
 
 .text-muted{color:var(–muted);}.text-accent{color:var(–accent);}.text-mono{font-family:var(–mono);}
-
-/* AVATAR COLORS */
-.av-blue{background:linear-gradient(135deg,#0066ff,#00d4ff);}
-.av-purple{background:linear-gradient(135deg,#7c3aed,#a855f7);}
-.av-green{background:linear-gradient(135deg,#059669,#10b981);}
-.av-orange{background:linear-gradient(135deg,#ea580c,#f97316);}
-.av-pink{background:linear-gradient(135deg,#db2777,#ec4899);}
-.av-gold{background:linear-gradient(135deg,#d97706,#f59e0b);}
+.av-yellow{background:linear-gradient(135deg,#f0b90b,#f8d060);}
+.av-blue{background:linear-gradient(135deg,#1e6ff5,#5ba3f5);}
+.av-green{background:linear-gradient(135deg,#0ecb81,#5de8b5);}
+.av-purple{background:linear-gradient(135deg,#9945ff,#c580ff);}
+.av-red{background:linear-gradient(135deg,#f6465d,#ff8a96);}
+.av-teal{background:linear-gradient(135deg,#00b8a9,#5de8df);}
 </style>
 
 </head>
 <body>
 
-<!-- NAVBAR -->
-
 <nav>
   <div class="logo">Block<span>mind</span></div>
   <div class="nav-right">
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+    <button class="lang-btn" id="langBtn" onclick="openLangModal()">EN</button>
     <div id="navGuest" style="display:flex;gap:6px;">
-      <button class="btn btn-outline" style="font-size:12px;padding:6px 12px;" onclick="openAuth('login')">Giriş</button>
-      <button class="btn btn-primary" style="font-size:12px;padding:6px 12px;" onclick="openAuth('register')">Kayıt</button>
+      <button class="btn btn-outline" style="font-size:12px;padding:6px 14px;" onclick="openAuth('login')" id="navLoginBtn">Log In</button>
+      <button class="btn btn-primary" style="font-size:12px;padding:6px 14px;" onclick="openAuth('register')" id="navRegBtn">Sign Up</button>
     </div>
     <div id="navUser" style="display:none;">
       <div class="profile-avatar" id="navAvatar" onclick="showPage('profile')"></div>
@@ -245,176 +262,152 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   </div>
 </nav>
 
-<!-- TICKER -->
-
 <div class="ticker-bar"><div class="ticker-track" id="tickerTrack"></div></div>
-
-<!-- BOTTOM NAV -->
 
 <div class="bottom-nav" id="bottomNav" style="display:none;">
   <button class="bnav-item active" id="bn-home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-    <span>Ana Sayfa</span>
+    <span id="bn-home-label">Home</span>
   </button>
   <button class="bnav-item" id="bn-markets" onclick="showPage('markets')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    <span>Piyasalar</span>
+    <span id="bn-markets-label">Markets</span>
   </button>
   <button class="bnav-item" id="bn-trade" onclick="showPage('trade')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-    <span>Al/Sat</span>
+    <span id="bn-trade-label">Trade</span>
   </button>
   <button class="bnav-item" id="bn-wallet" onclick="showPage('wallet')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 100 4 2 2 0 000-4z"/></svg>
-    <span>Cüzdan</span>
+    <span id="bn-wallet-label">Wallet</span>
   </button>
   <button class="bnav-item" id="bn-profile" onclick="showPage('profile')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Profil</span>
+    <span id="bn-profile-label">Profile</span>
   </button>
 </div>
 
-<!-- ═══ HOME ═══ -->
+<!-- HOME -->
 
 <div class="page active" id="page-home">
   <div class="hero-section">
-    <div class="hero-title">Kripto Piyasasına<br>Akıllıca <span>Yatırım Yap</span></div>
-    <p class="hero-sub">Blockmind ile Bitcoin, Ethereum, BNB ve daha fazlasını güvenle takip edin.</p>
+    <div class="hero-title" id="heroTitle">Buy & Sell Crypto<br>on <span>Blockmind</span></div>
+    <p class="hero-sub" id="heroSub">Trade Bitcoin, Ethereum, BNB and hundreds of cryptocurrencies with real-time prices.</p>
     <div class="hero-btns" id="heroBtns">
-      <button class="btn btn-primary btn-lg" onclick="openAuth('register')">Hemen Başla</button>
-      <button class="btn btn-outline btn-lg" onclick="openAuth('login')">Giriş Yap</button>
-    </div>
-    <div style="margin-top:16px;padding:14px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.2);border-radius:12px;font-size:13px;">
-      🎁 <strong style="color:var(--accent)">Davet Bonusu:</strong> Arkadaşını davet et, yatırım yaptığında %10 bonus kazan!
+      <button class="btn btn-primary btn-lg" onclick="openAuth('register')" id="heroSignupBtn">Get Started</button>
+      <button class="btn btn-outline btn-lg" onclick="openAuth('login')" id="heroLoginBtn">Log In</button>
     </div>
     <div class="divider"></div>
-    <div class="section-title"><span class="live-dot"></span>Canlı Fiyatlar</div>
+    <div class="section-title"><span class="live-dot"></span><span id="livePricesLabel">Live Prices</span></div>
     <div class="coins-grid" id="coinsGrid"></div>
   </div>
 </div>
 
-<!-- ═══ MARKETS ═══ -->
+<!-- MARKETS -->
 
 <div class="page" id="page-markets">
   <div class="markets-wrap">
-    <div class="section-title"><span class="live-dot"></span>Piyasalar</div>
-    <input class="market-search" id="marketSearch" placeholder="Coin ara... (BTC, ETH...)" oninput="renderMarkets()" />
+    <div class="section-title"><span class="live-dot"></span><span id="marketsLabel">Markets</span></div>
+    <input class="market-search" id="marketSearch" placeholder="Search coin... (BTC, ETH...)" oninput="renderMarkets()" />
     <div class="market-table">
       <div class="market-head">
-        <div class="mth">Coin</div>
-        <div class="mth">Fiyat</div>
-        <div class="mth">24s %</div>
-        <div class="mth">İşlem</div>
+        <div class="mth" id="mth-coin">Coin</div>
+        <div class="mth" id="mth-price">Price</div>
+        <div class="mth" id="mth-change">24h %</div>
+        <div class="mth" id="mth-action">Action</div>
       </div>
       <div id="marketList"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ TRADE ═══ -->
+<!-- TRADE -->
 
 <div class="page" id="page-trade">
   <div class="trade-wrap">
-    <div class="section-title">Al / Sat / Dönüştür</div>
+    <div class="section-title" id="tradeTitle">Buy / Sell / Convert</div>
     <div class="trade-tabs">
-      <button class="trade-tab active-buy" id="tt-buy" onclick="switchTradeTab('buy')">AL</button>
-      <button class="trade-tab" id="tt-sell" onclick="switchTradeTab('sell')">SAT</button>
-      <button class="trade-tab" id="tt-convert" onclick="switchTradeTab('convert')">DÖNÜŞTÜR</button>
+      <button class="trade-tab active-buy" id="tt-buy" onclick="switchTradeTab('buy')" id="ttBuyLabel">BUY</button>
+      <button class="trade-tab" id="tt-sell" onclick="switchTradeTab('sell')" id="ttSellLabel">SELL</button>
+      <button class="trade-tab" id="tt-convert" onclick="switchTradeTab('convert')" id="ttConvertLabel">CONVERT</button>
     </div>
-
-```
-<!-- BUY -->
-<div id="tradePanel-buy" class="trade-card">
-  <div class="trade-label">Hangi coin almak istiyorsunuz?</div>
-  <select class="trade-coin-select" id="buyCoin" onchange="updateTradeInfo('buy')">
-    <option value="">Coin seçin...</option>
-  </select>
-  <div class="trade-label">USDT Miktar</div>
-  <div class="trade-input-wrap">
-    <input class="trade-input" type="number" id="buyAmount" placeholder="100" oninput="updateTradeInfo('buy')" />
-    <span class="trade-coin-badge">USDT</span>
-  </div>
-  <div class="trade-info" id="buyInfo" style="display:none">
-    <div class="trade-info-row"><span class="trade-info-label">Coin Fiyatı</span><span class="trade-info-val" id="buyPrice">-</span></div>
-    <div class="trade-info-row"><span class="trade-info-label">Alınacak Miktar</span><span class="trade-info-val" id="buyQty">-</span></div>
-    <div class="trade-info-row"><span class="trade-info-label">Mevcut USDT</span><span class="trade-info-val" id="buyBalance">-</span></div>
-  </div>
-  <button class="btn btn-full btn-green" onclick="executeTrade('buy')">AL</button>
-  <div id="buyMsg"></div>
-</div>
-
-<!-- SELL -->
-<div id="tradePanel-sell" class="trade-card" style="display:none">
-  <div class="trade-label">Hangi coin satmak istiyorsunuz?</div>
-  <select class="trade-coin-select" id="sellCoin" onchange="updateTradeInfo('sell')">
-    <option value="">Coin seçin...</option>
-  </select>
-  <div class="trade-label">Satılacak Miktar</div>
-  <div class="trade-input-wrap">
-    <input class="trade-input" type="number" id="sellAmount" placeholder="0.001" oninput="updateTradeInfo('sell')" />
-    <span class="trade-coin-badge" id="sellCoinBadge">COIN</span>
-  </div>
-  <div class="trade-info" id="sellInfo" style="display:none">
-    <div class="trade-info-row"><span class="trade-info-label">Coin Fiyatı</span><span class="trade-info-val" id="sellPrice">-</span></div>
-    <div class="trade-info-row"><span class="trade-info-label">USDT Karşılığı</span><span class="trade-info-val" id="sellUSDT">-</span></div>
-    <div class="trade-info-row"><span class="trade-info-label">Mevcut Bakiye</span><span class="trade-info-val" id="sellBalance">-</span></div>
-  </div>
-  <button class="btn btn-full btn-red" onclick="executeTrade('sell')">SAT</button>
-  <div id="sellMsg"></div>
-</div>
-
-<!-- CONVERT -->
-<div id="tradePanel-convert" class="trade-card" style="display:none">
-  <div class="trade-label">Dönüştürülecek Coin</div>
-  <select class="trade-coin-select" id="convertFrom" onchange="updateTradeInfo('convert')">
-    <option value="">Coin seçin...</option>
-  </select>
-  <div class="trade-label">Miktar</div>
-  <div class="trade-input-wrap">
-    <input class="trade-input" type="number" id="convertAmount" placeholder="100" oninput="updateTradeInfo('convert')" />
-    <span class="trade-coin-badge" id="convertFromBadge">-</span>
-  </div>
-  <div class="convert-arrow" onclick="swapConvert()">⇅</div>
-  <div class="trade-label">Hedef Coin</div>
-  <select class="trade-coin-select" id="convertTo" onchange="updateTradeInfo('convert')">
-    <option value="">Coin seçin...</option>
-  </select>
-  <div class="trade-info" id="convertInfo" style="display:none">
-    <div class="trade-info-row"><span class="trade-info-label">Dönüşüm Oranı</span><span class="trade-info-val" id="convertRate">-</span></div>
-    <div class="trade-info-row"><span class="trade-info-label">Alınacak</span><span class="trade-info-val" id="convertResult">-</span></div>
-  </div>
-  <button class="btn btn-full btn-primary" onclick="executeTrade('convert')">DÖNÜŞTÜR</button>
-  <div id="convertMsg"></div>
-</div>
-```
-
+    <div id="tradePanel-buy" class="trade-card">
+      <div class="trade-label" id="buyLabel1">Select coin to buy</div>
+      <select class="trade-coin-select" id="buyCoin" onchange="updateTradeInfo('buy')"><option value="">Select coin...</option></select>
+      <div class="trade-label" id="buyLabel2">USDT Amount</div>
+      <div class="trade-input-wrap">
+        <input class="trade-input" type="number" id="buyAmount" placeholder="100" oninput="updateTradeInfo('buy')" />
+        <span class="trade-coin-badge">USDT</span>
+      </div>
+      <div class="trade-info" id="buyInfo" style="display:none">
+        <div class="trade-info-row"><span class="trade-info-label" id="buyPriceLabel">Coin Price</span><span class="trade-info-val" id="buyPrice">-</span></div>
+        <div class="trade-info-row"><span class="trade-info-label" id="buyQtyLabel">You Receive</span><span class="trade-info-val" id="buyQty">-</span></div>
+        <div class="trade-info-row"><span class="trade-info-label" id="buyBalLabel">Available USDT</span><span class="trade-info-val" id="buyBalance">-</span></div>
+      </div>
+      <button class="btn btn-full btn-green" onclick="executeTrade('buy')" id="buyBtn">BUY</button>
+      <div id="buyMsg"></div>
+    </div>
+    <div id="tradePanel-sell" class="trade-card" style="display:none">
+      <div class="trade-label" id="sellLabel1">Select coin to sell</div>
+      <select class="trade-coin-select" id="sellCoin" onchange="updateTradeInfo('sell')"><option value="">Select coin...</option></select>
+      <div class="trade-label" id="sellLabel2">Amount</div>
+      <div class="trade-input-wrap">
+        <input class="trade-input" type="number" id="sellAmount" placeholder="0.001" oninput="updateTradeInfo('sell')" />
+        <span class="trade-coin-badge" id="sellCoinBadge">COIN</span>
+      </div>
+      <div class="trade-info" id="sellInfo" style="display:none">
+        <div class="trade-info-row"><span class="trade-info-label" id="sellPriceLabel">Coin Price</span><span class="trade-info-val" id="sellPrice">-</span></div>
+        <div class="trade-info-row"><span class="trade-info-label" id="sellUSDTLabel">You Receive</span><span class="trade-info-val" id="sellUSDT">-</span></div>
+        <div class="trade-info-row"><span class="trade-info-label" id="sellBalLabel">Available</span><span class="trade-info-val" id="sellBalance">-</span></div>
+      </div>
+      <button class="btn btn-full btn-red" onclick="executeTrade('sell')" id="sellBtn">SELL</button>
+      <div id="sellMsg"></div>
+    </div>
+    <div id="tradePanel-convert" class="trade-card" style="display:none">
+      <div class="trade-label" id="convertFromLabel">From</div>
+      <select class="trade-coin-select" id="convertFrom" onchange="updateTradeInfo('convert')"><option value="">Select coin...</option></select>
+      <div class="trade-label" id="convertAmtLabel">Amount</div>
+      <div class="trade-input-wrap">
+        <input class="trade-input" type="number" id="convertAmount" placeholder="100" oninput="updateTradeInfo('convert')" />
+        <span class="trade-coin-badge" id="convertFromBadge">-</span>
+      </div>
+      <div class="convert-arrow" onclick="swapConvert()">⇅</div>
+      <div class="trade-label" id="convertToLabel">To</div>
+      <select class="trade-coin-select" id="convertTo" onchange="updateTradeInfo('convert')"><option value="">Select coin...</option></select>
+      <div class="trade-info" id="convertInfo" style="display:none">
+        <div class="trade-info-row"><span class="trade-info-label" id="convertRateLabel">Rate</span><span class="trade-info-val" id="convertRate">-</span></div>
+        <div class="trade-info-row"><span class="trade-info-label" id="convertResLabel">You Receive</span><span class="trade-info-val" id="convertResult">-</span></div>
+      </div>
+      <button class="btn btn-full btn-primary" onclick="executeTrade('convert')" id="convertBtn">CONVERT</button>
+      <div id="convertMsg"></div>
+    </div>
   </div>
 </div>
 
-<!-- ═══ WALLET ═══ -->
+<!-- WALLET -->
 
 <div class="page" id="page-wallet">
   <div class="wallet-wrap">
     <div class="wallet-header">
-      <div class="wallet-total-label">Toplam Portföy Değeri</div>
-      <div class="wallet-total" id="walletTotal">$0.00</div>
+      <div class="wallet-total-label" id="walletTotalLabel">TOTAL PORTFOLIO VALUE</div>
+      <div class="wallet-total"><span>$</span><span id="walletTotal">0.00</span></div>
       <div class="wallet-btns">
         <button class="wallet-btn" onclick="showPage('deposit')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Yatır
+          <span id="depositBtnLabel">Deposit</span>
         </button>
         <button class="wallet-btn" onclick="showPage('trade')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-          Al/Sat
+          <span id="tradeBtnLabel">Trade</span>
         </button>
       </div>
     </div>
-    <div class="section-title">Varlıklarım</div>
+    <div class="section-title" id="assetsLabel">My Assets</div>
     <div class="coin-balance-list" id="walletList"></div>
   </div>
 </div>
 
-<!-- ═══ PROFILE ═══ -->
+<!-- PROFILE -->
 
 <div class="page" id="page-profile">
   <div class="profile-wrap">
@@ -425,108 +418,107 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div class="profile-joined" id="profileJoined"></div>
       <div class="profile-stats" id="profileStats"></div>
     </div>
-
-```
-<div class="profile-section">
-  <div class="profile-section-title">🔗 Davet Linkim</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Arkadaşını davet et, ilk yatırımı 100 USDT+ olursa %10 bonus kazan!</div>
-  <div class="ref-link-box">
-    <span class="ref-link-text" id="profileRefLink"></span>
-    <button class="copy-btn" onclick="copyRefLink()">Kopyala</button>
+    <div class="profile-section">
+      <div class="profile-section-title" id="refSectionTitle">Referral Link</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px;" id="refDesc">Invite friends & earn 10% bonus on their deposits!</div>
+      <div class="ref-link-box">
+        <span class="ref-link-text" id="profileRefLink"></span>
+        <button class="copy-btn" onclick="copyRefLink()" id="copyRefBtn">Copy</button>
+      </div>
+    </div>
+    <div class="profile-section">
+      <div class="profile-section-title" id="quickAccessTitle">Quick Access</div>
+      <div class="profile-menu-item" onclick="showPage('deposit')">
+        <div class="pmi-left"><span class="pmi-icon">💰</span><div><div class="pmi-label" id="menuDeposit">Deposit</div><div class="pmi-sub" id="menuDepositSub">Add crypto funds</div></div></div>
+        <span style="color:var(--muted)">›</span>
+      </div>
+      <div class="profile-menu-item" onclick="showPage('wallet')">
+        <div class="pmi-left"><span class="pmi-icon">👛</span><div><div class="pmi-label" id="menuWallet">Wallet</div><div class="pmi-sub" id="menuWalletSub">View my assets</div></div></div>
+        <span style="color:var(--muted)">›</span>
+      </div>
+      <div class="profile-menu-item" onclick="showPage('trade')">
+        <div class="pmi-left"><span class="pmi-icon">📊</span><div><div class="pmi-label" id="menuTrade">Trade</div><div class="pmi-sub" id="menuTradeSub">Buy & Sell</div></div></div>
+        <span style="color:var(--muted)">›</span>
+      </div>
+      <div class="profile-menu-item" onclick="openLangModal()">
+        <div class="pmi-left"><span class="pmi-icon">🌐</span><div><div class="pmi-label" id="menuLang">Language</div><div class="pmi-sub" id="menuLangSub">Change language</div></div></div>
+        <span style="color:var(--muted)">›</span>
+      </div>
+      <div class="profile-menu-item" onclick="logout()">
+        <div class="pmi-left"><span class="pmi-icon">🚪</span><div><div class="pmi-label" style="color:var(--red)" id="menuLogout">Log Out</div><div class="pmi-sub" id="menuLogoutSub">Sign out of account</div></div></div>
+        <span style="color:var(--muted)">›</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="profile-section">
-  <div class="profile-section-title">⚡ Hızlı Erişim</div>
-  <div class="profile-menu-item" onclick="showPage('deposit')">
-    <div class="pmi-left"><span class="pmi-icon">💰</span><div><div class="pmi-label">Yatırım Yap</div><div class="pmi-sub">Kripto yatır</div></div></div>
-    <span style="color:var(--muted)">›</span>
-  </div>
-  <div class="profile-menu-item" onclick="showPage('wallet')">
-    <div class="pmi-left"><span class="pmi-icon">👛</span><div><div class="pmi-label">Cüzdanım</div><div class="pmi-sub">Varlıklarımı görüntüle</div></div></div>
-    <span style="color:var(--muted)">›</span>
-  </div>
-  <div class="profile-menu-item" onclick="showPage('trade')">
-    <div class="pmi-left"><span class="pmi-icon">📊</span><div><div class="pmi-label">Al / Sat</div><div class="pmi-sub">İşlem yap</div></div></div>
-    <span style="color:var(--muted)">›</span>
-  </div>
-  <div class="profile-menu-item" onclick="logout()">
-    <div class="pmi-left"><span class="pmi-icon">🚪</span><div><div class="pmi-label" style="color:var(--red)">Çıkış Yap</div><div class="pmi-sub">Hesaptan çık</div></div></div>
-    <span style="color:var(--muted)">›</span>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- ═══ DEPOSIT ═══ -->
+<!-- DEPOSIT -->
 
 <div class="page" id="page-deposit">
   <div class="deposit-wrap">
-    <div style="font-size:24px;font-weight:800;margin-bottom:6px;">Kripto Yatır</div>
-    <p style="color:var(--muted);margin-bottom:20px;font-size:13px;">Ağı seçin, adrese gönderin, formu doldurun.</p>
+    <div style="font-size:20px;font-weight:700;margin-bottom:4px;" id="depositTitle">Deposit Crypto</div>
+    <p style="color:var(--muted);margin-bottom:18px;font-size:13px;" id="depositSub">Select network, send to address, then confirm below.</p>
     <div class="network-tabs">
-      <button class="net-tab active" data-net="usdt_erc20" onclick="selectNet(this)">USDT (ERC20)</button>
-      <button class="net-tab" data-net="usdt_trc20" onclick="selectNet(this)">USDT (TRC20)</button>
-      <button class="net-tab" data-net="usdt_sol" onclick="selectNet(this)">USDT (Solana)</button>
-      <button class="net-tab" data-net="btc" onclick="selectNet(this)">Bitcoin</button>
-      <button class="net-tab" data-net="eth" onclick="selectNet(this)">Ethereum</button>
+      <button class="net-tab active" data-net="usdt_erc20" onclick="selectNet(this)">USDT ERC20</button>
+      <button class="net-tab" data-net="usdt_trc20" onclick="selectNet(this)">USDT TRC20</button>
+      <button class="net-tab" data-net="usdt_sol" onclick="selectNet(this)">USDT SOL</button>
+      <button class="net-tab" data-net="btc" onclick="selectNet(this)">BTC</button>
+      <button class="net-tab" data-net="eth" onclick="selectNet(this)">ETH</button>
       <button class="net-tab" data-net="bnb" onclick="selectNet(this)">BNB</button>
     </div>
     <div class="address-card">
-      <div class="addr-label">Gönderim Adresi</div>
+      <div class="addr-label" id="addrLabelText">Deposit Address</div>
       <div class="addr-box">
         <span class="addr-text" id="addrText">0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e</span>
-        <button class="copy-btn" onclick="copyAddr()">Kopyala</button>
+        <button class="copy-btn" onclick="copyAddr()" id="copyAddrBtn">Copy</button>
       </div>
-      <div style="margin-top:9px;font-size:12px;color:var(--muted);" id="addrNote">⚠️ Sadece bu ağ üzerinden gönderin.</div>
+      <div style="margin-top:8px;font-size:11px;color:var(--red);" id="addrNote">⚠️ Send only on this network. Wrong network = permanent loss.</div>
     </div>
     <div class="confirm-section">
-      <div style="font-size:16px;font-weight:700;margin-bottom:5px;">Gönderim Bildirimi</div>
-      <p style="color:var(--muted);font-size:12px;margin-bottom:18px;">Transfer sonrası bilgileri girin.</p>
+      <div style="font-size:15px;font-weight:600;margin-bottom:4px;" id="confirmTitle">Confirm Deposit</div>
+      <p style="color:var(--muted);font-size:12px;margin-bottom:16px;" id="confirmSub">Fill in after completing the transfer.</p>
       <div class="confirm-grid">
-        <div class="form-group"><label class="form-label">Kullanıcı Adı</label><input class="form-input" id="depUsername" placeholder="kullanici_adi" /></div>
-        <div class="form-group"><label class="form-label">Ad Soyad</label><input class="form-input" id="depName" placeholder="Ad Soyad" /></div>
-        <div class="form-group"><label class="form-label">Tutar (USDT)</label><input class="form-input" id="depAmount" type="number" placeholder="100" /></div>
-        <div class="form-group"><label class="form-label">Ağ</label><input class="form-input" id="depNetwork" readonly style="color:var(--accent)" value="USDT (ERC20)" /></div>
+        <div class="form-group"><label class="form-label" id="depUserLabel">Username</label><input class="form-input" id="depUsername" placeholder="username" /></div>
+        <div class="form-group"><label class="form-label" id="depNameLabel">Full Name</label><input class="form-input" id="depName" placeholder="Full Name" /></div>
+        <div class="form-group"><label class="form-label" id="depAmtLabel">Amount (USDT)</label><input class="form-input" id="depAmount" type="number" placeholder="100" /></div>
+        <div class="form-group"><label class="form-label" id="depNetLabel">Network</label><input class="form-input" id="depNetwork" readonly style="color:var(--accent)" value="USDT ERC20" /></div>
       </div>
-      <div class="form-group"><label class="form-label">TX Hash (opsiyonel)</label><input class="form-input" id="depTxHash" placeholder="0x..." /></div>
-      <button class="btn btn-primary btn-full" onclick="submitDeposit()">Gönderimi Bildir</button>
+      <div class="form-group"><label class="form-label" id="depTxLabel">TX Hash (optional)</label><input class="form-input" id="depTxHash" placeholder="0x..." /></div>
+      <button class="btn btn-primary btn-full" onclick="submitDeposit()" id="depSubmitBtn">Submit Deposit</button>
       <div id="depMsg"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ ADMIN ═══ -->
+<!-- ADMIN -->
 
 <div class="page" id="page-admin">
   <div id="adminLoginSection" class="admin-login">
     <div class="admin-login-card">
-      <div style="font-size:19px;font-weight:800;margin-bottom:4px;">🔐 Admin Paneli</div>
-      <div style="color:var(--muted);font-size:12px;margin-bottom:20px;">Yönetici girişi gereklidir.</div>
-      <div class="form-group"><label class="form-label">Şifre</label><input type="password" class="form-input" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()" /></div>
-      <button class="btn btn-primary btn-full" onclick="adminLogin()">Giriş</button>
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;color:var(--text);">🔐 Admin Panel</div>
+      <div style="color:var(--muted);font-size:12px;margin-bottom:20px;">Administrator access required.</div>
+      <div class="form-group"><label class="form-label">Password</label><input type="password" class="form-input" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()" /></div>
+      <button class="btn btn-primary btn-full" onclick="adminLogin()">Login</button>
       <div id="adminLoginMsg"></div>
     </div>
   </div>
   <div id="adminDashSection" style="display:none">
     <div class="admin-wrap">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
-        <div><div class="admin-title">Admin <span class="admin-badge">YÖNETİCİ</span></div></div>
-        <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:12px;" onclick="adminLogout()">Çıkış</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <div><div class="admin-title">Admin Panel <span class="admin-badge">ADMIN</span></div></div>
+        <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:12px;" onclick="adminLogout()">Logout</button>
       </div>
       <div class="admin-stats" id="adminStats"></div>
       <div class="section-tabs">
-        <button class="sec-tab active" onclick="switchAdminTab('users',this)">👥 Kullanıcılar</button>
-        <button class="sec-tab" onclick="switchAdminTab('deposits',this)">💰 Yatırımlar</button>
-        <button class="sec-tab" onclick="switchAdminTab('bonuses',this)">🎁 Bonuslar</button>
-        <button class="sec-tab" onclick="switchAdminTab('trades',this)">📊 İşlemler</button>
+        <button class="sec-tab active" onclick="switchAdminTab('users',this)">👥 Users</button>
+        <button class="sec-tab" onclick="switchAdminTab('deposits',this)">💰 Deposits</button>
+        <button class="sec-tab" onclick="switchAdminTab('bonuses',this)">🎁 Bonuses</button>
+        <button class="sec-tab" onclick="switchAdminTab('trades',this)">📊 Trades</button>
       </div>
       <div id="adminUsersSection">
         <div class="data-table">
           <div class="data-head" style="grid-template-columns:1.5fr 1.5fr 1fr 1fr 1fr;">
-            <div class="th">Kullanıcı</div><div class="th">E-posta</div><div class="th">Bakiye</div><div class="th">Davet</div><div class="th">İşlem</div>
+            <div class="th">Username</div><div class="th">Email</div><div class="th">Balance</div><div class="th">Referrals</div><div class="th">Action</div>
           </div>
           <div id="adminUsersList"></div>
         </div>
@@ -534,7 +526,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div id="adminDepositsSection" style="display:none">
         <div class="data-table">
           <div class="data-head" style="grid-template-columns:1.5fr 1fr 1.5fr 1fr 1fr;">
-            <div class="th">Kullanıcı</div><div class="th">Tutar</div><div class="th">Ağ</div><div class="th">Tarih</div><div class="th">Durum</div>
+            <div class="th">User</div><div class="th">Amount</div><div class="th">Network</div><div class="th">Date</div><div class="th">Status</div>
           </div>
           <div id="adminDepositsList"></div>
         </div>
@@ -542,7 +534,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div id="adminBonusesSection" style="display:none">
         <div class="data-table">
           <div class="data-head" style="grid-template-columns:1fr 1fr 1fr 1fr;">
-            <div class="th">Bonus Alan</div><div class="th">Davet Edilen</div><div class="th">Bonus</div><div class="th">Tarih</div>
+            <div class="th">Referrer</div><div class="th">Referred</div><div class="th">Bonus</div><div class="th">Date</div>
           </div>
           <div id="adminBonusesList"></div>
         </div>
@@ -550,7 +542,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
       <div id="adminTradesSection" style="display:none">
         <div class="data-table">
           <div class="data-head" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
-            <div class="th">Kullanıcı</div><div class="th">Tür</div><div class="th">Coin</div><div class="th">Tutar</div><div class="th">Tarih</div>
+            <div class="th">User</div><div class="th">Type</div><div class="th">Coin</div><div class="th">Amount</div><div class="th">Date</div>
           </div>
           <div id="adminTradesList"></div>
         </div>
@@ -564,32 +556,73 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 <div class="modal-overlay" id="authModal">
   <div class="modal">
     <button class="modal-close" onclick="closeAuth()">✕</button>
+    <div class="modal-logo"><div class="modal-logo-text">Block<span>mind</span></div></div>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')">Giriş Yap</button>
-      <button class="modal-tab" id="tabRegister" onclick="switchTab('register')">Kayıt Ol</button>
+      <button class="modal-tab active" id="tabLogin" onclick="switchTab('login')" id="tabLoginLabel">Log In</button>
+      <button class="modal-tab" id="tabRegister" onclick="switchTab('register')" id="tabRegLabel">Sign Up</button>
     </div>
-    <div id="formLogin">
-      <div class="modal-title">Hoş Geldin</div>
-      <p class="modal-sub">Hesabınıza giriş yapın</p>
-      <div class="form-group"><label class="form-label">Kullanıcı Adı</label><input class="form-input" id="loginUser" placeholder="kullanici_adi" /></div>
-      <div class="form-group"><label class="form-label">Şifre</label><input class="form-input" type="password" id="loginPass" placeholder="••••••••" /></div>
-      <button class="btn btn-primary btn-full" onclick="doLogin()">Giriş Yap</button>
-      <div id="loginMsg"></div>
+
+```
+<!-- LOGIN -->
+<div id="formLogin">
+  <div class="form-group"><label class="form-label" id="loginUserLabel">Username</label><input class="form-input" id="loginUser" placeholder="Enter username" /></div>
+  <div class="form-group">
+    <label class="form-label" id="loginPassLabel">Password</label>
+    <input class="form-input" type="password" id="loginPass" placeholder="Enter password" />
+    <span class="forgot-link" onclick="openForgotModal()" id="forgotLink">Forgot password?</span>
+  </div>
+  <button class="btn btn-primary btn-full" onclick="doLogin()" id="loginSubmitBtn">Log In</button>
+  <div id="loginMsg"></div>
+  <div class="terms-text" id="loginTerms">By logging in, you agree to our Terms of Service and Privacy Policy.</div>
+</div>
+
+<!-- REGISTER -->
+<div id="formRegister" style="display:none">
+  <div id="refBanner" style="display:none;background:rgba(240,185,11,0.08);border:1px solid rgba(240,185,11,0.2);border-radius:4px;padding:8px 10px;margin-bottom:12px;font-size:12px;color:var(--accent);">
+    🎁 <span id="refBannerText"></span>
+  </div>
+  <div class="form-group"><label class="form-label" id="regNameLabel">Full Name</label><input class="form-input" id="regName" placeholder="Enter your full name" /></div>
+  <div class="form-group"><label class="form-label" id="regEmailLabel">Email Address</label><input class="form-input" type="email" id="regEmail" placeholder="Enter your email" /></div>
+  <div class="form-group"><label class="form-label" id="regUserLabel">Username</label><input class="form-input" id="regUser" placeholder="Choose a username" /></div>
+  <div class="form-group"><label class="form-label" id="regPassLabel">Password</label><input class="form-input" type="password" id="regPass" placeholder="Min. 6 characters" /></div>
+  <input type="hidden" id="refCode" value="" />
+  <button class="btn btn-primary btn-full" onclick="doRegister()" id="regSubmitBtn">Create Account</button>
+  <div id="registerMsg"></div>
+  <div class="terms-text" id="regTerms">By creating an account, you agree to our Terms of Service and Privacy Policy.</div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD MODAL -->
+
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeForgotModal()">✕</button>
+    <div class="modal-logo"><div class="modal-logo-text">Block<span>mind</span></div></div>
+    <div class="modal-title" id="forgotTitle">Reset Password</div>
+    <p class="forgot-info" id="forgotInfo">Enter your email address and we'll send you a password reset link.</p>
+    <div id="forgotForm">
+      <div class="form-group"><label class="form-label" id="forgotEmailLabel">Email Address</label><input class="form-input" type="email" id="forgotEmail" placeholder="Enter your email" /></div>
+      <button class="btn btn-primary btn-full" onclick="submitForgot()" id="forgotSubmitBtn">Send Reset Link</button>
+      <div id="forgotMsg"></div>
     </div>
-    <div id="formRegister" style="display:none">
-      <div class="modal-title">Hesap Oluştur</div>
-      <p class="modal-sub">Blockmind'a katılın</p>
-      <div id="refBanner" style="display:none;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:9px;padding:9px;margin-bottom:12px;font-size:12px;">
-        🎁 <span id="refBannerText"></span>
-      </div>
-      <div class="form-group"><label class="form-label">Ad Soyad</label><input class="form-input" id="regName" placeholder="Ad Soyad" /></div>
-      <div class="form-group"><label class="form-label">E-posta</label><input class="form-input" type="email" id="regEmail" placeholder="ornek@email.com" /></div>
-      <div class="form-group"><label class="form-label">Kullanıcı Adı</label><input class="form-input" id="regUser" placeholder="kullanici_adi" /></div>
-      <div class="form-group"><label class="form-label">Şifre</label><input class="form-input" type="password" id="regPass" placeholder="En az 6 karakter" /></div>
-      <input type="hidden" id="refCode" value="" />
-      <button class="btn btn-primary btn-full" onclick="doRegister()">Hesap Oluştur</button>
-      <div id="registerMsg"></div>
+    <div style="text-align:center;margin-top:14px;">
+      <span style="font-size:12px;color:var(--muted);" id="backToLoginText">Remember your password? </span>
+      <span style="font-size:12px;color:var(--accent);cursor:pointer;" onclick="closeForgotModal();openAuth('login')" id="backToLoginLink">Log In</span>
     </div>
+  </div>
+</div>
+
+<!-- LANGUAGE MODAL -->
+
+<div class="modal-overlay" id="langModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLangModal()">✕</button>
+    <div class="modal-title" id="langModalTitle">Select Language</div>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:16px;" id="langModalSub">EN and TR are fully supported. Other languages coming soon.</p>
+    <div class="lang-grid" id="langGrid"></div>
   </div>
 </div>
 
@@ -598,19 +631,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 <script>
 const ADMIN_PASS="Portakal357";
 const ADDRESSES={
-  usdt_erc20:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"USDT ERC20",note:"⚠️ Sadece ERC20 ağı."},
-  usdt_trc20:{addr:"TMtq8qrYSKzx6DyxgZbeCkSSFeDWUaVTic",label:"USDT TRC20",note:"⚠️ Sadece TRC20 ağı."},
-  usdt_sol:{addr:"PChjbUFEubr5Y2DQHL4kWxU4Npfw2ddipKsqegbBrWL",label:"USDT Solana",note:"⚠️ Sadece Solana ağı."},
-  btc:{addr:"bc1qfd3j2k4htxra0k2566skk2q8m9eekchvtrwv8x",label:"Bitcoin BTC",note:"⚠️ Sadece Bitcoin ağı."},
-  eth:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"Ethereum ETH",note:"⚠️ Sadece ERC20 ağı."},
-  bnb:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"BNB Smart Chain",note:"⚠️ Sadece BEP20 ağı."},
+  usdt_erc20:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"USDT ERC20",note:"⚠️ Send only via ERC20. Wrong network = permanent loss."},
+  usdt_trc20:{addr:"TMtq8qrYSKzx6DyxgZbeCkSSFeDWUaVTic",label:"USDT TRC20",note:"⚠️ Send only via TRC20 (Tron). Wrong network = permanent loss."},
+  usdt_sol:{addr:"PChjbUFEubr5Y2DQHL4kWxU4Npfw2ddipKsqegbBrWL",label:"USDT Solana",note:"⚠️ Send only via Solana network."},
+  btc:{addr:"bc1qfd3j2k4htxra0k2566skk2q8m9eekchvtrwv8x",label:"Bitcoin BTC",note:"⚠️ Send only via Bitcoin network."},
+  eth:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"Ethereum ETH",note:"⚠️ Send only via ERC20 network."},
+  bnb:{addr:"0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e",label:"BNB Smart Chain",note:"⚠️ Send only via BEP20 network."},
 };
 
-const AVATAR_COLORS=['av-blue','av-purple','av-green','av-orange','av-pink','av-gold'];
+const AVATAR_COLORS=['av-yellow','av-blue','av-green','av-purple','av-red','av-teal'];
 const COINS=[
   {sym:"BTC",name:"Bitcoin",icon:"₿",color:"#f7931a"},
   {sym:"ETH",name:"Ethereum",icon:"Ξ",color:"#627eea"},
-  {sym:"BNB",name:"BNB",icon:"◈",color:"#f3ba2f"},
+  {sym:"BNB",name:"BNB",icon:"◈",color:"#f0b90b"},
   {sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b"},
   {sym:"SOL",name:"Solana",icon:"◎",color:"#9945ff"},
   {sym:"XRP",name:"Ripple",icon:"✕",color:"#00aae4"},
@@ -620,9 +653,72 @@ const COINS=[
   {sym:"LTC",name:"Litecoin",icon:"Ł",color:"#bfbbbb"},
 ];
 
-let coinPrices={},lang="tr",currentUser=null,adminLoggedIn=false,currentNet="usdt_erc20",currentTradeTab="buy";
+const LANGUAGES=[
+  {code:"en",name:"English",flag:"🇺🇸",active:true},
+  {code:"tr",name:"Türkçe",flag:"🇹🇷",active:true},
+  {code:"es",name:"Español",flag:"🇪🇸",active:false},
+  {code:"fr",name:"Français",flag:"🇫🇷",active:false},
+  {code:"de",name:"Deutsch",flag:"🇩🇪",active:false},
+  {code:"it",name:"Italiano",flag:"🇮🇹",active:false},
+  {code:"pt",name:"Português",flag:"🇧🇷",active:false},
+  {code:"ru",name:"Русский",flag:"🇷🇺",active:false},
+  {code:"ar",name:"العربية",flag:"🇸🇦",active:false},
+  {code:"zh",name:"中文",flag:"🇨🇳",active:false},
+  {code:"ja",name:"日本語",flag:"🇯🇵",active:false},
+  {code:"ko",name:"한국어",flag:"🇰🇷",active:false},
+  {code:"hi",name:"हिन्दी",flag:"🇮🇳",active:false},
+  {code:"id",name:"Bahasa Indonesia",flag:"🇮🇩",active:false},
+  {code:"ms",name:"Bahasa Melayu",flag:"🇲🇾",active:false},
+  {code:"th",name:"ภาษาไทย",flag:"🇹🇭",active:false},
+  {code:"vi",name:"Tiếng Việt",flag:"🇻🇳",active:false},
+  {code:"pl",name:"Polski",flag:"🇵🇱",active:false},
+  {code:"nl",name:"Nederlands",flag:"🇳🇱",active:false},
+  {code:"uk",name:"Українська",flag:"🇺🇦",active:false},
+];
 
-// DB
+const T={
+  en:{
+    login:"Log In",signup:"Sign Up",logout:"Log Out",home:"Home",markets:"Markets",trade:"Trade",wallet:"Wallet",profile:"Profile",
+    livePrices:"Live Prices",getStarted:"Get Started",heroTitle:"Buy & Sell Crypto on Blockmind",heroSub:"Trade Bitcoin, Ethereum, BNB and hundreds of cryptocurrencies with real-time prices.",
+    username:"Username",password:"Password",email:"Email Address",fullName:"Full Name",forgotPass:"Forgot password?",
+    createAcc:"Create Account",sendReset:"Send Reset Link",resetPass:"Reset Password",resetInfo:"Enter your email address and we'll send you a password reset link.",
+    refLink:"Referral Link",refDesc:"Invite friends & earn 10% bonus on their deposits!",copy:"Copy",
+    deposit:"Deposit",depositTitle:"Deposit Crypto",quickAccess:"Quick Access",language:"Language",
+    buy:"BUY",sell:"SELL",convert:"CONVERT",assets:"My Assets",totalPortfolio:"TOTAL PORTFOLIO VALUE",
+    selectLang:"Select Language",langSub:"EN and TR are fully supported. Other languages coming soon.",
+    forgotEmailSent:"Reset link sent! Check your email.",fillAll:"Please fill in all fields.",invalidEmail:"Please enter a valid email.",userNotFound:"User not found.",wrongPass:"Invalid username or password.",userTaken:"Username already taken.",emailTaken:"Email already registered.",accCreated:"Account created! You can now log in.",minPass:"Password must be at least 6 characters.",
+    backToLogin:"Remember your password?",logInLink:"Log In",
+    confirmDeposit:"Confirm Deposit",confirmSub:"Fill in after completing the transfer.",txHash:"TX Hash (optional)",submitDeposit:"Submit Deposit",
+    depReceived:"Deposit submitted! Balance will update after confirmation.",
+    coinPrice:"Coin Price",youReceive:"You Receive",available:"Available",rate:"Rate",selectCoin:"Select coin...",
+    addCryptoFunds:"Add crypto funds",viewAssets:"View my assets",buyAndSell:"Buy & Sell",changeLang:"Change language",signOut:"Sign out of account",
+    noAssets:"No assets yet. Make a deposit or buy some crypto!",
+    invitedBy:"You were invited by",termsText:"By continuing, you agree to our Terms of Service and Privacy Policy.",
+  },
+  tr:{
+    login:"Giriş Yap",signup:"Kayıt Ol",logout:"Çıkış",home:"Ana Sayfa",markets:"Piyasalar",trade:"Al/Sat",wallet:"Cüzdan",profile:"Profil",
+    livePrices:"Canlı Fiyatlar",getStarted:"Hemen Başla",heroTitle:"Blockmind'da Kripto Al ve Sat",heroSub:"Bitcoin, Ethereum, BNB ve yüzlerce kripto parayı gerçek zamanlı fiyatlarla işlem edin.",
+    username:"Kullanıcı Adı",password:"Şifre",email:"E-posta Adresi",fullName:"Ad Soyad",forgotPass:"Şifremi unuttum?",
+    createAcc:"Hesap Oluştur",sendReset:"Sıfırlama Linki Gönder",resetPass:"Şifremi Sıfırla",resetInfo:"E-posta adresinizi girin, şifre sıfırlama linkini gönderelim.",
+    refLink:"Davet Linkim",refDesc:"Arkadaşını davet et, ilk yatırımı 100 USDT+ olursa %10 bonus kazan!",copy:"Kopyala",
+    deposit:"Yatır",depositTitle:"Kripto Yatır",quickAccess:"Hızlı Erişim",language:"Dil",
+    buy:"AL",sell:"SAT",convert:"DÖNÜŞTÜR",assets:"Varlıklarım",totalPortfolio:"TOPLAM PORTFÖY DEĞERİ",
+    selectLang:"Dil Seç",langSub:"EN ve TR tam desteklenir. Diğer diller yakında.",
+    forgotEmailSent:"Sıfırlama linki gönderildi! E-postanızı kontrol edin.",fillAll:"Tüm alanları doldurun.",invalidEmail:"Geçerli bir e-posta girin.",userNotFound:"Kullanıcı bulunamadı.",wrongPass:"Kullanıcı adı veya şifre hatalı.",userTaken:"Bu kullanıcı adı alınmış.",emailTaken:"Bu e-posta zaten kayıtlı.",accCreated:"Hesap oluşturuldu! Giriş yapabilirsiniz.",minPass:"Şifre en az 6 karakter olmalı.",
+    backToLogin:"Şifreni hatırlıyor musun?",logInLink:"Giriş Yap",
+    confirmDeposit:"Gönderim Bildirimi",confirmSub:"Transfer sonrası bilgileri girin.",txHash:"TX Hash (opsiyonel)",submitDeposit:"Gönderimi Bildir",
+    depReceived:"Bildirim alındı! Onay sonrası bakiyeniz yüklenir.",
+    coinPrice:"Coin Fiyatı",youReceive:"Alınacak",available:"Mevcut",rate:"Kur",selectCoin:"Coin seçin...",
+    addCryptoFunds:"Kripto yatır",viewAssets:"Varlıklarımı görüntüle",buyAndSell:"Al / Sat",changeLang:"Dil değiştir",signOut:"Hesaptan çık",
+    noAssets:"Henüz varlık yok. Yatırım yapın veya coin satın alın!",
+    invitedBy:"Sizi davet etti:",termsText:"Devam ederek Hizmet Şartlarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz.",
+  }
+};
+
+let lang="en",currentUser=null,adminLoggedIn=false,currentNet="usdt_erc20",coinPrices={};
+
+function t(key){return T[lang][key]||T.en[key]||key;}
+
 function getUsers(){try{return JSON.parse(localStorage.getItem("bm_users")||"[]")}catch{return[]}}
 function saveUsers(u){localStorage.setItem("bm_users",JSON.stringify(u))}
 function getDeposits(){try{return JSON.parse(localStorage.getItem("bm_deposits")||"[]")}catch{return[]}}
@@ -632,17 +728,86 @@ function saveBonuses(b){localStorage.setItem("bm_bonuses",JSON.stringify(b))}
 function getTrades(){try{return JSON.parse(localStorage.getItem("bm_trades")||"[]")}catch{return[]}}
 function saveTrades(t){localStorage.setItem("bm_trades",JSON.stringify(t))}
 
-function getAvatarColor(username){
-  let hash=0;for(let c of username)hash=c.charCodeAt(0)+((hash<<5)-hash);
-  return AVATAR_COLORS[Math.abs(hash)%AVATAR_COLORS.length];
-}
-function makeAvatar(user,size="small"){
-  const cls=getAvatarColor(user.username);
-  const letter=(user.name||user.username)[0].toUpperCase();
-  return`<div class="${size==='big'?'profile-avatar-big':'profile-avatar'} ${cls}" ${size==='small'?'onclick="showPage(\'profile\')"':''}>${letter}</div>`;
-}
+function getAvatarColor(u){let h=0;for(let c of u)h=c.charCodeAt(0)+((h<<5)-h);return AVATAR_COLORS[Math.abs(h)%AVATAR_COLORS.length];}
+function makeAvatar(user){const cls=getAvatarColor(user.username);const l=(user.name||user.username)[0].toUpperCase();return`<div class="profile-avatar ${cls}" onclick="showPage('profile')" style="color:#000">${l}</div>`;}
 
-function toggleLang(){lang=lang==="tr"?"en":"tr";document.getElementById("langBtn").textContent=lang==="tr"?"EN":"TR";}
+function applyLang(){
+  document.getElementById("langBtn").textContent=lang.toUpperCase();
+  document.getElementById("navLoginBtn").textContent=t("login");
+  document.getElementById("navRegBtn").textContent=t("signup");
+  document.getElementById("bn-home-label").textContent=t("home");
+  document.getElementById("bn-markets-label").textContent=t("markets");
+  document.getElementById("bn-trade-label").textContent=t("trade");
+  document.getElementById("bn-wallet-label").textContent=t("wallet");
+  document.getElementById("bn-profile-label").textContent=t("profile");
+  document.getElementById("heroTitle").innerHTML=t("heroTitle").replace("Blockmind","<span>Blockmind</span>");
+  document.getElementById("heroSub").textContent=t("heroSub");
+  document.getElementById("heroSignupBtn").textContent=t("getStarted");
+  document.getElementById("heroLoginBtn").textContent=t("login");
+  document.getElementById("livePricesLabel").textContent=t("livePrices");
+  document.getElementById("marketsLabel").textContent=t("markets");
+  document.getElementById("marketSearch").placeholder=lang==="tr"?"Coin ara... (BTC, ETH...)":"Search coin... (BTC, ETH...)";
+  document.getElementById("mth-coin").textContent="Coin";
+  document.getElementById("mth-price").textContent=t("coinPrice");
+  document.getElementById("mth-change").textContent="24h %";
+  document.getElementById("mth-action").textContent=t("trade");
+  document.getElementById("tradeTitle").textContent=`${t("buy")} / ${t("sell")} / ${t("convert")}`;
+  document.getElementById("tt-buy").textContent=t("buy");
+  document.getElementById("tt-sell").textContent=t("sell");
+  document.getElementById("tt-convert").textContent=t("convert");
+  document.getElementById("walletTotalLabel").textContent=t("totalPortfolio");
+  document.getElementById("depositBtnLabel").textContent=t("deposit");
+  document.getElementById("tradeBtnLabel").textContent=t("trade");
+  document.getElementById("assetsLabel").textContent=t("assets");
+  document.getElementById("refSectionTitle").textContent=t("refLink");
+  document.getElementById("refDesc").textContent=t("refDesc");
+  document.getElementById("copyRefBtn").textContent=t("copy");
+  document.getElementById("quickAccessTitle").textContent=t("quickAccess");
+  document.getElementById("menuDeposit").textContent=t("deposit");
+  document.getElementById("menuDepositSub").textContent=t("addCryptoFunds");
+  document.getElementById("menuWallet").textContent=t("wallet");
+  document.getElementById("menuWalletSub").textContent=t("viewAssets");
+  document.getElementById("menuTrade").textContent=t("trade");
+  document.getElementById("menuTradeSub").textContent=t("buyAndSell");
+  document.getElementById("menuLang").textContent=t("language");
+  document.getElementById("menuLangSub").textContent=t("changeLang");
+  document.getElementById("menuLogout").textContent=t("logout");
+  document.getElementById("menuLogoutSub").textContent=t("signOut");
+  document.getElementById("depositTitle").textContent=t("depositTitle");
+  document.getElementById("addrLabelText").textContent=lang==="tr"?"Gönderim Adresi":"Deposit Address";
+  document.getElementById("copyAddrBtn").textContent=t("copy");
+  document.getElementById("confirmTitle").textContent=t("confirmDeposit");
+  document.getElementById("confirmSub").textContent=t("confirmSub");
+  document.getElementById("depUserLabel").textContent=t("username");
+  document.getElementById("depNameLabel").textContent=t("fullName");
+  document.getElementById("depAmtLabel").textContent=lang==="tr"?"Tutar (USDT)":"Amount (USDT)";
+  document.getElementById("depNetLabel").textContent=lang==="tr"?"Ağ":"Network";
+  document.getElementById("depTxLabel").textContent=t("txHash");
+  document.getElementById("depSubmitBtn").textContent=t("submitDeposit");
+  document.getElementById("loginUserLabel").textContent=t("username");
+  document.getElementById("loginPassLabel").textContent=t("password");
+  document.getElementById("forgotLink").textContent=t("forgotPass");
+  document.getElementById("loginSubmitBtn").textContent=t("login");
+  document.getElementById("loginTerms").textContent=t("termsText");
+  document.getElementById("tabLogin").textContent=t("login");
+  document.getElementById("tabRegister").textContent=t("signup");
+  document.getElementById("regNameLabel").textContent=t("fullName");
+  document.getElementById("regEmailLabel").textContent=t("email");
+  document.getElementById("regUserLabel").textContent=t("username");
+  document.getElementById("regPassLabel").textContent=t("password");
+  document.getElementById("regSubmitBtn").textContent=t("createAcc");
+  document.getElementById("regTerms").textContent=t("termsText");
+  document.getElementById("forgotTitle").textContent=t("resetPass");
+  document.getElementById("forgotInfo").textContent=t("resetInfo");
+  document.getElementById("forgotEmailLabel").textContent=t("email");
+  document.getElementById("forgotSubmitBtn").textContent=t("sendReset");
+  document.getElementById("backToLoginText").textContent=t("backToLogin")+" ";
+  document.getElementById("backToLoginLink").textContent=t("logInLink");
+  document.getElementById("langModalTitle").textContent=t("selectLang");
+  document.getElementById("langModalSub").textContent=t("langSub");
+  ["buyCoin","sellCoin","convertFrom","convertTo"].forEach(id=>{const s=document.getElementById(id);if(s&&s.options[0])s.options[0].text=t("selectCoin");});
+  renderLangGrid();
+}
 
 function showPage(name){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -658,7 +823,6 @@ function showPage(name){
   window.scrollTo(0,0);
 }
 
-// PRICES
 async function fetchPrices(){
   try{
     const ids="bitcoin,ethereum,binancecoin,tether,solana,ripple,cardano,dogecoin,polkadot,litecoin";
@@ -667,29 +831,23 @@ async function fetchPrices(){
     const map={BTC:"bitcoin",ETH:"ethereum",BNB:"binancecoin",USDT:"tether",SOL:"solana",XRP:"ripple",ADA:"cardano",DOGE:"dogecoin",DOT:"polkadot",LTC:"litecoin"};
     COINS.forEach(c=>{const d=data[map[c.sym]];if(d)coinPrices[c.sym]={price:d.usd,change:d.usd_24h_change?.toFixed(2)||0,vol:d.usd_24h_vol};});
   }catch(e){
-    coinPrices={BTC:{price:82000,change:1.2,vol:28e9},ETH:{price:3800,change:-0.5,vol:14e9},BNB:{price:580,change:2.1,vol:2e9},USDT:{price:1,change:0.01,vol:40e9},SOL:{price:145,change:3.4,vol:3e9},XRP:{price:0.51,change:-1.1,vol:1.5e9},ADA:{price:0.42,change:0.8,vol:4e8},DOGE:{price:0.09,change:5.2,vol:6e8},DOT:{price:6.8,change:-2.0,vol:2e8},LTC:{price:75,change:0.4,vol:4e8}};
+    coinPrices={BTC:{price:82000,change:1.2},ETH:{price:3800,change:-0.5},BNB:{price:580,change:2.1},USDT:{price:1,change:0.01},SOL:{price:145,change:3.4},XRP:{price:0.51,change:-1.1},ADA:{price:0.42,change:0.8},DOGE:{price:0.09,change:5.2},DOT:{price:6.8,change:-2.0},LTC:{price:75,change:0.4}};
   }
   renderCoins();renderTicker();renderMarkets();
 }
 
 function fmt(n){if(!n&&n!==0)return"$0";if(n>=1000)return"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});if(n>=1)return"$"+n.toFixed(2);return"$"+n.toFixed(4);}
-function fmtCoin(n,sym){if(!n)return"0";if(n>=1000)return n.toLocaleString("en-US",{maximumFractionDigits:4});if(n>=1)return n.toFixed(4);return n.toFixed(6);}
-function fmtVol(n){if(!n)return"";if(n>=1e9)return"$"+(n/1e9).toFixed(1)+"B";if(n>=1e6)return"$"+(n/1e6).toFixed(0)+"M";return"";}
+function fmtCoin(n){if(!n)return"0";if(n>=1000)return n.toLocaleString("en-US",{maximumFractionDigits:4});if(n>=1)return n.toFixed(4);return n.toFixed(6);}
 
 function renderCoins(){
   document.getElementById("coinsGrid").innerHTML=COINS.map(c=>{
     const p=coinPrices[c.sym]||{};const ch=parseFloat(p.change||0);
-    return`<div class="coin-card" onclick="openTradeFromMarket('${c.sym}')">
-      <div class="coin-header"><div class="coin-icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
-      <div><div class="coin-name">${c.name}</div><div class="coin-sym">${c.sym}</div></div></div>
-      <div class="coin-price">${fmt(p.price)}</div>
-      <div class="coin-change ${ch>=0?'up':'down'}">${ch>=0?'▲':'▼'} ${Math.abs(ch)}%</div></div>`;
+    return`<div class="coin-card" onclick="openTradeFromMarket('${c.sym}')"><div class="coin-header"><div class="coin-icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div><div><div class="coin-name">${c.name}</div><div class="coin-sym">${c.sym}</div></div></div><div class="coin-price">${fmt(p.price)}</div><div class="coin-change ${ch>=0?'up':'down'}">${ch>=0?'▲':'▼'} ${Math.abs(ch)}%</div></div>`;
   }).join("");
 }
 
 function renderTicker(){
-  const items=COINS.map(c=>{const p=coinPrices[c.sym]||{};const ch=parseFloat(p.change||0);
-    return`<div class="ticker-item"><span class="ticker-sym">${c.sym}</span><span class="ticker-price">${fmt(p.price)}</span><span class="ticker-change ${ch>=0?'up':'down'}">${ch>=0?'▲':'▼'}${Math.abs(ch)}%</span></div>`;}).join("");
+  const items=COINS.map(c=>{const p=coinPrices[c.sym]||{};const ch=parseFloat(p.change||0);return`<div class="ticker-item"><span class="ticker-sym">${c.sym}</span><span class="ticker-price">${fmt(p.price)}</span><span class="ticker-change ${ch>=0?'up':'down'}">${ch>=0?'+':''}${ch}%</span></div>`;}).join("");
   document.getElementById("tickerTrack").innerHTML=items+items;
 }
 
@@ -697,59 +855,53 @@ function renderMarkets(){
   const q=(document.getElementById("marketSearch")?.value||"").toLowerCase();
   const list=document.getElementById("marketList");if(!list)return;
   const filtered=COINS.filter(c=>c.sym.toLowerCase().includes(q)||c.name.toLowerCase().includes(q));
-  if(!filtered.length){list.innerHTML=`<div class="empty-state">Coin bulunamadı</div>`;return;}
+  if(!filtered.length){list.innerHTML=`<div class="empty-state">No coins found</div>`;return;}
   list.innerHTML=filtered.map(c=>{
     const p=coinPrices[c.sym]||{};const ch=parseFloat(p.change||0);
-    return`<div class="market-row">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="coin-icon" style="background:${c.color}22;color:${c.color};width:32px;height:32px;font-size:14px;">${c.icon}</div>
-        <div><div style="font-weight:700;font-size:13px;">${c.name}</div><div style="font-family:var(--mono);font-size:11px;color:var(--muted)">${c.sym}</div></div>
-      </div>
-      <div class="mtd">${fmt(p.price)}</div>
-      <div class="mtd ${ch>=0?'up':'down'}">${ch>=0?'+':''}${ch}%</div>
-      <div><button class="trade-btn-sm btn-primary" style="background:var(--accent);color:#000;" onclick="openTradeFromMarket('${c.sym}')">Al/Sat</button></div>
-    </div>`;
+    return`<div class="market-row"><div style="display:flex;align-items:center;gap:10px;"><div class="coin-icon" style="background:${c.color}22;color:${c.color};width:28px;height:28px;font-size:12px;">${c.icon}</div><div><div style="font-weight:600;font-size:13px;">${c.name}</div><div style="font-family:var(--mono);font-size:10px;color:var(--muted)">${c.sym}</div></div></div><div class="mtd">${fmt(p.price)}</div><div class="mtd ${ch>=0?'up':'down'}">${ch>=0?'+':''}${ch}%</div><div><button style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;" onclick="openTradeFromMarket('${c.sym}')">${t("trade")}</button></div></div>`;
   }).join("");
 }
 
-function openTradeFromMarket(sym){
-  showPage('trade');
-  switchTradeTab('buy');
-  setTimeout(()=>{
-    const sel=document.getElementById("buyCoin");
-    if(sel){sel.value=sym;updateTradeInfo('buy');}
-  },100);
-}
+function openTradeFromMarket(sym){showPage('trade');switchTradeTab('buy');setTimeout(()=>{const s=document.getElementById("buyCoin");if(s){s.value=sym;updateTradeInfo('buy');}},100);}
 
-// AUTH
 function openAuth(tab){
   const urlParams=new URLSearchParams(window.location.search);
   const ref=urlParams.get("ref");
-  if(ref&&tab==="register"){
-    document.getElementById("refCode").value=ref;
-    document.getElementById("refBanner").style.display="block";
-    document.getElementById("refBannerText").textContent=`${ref} tarafından davet edildiniz!`;
-  }
-  document.getElementById("authModal").classList.add("open");
-  switchTab(tab);
+  if(ref&&tab==="register"){document.getElementById("refCode").value=ref;document.getElementById("refBanner").style.display="block";document.getElementById("refBannerText").textContent=`${t("invitedBy")} ${ref}`;}
+  document.getElementById("authModal").classList.add("open");switchTab(tab);
 }
 function closeAuth(){document.getElementById("authModal").classList.remove("open");}
-function switchTab(t){
-  document.getElementById("formLogin").style.display=t==="login"?"block":"none";
-  document.getElementById("formRegister").style.display=t==="register"?"block":"none";
-  document.getElementById("tabLogin").classList.toggle("active",t==="login");
-  document.getElementById("tabRegister").classList.toggle("active",t==="register");
+function switchTab(tp){
+  document.getElementById("formLogin").style.display=tp==="login"?"block":"none";
+  document.getElementById("formRegister").style.display=tp==="register"?"block":"none";
+  document.getElementById("tabLogin").classList.toggle("active",tp==="login");
+  document.getElementById("tabRegister").classList.toggle("active",tp==="register");
+}
+
+function openForgotModal(){closeAuth();document.getElementById("forgotModal").classList.add("open");}
+function closeForgotModal(){document.getElementById("forgotModal").classList.remove("open");document.getElementById("forgotMsg").innerHTML="";}
+
+function submitForgot(){
+  const email=document.getElementById("forgotEmail").value.trim();
+  const msg=document.getElementById("forgotMsg");
+  if(!email){showMsg(msg,t("fillAll"),"error");return;}
+  if(!email.includes("@")){showMsg(msg,t("invalidEmail"),"error");return;}
+  const users=getUsers();
+  const user=users.find(u=>u.email===email);
+  if(!user){showMsg(msg,t("userNotFound"),"error");return;}
+  showMsg(msg,t("forgotEmailSent"),"success");
+  setTimeout(()=>{closeForgotModal();openAuth('login');},2500);
 }
 
 function doLogin(){
   const u=document.getElementById("loginUser").value.trim();
   const p=document.getElementById("loginPass").value;
   const msg=document.getElementById("loginMsg");
-  if(!u||!p){showMsg(msg,"Tüm alanları doldurun","error");return;}
+  if(!u||!p){showMsg(msg,t("fillAll"),"error");return;}
   const user=getUsers().find(x=>x.username===u&&x.password===p);
-  if(!user){showMsg(msg,"Hatalı bilgi","error");return;}
+  if(!user){showMsg(msg,t("wrongPass"),"error");return;}
   currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));
-  closeAuth();updateNav();showToast("✅",`Hoş geldin, ${user.name}!`);showPage("home");
+  closeAuth();updateNav();showToast("✅",`Welcome, ${user.name}!`);showPage("home");
 }
 
 function doRegister(){
@@ -759,33 +911,26 @@ function doRegister(){
   const pass=document.getElementById("regPass").value;
   const refCode=document.getElementById("refCode").value.trim();
   const msg=document.getElementById("registerMsg");
-  if(!name||!email||!username||!pass){showMsg(msg,"Tüm alanları doldurun","error");return;}
-  if(pass.length<6){showMsg(msg,"Şifre en az 6 karakter","error");return;}
+  if(!name||!email||!username||!pass){showMsg(msg,t("fillAll"),"error");return;}
+  if(pass.length<6){showMsg(msg,t("minPass"),"error");return;}
+  if(!email.includes("@")){showMsg(msg,t("invalidEmail"),"error");return;}
   const users=getUsers();
-  if(users.find(x=>x.username===username)){showMsg(msg,"Bu kullanıcı adı alınmış","error");return;}
-  if(users.find(x=>x.email===email)){showMsg(msg,"E-posta zaten kayıtlı","error");return;}
-  const newUser={id:Date.now(),name,email,username,password:pass,balance:0,bonusBalance:0,wallet:{USDT:0},referredBy:refCode||null,firstDepositDone:false,createdAt:new Date().toLocaleDateString("tr-TR")};
+  if(users.find(x=>x.username===username)){showMsg(msg,t("userTaken"),"error");return;}
+  if(users.find(x=>x.email===email)){showMsg(msg,t("emailTaken"),"error");return;}
+  const newUser={id:Date.now(),name,email,username,password:pass,balance:0,bonusBalance:0,wallet:{USDT:0},referredBy:refCode||null,firstDepositDone:false,createdAt:new Date().toLocaleDateString("en-US")};
   users.push(newUser);saveUsers(users);
-  showMsg(msg,"✅ Hesap oluşturuldu! Giriş yapabilirsiniz.","success");
+  showMsg(msg,t("accCreated"),"success");
   setTimeout(()=>switchTab("login"),1800);
 }
 
-function logout(){currentUser=null;localStorage.removeItem("bm_session");updateNav();showPage("home");showToast("👋","Çıkış yapıldı");}
+function logout(){currentUser=null;localStorage.removeItem("bm_session");updateNav();showPage("home");showToast("👋","Logged out");}
 
 function updateNav(){
-  const g=document.getElementById("navGuest"),u=document.getElementById("navUser");
-  const bn=document.getElementById("bottomNav");
-  if(currentUser){
-    g.style.display="none";u.style.display="block";
-    u.innerHTML=makeAvatar(currentUser);
-    bn.style.display="flex";
-  }else{
-    g.style.display="flex";u.style.display="none";
-    bn.style.display="none";
-  }
+  const g=document.getElementById("navGuest"),u=document.getElementById("navUser"),bn=document.getElementById("bottomNav");
+  if(currentUser){g.style.display="none";u.style.display="block";u.innerHTML=makeAvatar(currentUser);bn.style.display="flex";}
+  else{g.style.display="flex";u.style.display="none";bn.style.display="none";}
 }
 
-// DEPOSIT
 function selectNet(btn){
   document.querySelectorAll(".net-tab").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");currentNet=btn.dataset.net;
@@ -794,7 +939,7 @@ function selectNet(btn){
   document.getElementById("addrNote").textContent=a.note;
   document.getElementById("depNetwork").value=a.label;
 }
-function copyAddr(){navigator.clipboard.writeText(document.getElementById("addrText").textContent);showToast("📋","Adres kopyalandı!");}
+function copyAddr(){navigator.clipboard.writeText(document.getElementById("addrText").textContent);showToast("📋","Address copied!");}
 
 function submitDeposit(){
   if(!currentUser){openAuth('login');return;}
@@ -804,45 +949,34 @@ function submitDeposit(){
   const network=document.getElementById("depNetwork").value;
   const txhash=document.getElementById("depTxHash").value.trim();
   const msg=document.getElementById("depMsg");
-  if(!username||!fullname||!amount||amount<=0){showMsg(msg,"Tüm alanları doldurun","error");return;}
-  const users=getUsers();const user=users.find(u=>u.username===username);
-  if(!user){showMsg(msg,"Kullanıcı bulunamadı","error");return;}
-  const dep={id:Date.now(),username,fullname,amount,network,txhash:txhash||"-",status:"pending",date:new Date().toLocaleString("tr-TR"),type:"deposit"};
+  if(!username||!fullname||!amount||amount<=0){showMsg(msg,t("fillAll"),"error");return;}
+  const user=getUsers().find(u=>u.username===username);
+  if(!user){showMsg(msg,t("userNotFound"),"error");return;}
+  const dep={id:Date.now(),username,fullname,amount,network,txhash:txhash||"-",status:"pending",date:new Date().toLocaleString("en-US"),type:"deposit"};
   const deposits=getDeposits();deposits.push(dep);saveDeposits(deposits);
-  showMsg(msg,"✅ Bildirim alındı! Onay sonrası bakiyeniz yüklenir.","success");
+  showMsg(msg,t("depReceived"),"success");
   document.getElementById("depAmount").value="";document.getElementById("depTxHash").value="";
-  showToast("💰","Yatırım bildirimi gönderildi");
+  showToast("💰","Deposit submitted!");
 }
 
-// TRADE
 function populateTradeCoinSelects(){
   const tradeable=COINS.filter(c=>c.sym!=="USDT");
   ["buyCoin","sellCoin","convertFrom","convertTo"].forEach(id=>{
     const sel=document.getElementById(id);if(!sel)return;
     const cur=sel.value;
-    sel.innerHTML=`<option value="">Coin seçin...</option>`+tradeable.map(c=>`<option value="${c.sym}">${c.sym} - ${c.name}</option>`).join("");
+    sel.innerHTML=`<option value="">${t("selectCoin")}</option>`+tradeable.map(c=>`<option value="${c.sym}">${c.sym} — ${c.name}</option>`).join("");
     if(cur)sel.value=cur;
   });
 }
 
 function switchTradeTab(tab){
-  currentTradeTab=tab;
-  ["buy","sell","convert"].forEach(t=>{
-    const btn=document.getElementById(`tt-${t}`);
-    const panel=document.getElementById(`tradePanel-${t}`);
-    btn.className="trade-tab";
-    panel.style.display="none";
-  });
+  ["buy","sell","convert"].forEach(tp=>{document.getElementById(`tt-${tp}`).className="trade-tab";document.getElementById(`tradePanel-${tp}`).style.display="none";});
   document.getElementById(`tt-${tab}`).className=`trade-tab active-${tab}`;
   document.getElementById(`tradePanel-${tab}`).style.display="block";
   updateTradeInfo(tab);
 }
 
-function getUserWallet(){
-  if(!currentUser)return{USDT:0};
-  const fresh=getUsers().find(u=>u.username===currentUser.username);
-  return fresh?.wallet||{USDT:0};
-}
+function getUserWallet(){if(!currentUser)return{USDT:0};const f=getUsers().find(u=>u.username===currentUser.username);return f?.wallet||{USDT:0};}
 
 function updateTradeInfo(type){
   if(!currentUser)return;
@@ -853,11 +987,13 @@ function updateTradeInfo(type){
     const info=document.getElementById("buyInfo");
     if(!sym){info.style.display="none";return;}
     const price=coinPrices[sym]?.price||0;
-    const qty=price>0?amt/price:0;
     info.style.display="block";
     document.getElementById("buyPrice").textContent=fmt(price);
-    document.getElementById("buyQty").textContent=`${fmtCoin(qty,sym)} ${sym}`;
+    document.getElementById("buyQty").textContent=`${fmtCoin(price>0?amt/price:0)} ${sym}`;
     document.getElementById("buyBalance").textContent=`${(wallet.USDT||0).toFixed(2)} USDT`;
+    document.getElementById("buyPriceLabel").textContent=t("coinPrice");
+    document.getElementById("buyQtyLabel").textContent=t("youReceive");
+    document.getElementById("buyBalLabel").textContent=`${t("available")} USDT`;
   }
   if(type==="sell"){
     const sym=document.getElementById("sellCoin").value;
@@ -866,11 +1002,13 @@ function updateTradeInfo(type){
     const info=document.getElementById("sellInfo");
     if(!sym){info.style.display="none";return;}
     const price=coinPrices[sym]?.price||0;
-    const usdt=amt*price;
     info.style.display="block";
     document.getElementById("sellPrice").textContent=fmt(price);
-    document.getElementById("sellUSDT").textContent=`${usdt.toFixed(2)} USDT`;
-    document.getElementById("sellBalance").textContent=`${fmtCoin(wallet[sym]||0,sym)} ${sym}`;
+    document.getElementById("sellUSDT").textContent=`${(amt*price).toFixed(2)} USDT`;
+    document.getElementById("sellBalance").textContent=`${fmtCoin(wallet[sym]||0)} ${sym}`;
+    document.getElementById("sellPriceLabel").textContent=t("coinPrice");
+    document.getElementById("sellUSDTLabel").textContent=t("youReceive");
+    document.getElementById("sellBalLabel").textContent=`${t("available")} ${sym}`;
   }
   if(type==="convert"){
     const from=document.getElementById("convertFrom").value;
@@ -879,213 +1017,157 @@ function updateTradeInfo(type){
     document.getElementById("convertFromBadge").textContent=from||"-";
     const info=document.getElementById("convertInfo");
     if(!from||!to){info.style.display="none";return;}
-    const fromPrice=coinPrices[from]?.price||0;
-    const toPrice=coinPrices[to]?.price||0;
-    if(!fromPrice||!toPrice){info.style.display="none";return;}
-    const rate=fromPrice/toPrice;
-    const result=amt*rate;
+    const fp=coinPrices[from]?.price||0,tp2=coinPrices[to]?.price||0;
+    if(!fp||!tp2){info.style.display="none";return;}
+    const rate=fp/tp2;
     info.style.display="block";
-    document.getElementById("convertRate").textContent=`1 ${from} = ${fmtCoin(rate,to)} ${to}`;
-    document.getElementById("convertResult").textContent=`${fmtCoin(result,to)} ${to}`;
+    document.getElementById("convertRate").textContent=`1 ${from} = ${fmtCoin(rate)} ${to}`;
+    document.getElementById("convertResult").textContent=`${fmtCoin(amt*rate)} ${to}`;
+    document.getElementById("convertRateLabel").textContent=t("rate");
+    document.getElementById("convertResLabel").textContent=t("youReceive");
   }
 }
 
 function executeTrade(type){
   if(!currentUser){openAuth('login');return;}
-  const users=getUsers();
-  const userIdx=users.findIndex(u=>u.username===currentUser.username);
-  if(userIdx===-1)return;
-  const user=users[userIdx];
-  if(!user.wallet)user.wallet={USDT:0};
-
+  const users=getUsers();const idx=users.findIndex(u=>u.username===currentUser.username);if(idx===-1)return;
+  const user=users[idx];if(!user.wallet)user.wallet={USDT:0};
   if(type==="buy"){
     const sym=document.getElementById("buyCoin").value;
     const amt=parseFloat(document.getElementById("buyAmount").value)||0;
     const msg=document.getElementById("buyMsg");
-    if(!sym){showMsg(msg,"Coin seçin","error");return;}
-    if(amt<=0){showMsg(msg,"Geçerli tutar girin","error");return;}
-    if((user.wallet.USDT||0)<amt){showMsg(msg,"Yetersiz USDT bakiye","error");return;}
-    const price=coinPrices[sym]?.price||0;
-    if(!price){showMsg(msg,"Fiyat bilgisi alınamadı","error");return;}
+    if(!sym){showMsg(msg,t("selectCoin"),"error");return;}
+    if(amt<=0){showMsg(msg,t("fillAll"),"error");return;}
+    if((user.wallet.USDT||0)<amt){showMsg(msg,`Insufficient USDT balance`,"error");return;}
+    const price=coinPrices[sym]?.price||0;if(!price){showMsg(msg,"Price unavailable","error");return;}
     const qty=amt/price;
-    user.wallet.USDT=(user.wallet.USDT||0)-amt;
-    user.wallet[sym]=(user.wallet[sym]||0)+qty;
-    saveTrade(user.username,"Alış",sym,amt,qty);
-    saveUsers(users);
+    user.wallet.USDT=(user.wallet.USDT||0)-amt;user.wallet[sym]=(user.wallet[sym]||0)+qty;
+    saveTrade(user.username,"Buy",sym,amt,qty);saveUsers(users);
     currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));
-    showMsg(msg,`✅ ${fmtCoin(qty,sym)} ${sym} satın alındı!`,"success");
-    document.getElementById("buyAmount").value="";
-    updateTradeInfo('buy');
-    showToast("🟢",`${sym} alındı`);
+    showMsg(document.getElementById("buyMsg"),`✅ ${fmtCoin(qty)} ${sym} purchased!`,"success");
+    document.getElementById("buyAmount").value="";updateTradeInfo('buy');showToast("🟢",`${sym} bought`);
   }
-
   if(type==="sell"){
     const sym=document.getElementById("sellCoin").value;
     const amt=parseFloat(document.getElementById("sellAmount").value)||0;
     const msg=document.getElementById("sellMsg");
-    if(!sym){showMsg(msg,"Coin seçin","error");return;}
-    if(amt<=0){showMsg(msg,"Geçerli miktar girin","error");return;}
-    if((user.wallet[sym]||0)<amt){showMsg(msg,`Yetersiz ${sym} bakiye`,"error");return;}
-    const price=coinPrices[sym]?.price||0;
-    if(!price){showMsg(msg,"Fiyat bilgisi alınamadı","error");return;}
+    if(!sym){showMsg(msg,t("selectCoin"),"error");return;}
+    if(amt<=0){showMsg(msg,t("fillAll"),"error");return;}
+    if((user.wallet[sym]||0)<amt){showMsg(msg,`Insufficient ${sym} balance`,"error");return;}
+    const price=coinPrices[sym]?.price||0;if(!price){showMsg(msg,"Price unavailable","error");return;}
     const usdt=amt*price;
-    user.wallet[sym]=(user.wallet[sym]||0)-amt;
-    user.wallet.USDT=(user.wallet.USDT||0)+usdt;
-    saveTrade(user.username,"Satış",sym,usdt,amt);
-    saveUsers(users);
+    user.wallet[sym]=(user.wallet[sym]||0)-amt;user.wallet.USDT=(user.wallet.USDT||0)+usdt;
+    saveTrade(user.username,"Sell",sym,usdt,amt);saveUsers(users);
     currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));
-    showMsg(msg,`✅ ${usdt.toFixed(2)} USDT alındı!`,"success");
-    document.getElementById("sellAmount").value="";
-    updateTradeInfo('sell');
-    showToast("🔴",`${sym} satıldı`);
+    showMsg(document.getElementById("sellMsg"),`✅ ${usdt.toFixed(2)} USDT received!`,"success");
+    document.getElementById("sellAmount").value="";updateTradeInfo('sell');showToast("🔴",`${sym} sold`);
   }
-
   if(type==="convert"){
     const from=document.getElementById("convertFrom").value;
     const to=document.getElementById("convertTo").value;
     const amt=parseFloat(document.getElementById("convertAmount").value)||0;
     const msg=document.getElementById("convertMsg");
-    if(!from||!to){showMsg(msg,"Coinleri seçin","error");return;}
-    if(from===to){showMsg(msg,"Farklı coinler seçin","error");return;}
-    if(amt<=0){showMsg(msg,"Geçerli miktar girin","error");return;}
-    if((user.wallet[from]||0)<amt){showMsg(msg,`Yetersiz ${from} bakiye`,"error");return;}
-    const fromPrice=coinPrices[from]?.price||0;
-    const toPrice=coinPrices[to]?.price||0;
-    if(!fromPrice||!toPrice){showMsg(msg,"Fiyat bilgisi alınamadı","error");return;}
-    const result=(amt*fromPrice)/toPrice;
-    user.wallet[from]=(user.wallet[from]||0)-amt;
-    user.wallet[to]=(user.wallet[to]||0)+result;
-    saveTrade(user.username,"Dönüşüm",`${from}→${to}`,amt,result);
-    saveUsers(users);
+    if(!from||!to){showMsg(msg,"Select both coins","error");return;}
+    if(from===to){showMsg(msg,"Select different coins","error");return;}
+    if(amt<=0){showMsg(msg,t("fillAll"),"error");return;}
+    if((user.wallet[from]||0)<amt){showMsg(msg,`Insufficient ${from} balance`,"error");return;}
+    const fp=coinPrices[from]?.price||0,tp2=coinPrices[to]?.price||0;
+    if(!fp||!tp2){showMsg(msg,"Price unavailable","error");return;}
+    const result=(amt*fp)/tp2;
+    user.wallet[from]=(user.wallet[from]||0)-amt;user.wallet[to]=(user.wallet[to]||0)+result;
+    saveTrade(user.username,"Convert",`${from}→${to}`,amt,result);saveUsers(users);
     currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));
-    showMsg(msg,`✅ ${fmtCoin(result,to)} ${to} alındı!`,"success");
-    document.getElementById("convertAmount").value="";
-    updateTradeInfo('convert');
-    showToast("🔄",`${from} → ${to} dönüştürüldü`);
+    showMsg(document.getElementById("convertMsg"),`✅ ${fmtCoin(result)} ${to} received!`,"success");
+    document.getElementById("convertAmount").value="";updateTradeInfo('convert');showToast("🔄",`${from}→${to}`);
   }
 }
 
-function saveTrade(username,type,coin,amount,qty){
-  const trades=getTrades();
-  trades.push({id:Date.now(),username,type,coin,amount,qty,date:new Date().toLocaleString("tr-TR")});
-  saveTrades(trades);
-}
+function saveTrade(username,type,coin,amount,qty){const trades=getTrades();trades.push({id:Date.now(),username,type,coin,amount,qty,date:new Date().toLocaleString("en-US")});saveTrades(trades);}
 
-function swapConvert(){
-  const f=document.getElementById("convertFrom").value;
-  const t=document.getElementById("convertTo").value;
-  document.getElementById("convertFrom").value=t;
-  document.getElementById("convertTo").value=f;
-  updateTradeInfo('convert');
-}
+function swapConvert(){const f=document.getElementById("convertFrom").value,t2=document.getElementById("convertTo").value;document.getElementById("convertFrom").value=t2;document.getElementById("convertTo").value=f;updateTradeInfo('convert');}
 
-// WALLET
 function renderWallet(){
   if(!currentUser){showPage("home");return;}
   const fresh=getUsers().find(u=>u.username===currentUser.username);
   if(fresh){currentUser=fresh;localStorage.setItem("bm_session",JSON.stringify(fresh));}
-  const wallet=currentUser.wallet||{USDT:0};
+  const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
   const deposits=getDeposits().filter(d=>d.username===currentUser.username&&d.status==="confirmed"&&d.type==="deposit");
-  const depositTotal=deposits.reduce((s,d)=>s+d.amount,0);
-  wallet.USDT=(wallet.USDT||0)+depositTotal+(currentUser.bonusBalance||0);
-
-  let total=0;
-  const items=[];
-  // USDT first
-  if((wallet.USDT||0)>0){
-    total+=wallet.USDT;
-    const c=COINS.find(x=>x.sym==="USDT");
-    items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:wallet.USDT,usdVal:wallet.USDT});
-  }
-  // other coins
-  COINS.filter(c=>c.sym!=="USDT").forEach(c=>{
-    const amt=wallet[c.sym]||0;
-    if(amt>0){
-      const price=coinPrices[c.sym]?.price||0;
-      const usdVal=amt*price;
-      total+=usdVal;
-      items.push({...c,amount:amt,usdVal});
-    }
-  });
-
-  document.getElementById("walletTotal").textContent=fmt(total);
+  wallet.USDT=(wallet.USDT||0)+deposits.reduce((s,d)=>s+d.amount,0)+(currentUser.bonusBalance||0);
+  let total=0;const items=[];
+  if((wallet.USDT||0)>0){total+=wallet.USDT;items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:wallet.USDT,usdVal:wallet.USDT});}
+  COINS.filter(c=>c.sym!=="USDT").forEach(c=>{const amt=wallet[c.sym]||0;if(amt>0){const price=coinPrices[c.sym]?.price||0;const usdVal=amt*price;total+=usdVal;items.push({...c,amount:amt,usdVal});}});
+  document.getElementById("walletTotal").textContent=total.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
   const list=document.getElementById("walletList");
-  if(!items.length){
-    list.innerHTML=`<div style="text-align:center;padding:40px;color:var(--muted)">Henüz varlık yok. Yatırım yapın veya coin satın alın!</div>`;
-    return;
-  }
-  list.innerHTML=items.map(item=>`
-    <div class="coin-balance-item">
-      <div class="cbi-left">
-        <div class="cbi-icon" style="background:${item.color}22;color:${item.color}">${item.icon}</div>
-        <div><div class="cbi-name">${item.name}</div><div class="cbi-sym">${item.sym}</div></div>
-      </div>
-      <div class="cbi-right">
-        <div class="cbi-amount">${fmtCoin(item.amount,item.sym)} ${item.sym}</div>
-        <div class="cbi-usd">${fmt(item.usdVal)}</div>
-      </div>
-    </div>`).join("");
+  if(!items.length){list.innerHTML=`<div style="text-align:center;padding:36px;color:var(--muted);font-size:13px;">${t("noAssets")}</div>`;return;}
+  list.innerHTML=items.map(item=>`<div class="coin-balance-item"><div class="cbi-left"><div class="cbi-icon" style="background:${item.color}22;color:${item.color}">${item.icon}</div><div><div class="cbi-name">${item.name}</div><div class="cbi-sym">${item.sym}</div></div></div><div class="cbi-right"><div class="cbi-amount">${fmtCoin(item.amount)} ${item.sym}</div><div class="cbi-usd">${fmt(item.usdVal)}</div></div></div>`).join("");
 }
 
-// PROFILE
-function getRefLink(){
-  if(!currentUser)return"";
-  const base=window.location.href.split("?")[0].split("#")[0];
-  return`${base}?ref=${currentUser.username}`;
-}
-function copyRefLink(){navigator.clipboard.writeText(getRefLink());showToast("🔗","Davet linki kopyalandı!");}
+function getRefLink(){if(!currentUser)return"";const base=window.location.href.split("?")[0].split("#")[0];return`${base}?ref=${currentUser.username}`;}
+function copyRefLink(){navigator.clipboard.writeText(getRefLink());showToast("🔗","Referral link copied!");}
 
 function renderProfile(){
   if(!currentUser){openAuth('login');return;}
   const fresh=getUsers().find(u=>u.username===currentUser.username);
   if(fresh){currentUser=fresh;localStorage.setItem("bm_session",JSON.stringify(fresh));}
-
   const cls=getAvatarColor(currentUser.username);
   const letter=(currentUser.name||currentUser.username)[0].toUpperCase();
   document.getElementById("profileAvatarBig").className=`profile-avatar-big ${cls}`;
   document.getElementById("profileAvatarBig").textContent=letter;
+  document.getElementById("profileAvatarBig").style.color="#000";
   document.getElementById("profileName").textContent=currentUser.name;
   document.getElementById("profileUsername").textContent=`@${currentUser.username}`;
-  document.getElementById("profileJoined").textContent=`Katılım: ${currentUser.createdAt}`;
-
+  document.getElementById("profileJoined").textContent=`Joined: ${currentUser.createdAt}`;
   const deposits=getDeposits().filter(d=>d.username===currentUser.username&&d.status==="confirmed"&&d.type==="deposit");
   const depositTotal=deposits.reduce((s,d)=>s+d.amount,0);
   const bonuses=getBonuses().filter(b=>b.referrer===currentUser.username);
   const bonusTotal=bonuses.reduce((s,b)=>s+b.bonusAmount,0);
-  const allUsers=getUsers();
-  const invitedCount=allUsers.filter(u=>u.referredBy===currentUser.username).length;
-
+  const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
   document.getElementById("profileStats").innerHTML=`
-    <div class="profile-stat"><div class="profile-stat-val">$${(depositTotal+bonusTotal).toFixed(0)}</div><div class="profile-stat-label">Toplam Bakiye</div></div>
-    <div class="profile-stat"><div class="profile-stat-val">${invitedCount}</div><div class="profile-stat-label">Davet</div></div>
+    <div class="profile-stat"><div class="profile-stat-val">$${(depositTotal+bonusTotal).toFixed(0)}</div><div class="profile-stat-label">Balance</div></div>
+    <div class="profile-stat"><div class="profile-stat-val">${invitedCount}</div><div class="profile-stat-label">Referrals</div></div>
     <div class="profile-stat"><div class="profile-stat-val">$${bonusTotal.toFixed(0)}</div><div class="profile-stat-label">Bonus</div></div>`;
-
   document.getElementById("profileRefLink").textContent=getRefLink();
+  applyLang();
 }
 
-// REFERRAL BONUS
 function processReferralBonus(dep){
-  const users=getUsers();
-  const depositor=users.find(u=>u.username===dep.username);
+  const users=getUsers();const depositor=users.find(u=>u.username===dep.username);
   if(!depositor||!depositor.referredBy)return;
-  const referrer=users.find(u=>u.username===depositor.referredBy);
-  if(!referrer)return;
+  const referrer=users.find(u=>u.username===depositor.referredBy);if(!referrer)return;
   const allDeps=getDeposits().filter(d=>d.username===dep.username&&d.status==="confirmed"&&d.type==="deposit");
-  const isFirst=allDeps.length===1;
-  if(isFirst&&dep.amount<100)return;
+  if(allDeps.length===1&&dep.amount<100)return;
   const bonusAmt=dep.amount*0.10;
   referrer.bonusBalance=(referrer.bonusBalance||0)+bonusAmt;
   if(!referrer.wallet)referrer.wallet={USDT:0};
   referrer.wallet.USDT=(referrer.wallet.USDT||0)+bonusAmt;
   const bonuses=getBonuses();
-  bonuses.push({id:Date.now(),referrer:referrer.username,referred:dep.username,depositAmount:dep.amount,bonusAmount:bonusAmt,date:new Date().toLocaleString("tr-TR")});
+  bonuses.push({id:Date.now(),referrer:referrer.username,referred:dep.username,depositAmount:dep.amount,bonusAmount:bonusAmt,date:new Date().toLocaleString("en-US")});
   saveBonuses(bonuses);
   if(currentUser&&currentUser.username===referrer.username){currentUser=referrer;localStorage.setItem("bm_session",JSON.stringify(referrer));}
-  saveUsers(users);
-  showToast("🎁",`${referrer.username} için $${bonusAmt.toFixed(2)} bonus!`);
+  saveUsers(users);showToast("🎁",`$${bonusAmt.toFixed(2)} bonus added!`);
 }
 
-// ADMIN
+function openLangModal(){document.getElementById("langModal").classList.add("open");renderLangGrid();}
+function closeLangModal(){document.getElementById("langModal").classList.remove("open");}
+
+function renderLangGrid(){
+  document.getElementById("langGrid").innerHTML=LANGUAGES.map(l=>`
+    <div class="lang-item ${l.code===lang?'active':''} ${!l.active?'inactive':''}" onclick="${l.active?`setLang('${l.code}')`:''}" >
+      <span class="lang-flag">${l.flag}</span>
+      <span class="lang-name">${l.name}</span>
+      ${l.code===lang?`<span class="lang-badge">✓</span>`:''}
+      ${!l.active&&l.code!==lang?`<span class="lang-soon">Soon</span>`:''}
+    </div>`).join("");
+}
+
+function setLang(code){
+  lang=code;
+  localStorage.setItem("bm_lang",code);
+  applyLang();
+  closeLangModal();
+  showToast("🌐",LANGUAGES.find(l=>l.code===code)?.name||code);
+}
+
 function renderAdmin(){
   if(!adminLoggedIn){document.getElementById("adminLoginSection").style.display="block";document.getElementById("adminDashSection").style.display="none";return;}
   document.getElementById("adminLoginSection").style.display="none";document.getElementById("adminDashSection").style.display="block";
@@ -1094,106 +1176,69 @@ function renderAdmin(){
   const pending=deposits.filter(d=>d.status==="pending").length;
   const totalBonus=bonuses.reduce((s,b)=>s+b.bonusAmount,0);
   document.getElementById("adminStats").innerHTML=`
-    <div class="admin-card"><div class="admin-card-label">Kullanıcılar</div><div class="admin-card-val">${users.length}</div></div>
-    <div class="admin-card"><div class="admin-card-label">Yatırım</div><div class="admin-card-val">$${totalDep.toLocaleString()}</div></div>
-    <div class="admin-card"><div class="admin-card-label">Bekleyen</div><div class="admin-card-val" style="color:var(--gold)">${pending}</div></div>
-    <div class="admin-card"><div class="admin-card-label">Bonus</div><div class="admin-card-val" style="color:var(--gold)">$${totalBonus.toFixed(2)}</div></div>
-    <div class="admin-card"><div class="admin-card-label">İşlemler</div><div class="admin-card-val">${trades.length}</div></div>`;
+    <div class="admin-card"><div class="admin-card-label">Users</div><div class="admin-card-val">${users.length}</div></div>
+    <div class="admin-card"><div class="admin-card-label">Deposits</div><div class="admin-card-val">$${totalDep.toLocaleString()}</div></div>
+    <div class="admin-card"><div class="admin-card-label">Pending</div><div class="admin-card-val" style="color:var(--gold)">${pending}</div></div>
+    <div class="admin-card"><div class="admin-card-label">Bonuses</div><div class="admin-card-val" style="color:var(--gold)">$${totalBonus.toFixed(2)}</div></div>
+    <div class="admin-card"><div class="admin-card-label">Trades</div><div class="admin-card-val">${trades.length}</div></div>`;
   renderAdminUsers();renderAdminDeposits();renderAdminBonuses();renderAdminTrades();
 }
 
 function renderAdminUsers(){
-  const users=getUsers(),deposits=getDeposits();
-  const list=document.getElementById("adminUsersList");
-  if(!users.length){list.innerHTML=`<div class="empty-state">Kullanıcı yok</div>`;return;}
+  const users=getUsers(),deposits=getDeposits();const list=document.getElementById("adminUsersList");
+  if(!users.length){list.innerHTML=`<div class="empty-state">No users</div>`;return;}
   const bal={};deposits.filter(d=>d.status==="confirmed"&&d.type==="deposit").forEach(d=>{bal[d.username]=(bal[d.username]||0)+d.amount;});
-  const invCount={};users.forEach(u=>{if(u.referredBy)invCount[u.referredBy]=(invCount[u.referredBy]||0)+1;});
-  list.innerHTML=users.map(u=>`<div class="data-row" style="grid-template-columns:1.5fr 1.5fr 1fr 1fr 1fr;">
-    <div class="td text-accent">${u.username}${u.referredBy?`<div style="font-size:10px;color:var(--muted)">ref:${u.referredBy}</div>`:''}</div>
-    <div class="td text-muted" style="font-size:10px">${u.email}</div>
-    <div class="td" style="color:var(--green)">$${((bal[u.username]||0)+(u.bonusBalance||0)).toFixed(0)}</div>
-    <div class="td text-accent">${invCount[u.username]||0}</div>
-    <div class="td"><button class="action-btn del" onclick="deleteUser('${u.username}')">Sil</button></div>
-  </div>`).join("");
+  const inv={};users.forEach(u=>{if(u.referredBy)inv[u.referredBy]=(inv[u.referredBy]||0)+1;});
+  list.innerHTML=users.map(u=>`<div class="data-row" style="grid-template-columns:1.5fr 1.5fr 1fr 1fr 1fr;"><div class="td" style="color:var(--accent)">${u.username}${u.referredBy?`<div style="font-size:10px;color:var(--muted)">ref:${u.referredBy}</div>`:''}</div><div class="td" style="color:var(--muted);font-size:10px">${u.email}</div><div class="td" style="color:var(--green)">$${((bal[u.username]||0)+(u.bonusBalance||0)).toFixed(0)}</div><div class="td" style="color:var(--accent)">${inv[u.username]||0}</div><div class="td"><button class="action-btn del" onclick="deleteUser('${u.username}')">Delete</button></div></div>`).join("");
 }
 
 function renderAdminDeposits(){
   const deposits=getDeposits();const list=document.getElementById("adminDepositsList");
-  if(!deposits.length){list.innerHTML=`<div class="empty-state">Yatırım yok</div>`;return;}
-  list.innerHTML=deposits.slice().reverse().map(d=>`<div class="data-row" style="grid-template-columns:1.5fr 1fr 1.5fr 1fr 1fr;">
-    <div class="td"><div style="color:var(--accent)">${d.username}</div><div style="font-size:10px;color:var(--muted)">${d.fullname}</div></div>
-    <div class="td" style="color:var(--green)">$${d.amount}</div>
-    <div class="td text-muted" style="font-size:10px">${d.network}</div>
-    <div class="td text-muted" style="font-size:10px">${d.date}</div>
-    <div class="td" style="display:flex;gap:5px;flex-wrap:wrap">
-      ${d.status==="pending"?`<button class="action-btn approve" onclick="approveDeposit(${d.id})">Onayla</button>`:`<span class="badge badge-confirmed">✓</span>`}
-      <button class="action-btn del" onclick="deleteDeposit(${d.id})">Sil</button>
-    </div>
-  </div>`).join("");
+  if(!deposits.length){list.innerHTML=`<div class="empty-state">No deposits</div>`;return;}
+  list.innerHTML=deposits.slice().reverse().map(d=>`<div class="data-row" style="grid-template-columns:1.5fr 1fr 1.5fr 1fr 1fr;"><div class="td"><div style="color:var(--accent)">${d.username}</div><div style="font-size:10px;color:var(--muted)">${d.fullname}</div></div><div class="td" style="color:var(--green)">$${d.amount}</div><div class="td" style="color:var(--muted);font-size:10px">${d.network}</div><div class="td" style="color:var(--muted);font-size:10px">${d.date}</div><div class="td" style="display:flex;gap:4px;">${d.status==="pending"?`<button class="action-btn approve" onclick="approveDeposit(${d.id})">Approve</button>`:`<span class="badge badge-confirmed">✓</span>`}<button class="action-btn del" onclick="deleteDeposit(${d.id})">Del</button></div></div>`).join("");
 }
 
 function renderAdminBonuses(){
   const bonuses=getBonuses();const list=document.getElementById("adminBonusesList");
-  if(!bonuses.length){list.innerHTML=`<div class="empty-state">Bonus yok</div>`;return;}
-  list.innerHTML=bonuses.slice().reverse().map(b=>`<div class="data-row" style="grid-template-columns:1fr 1fr 1fr 1fr;">
-    <div class="td text-accent">${b.referrer}</div>
-    <div class="td text-muted">${b.referred}</div>
-    <div class="td" style="color:var(--gold)">$${b.bonusAmount.toFixed(2)}</div>
-    <div class="td text-muted" style="font-size:10px">${b.date}</div>
-  </div>`).join("");
+  if(!bonuses.length){list.innerHTML=`<div class="empty-state">No bonuses</div>`;return;}
+  list.innerHTML=bonuses.slice().reverse().map(b=>`<div class="data-row" style="grid-template-columns:1fr 1fr 1fr 1fr;"><div class="td" style="color:var(--accent)">${b.referrer}</div><div class="td" style="color:var(--muted)">${b.referred}</div><div class="td" style="color:var(--gold)">$${b.bonusAmount.toFixed(2)}</div><div class="td" style="color:var(--muted);font-size:10px">${b.date}</div></div>`).join("");
 }
 
 function renderAdminTrades(){
   const trades=getTrades();const list=document.getElementById("adminTradesList");
-  if(!trades.length){list.innerHTML=`<div class="empty-state">İşlem yok</div>`;return;}
-  list.innerHTML=trades.slice().reverse().map(t=>`<div class="data-row" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
-    <div class="td text-accent">${t.username}</div>
-    <div class="td" style="color:${t.type==='Alış'?'var(--green)':t.type==='Satış'?'var(--red)':'var(--accent)'}">${t.type}</div>
-    <div class="td text-muted">${t.coin}</div>
-    <div class="td" style="font-family:var(--mono)">$${parseFloat(t.amount).toFixed(2)}</div>
-    <div class="td text-muted" style="font-size:10px">${t.date}</div>
-  </div>`).join("");
+  if(!trades.length){list.innerHTML=`<div class="empty-state">No trades</div>`;return;}
+  list.innerHTML=trades.slice().reverse().map(tr=>`<div class="data-row" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;"><div class="td" style="color:var(--accent)">${tr.username}</div><div class="td" style="color:${tr.type==='Buy'?'var(--green)':tr.type==='Sell'?'var(--red)':'var(--accent)'}">${tr.type}</div><div class="td" style="color:var(--muted)">${tr.coin}</div><div class="td">$${parseFloat(tr.amount).toFixed(2)}</div><div class="td" style="color:var(--muted);font-size:10px">${tr.date}</div></div>`).join("");
 }
 
 function approveDeposit(id){
   const deposits=getDeposits();const dep=deposits.find(d=>d.id===id);if(!dep)return;
   dep.status="confirmed";saveDeposits(deposits);
   const users=getUsers();const user=users.find(u=>u.username===dep.username);
-  if(user){
-    user.balance=(user.balance||0)+dep.amount;
-    if(!user.wallet)user.wallet={USDT:0};
-    user.wallet.USDT=(user.wallet.USDT||0)+dep.amount;
-    if(!user.firstDepositDone)user.firstDepositDone=true;
-    saveUsers(users);
-    if(currentUser&&currentUser.username===user.username){currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));}
-  }
-  processReferralBonus(dep);
-  showToast("✅",`$${dep.amount} onaylandı`);
-  renderAdmin();
+  if(user){user.balance=(user.balance||0)+dep.amount;if(!user.wallet)user.wallet={USDT:0};user.wallet.USDT=(user.wallet.USDT||0)+dep.amount;if(!user.firstDepositDone)user.firstDepositDone=true;saveUsers(users);if(currentUser&&currentUser.username===user.username){currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));}}
+  processReferralBonus(dep);showToast("✅",`$${dep.amount} approved`);renderAdmin();
 }
 
-function deleteDeposit(id){if(!confirm("Sil?"))return;saveDeposits(getDeposits().filter(d=>d.id!==id));renderAdmin();}
-function deleteUser(username){if(!confirm(`${username} silinsin mi?`))return;saveUsers(getUsers().filter(u=>u.username!==username));renderAdmin();showToast("🗑️","Silindi");}
+function deleteDeposit(id){if(!confirm("Delete?"))return;saveDeposits(getDeposits().filter(d=>d.id!==id));renderAdmin();}
+function deleteUser(username){if(!confirm(`Delete ${username}?`))return;saveUsers(getUsers().filter(u=>u.username!==username));renderAdmin();showToast("🗑️","Deleted");}
 
 function switchAdminTab(tab,btn){
   document.querySelectorAll(".sec-tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
-  ["users","deposits","bonuses","trades"].forEach(t=>{
-    document.getElementById(`admin${t.charAt(0).toUpperCase()+t.slice(1)}Section`).style.display=t===tab?"block":"none";
-  });
+  ["users","deposits","bonuses","trades"].forEach(tp=>{document.getElementById(`admin${tp.charAt(0).toUpperCase()+tp.slice(1)}Section`).style.display=tp===tab?"block":"none";});
 }
-function adminLogin(){const pass=document.getElementById("adminPassInput").value;if(pass===ADMIN_PASS){adminLoggedIn=true;renderAdmin();}else showMsg(document.getElementById("adminLoginMsg"),"Hatalı şifre","error");}
+function adminLogin(){const pass=document.getElementById("adminPassInput").value;if(pass===ADMIN_PASS){adminLoggedIn=true;renderAdmin();}else showMsg(document.getElementById("adminLoginMsg"),"Invalid password","error");}
 function adminLogout(){adminLoggedIn=false;renderAdmin();}
 
 function showMsg(el,text,type){el.innerHTML=`<div class="msg ${type}">${text}</div>`;setTimeout(()=>{if(el)el.innerHTML="";},4000);}
-function showToast(icon,text){const t=document.getElementById("toast");document.getElementById("toastIcon").textContent=icon;document.getElementById("toastText").textContent=text;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),3500);}
+function showToast(icon,text){const t2=document.getElementById("toast");document.getElementById("toastIcon").textContent=icon;document.getElementById("toastText").textContent=text;t2.classList.add("show");setTimeout(()=>t2.classList.remove("show"),3000);}
 
 (function init(){
   try{const s=localStorage.getItem("bm_session");if(s){currentUser=JSON.parse(s);updateNav();}}catch(e){}
+  const savedLang=localStorage.getItem("bm_lang");if(savedLang)lang=savedLang;
   const urlParams=new URLSearchParams(window.location.search);
   const ref=urlParams.get("ref");
   if(ref){document.getElementById("refCode").value=ref;openAuth("register");}
   if(location.hash==="#admin")showPage("admin");
-  fetchPrices();setInterval(fetchPrices,60000);
+  applyLang();fetchPrices();setInterval(fetchPrices,60000);
 })();
 </script>
 
