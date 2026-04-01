@@ -68,10 +68,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:var(�
 /* FORMS */
 .form-group{margin-bottom:14px;}
 .form-label{display:block;font-size:12px;color:var(–muted);font-weight:500;margin-bottom:5px;}
-.form-input{width:100%;background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:10px 12px;color:var(–text);font-family:var(–font);font-size:13px;outline:none;transition:border-color 0.15s;}
-.form-input:focus{border-color:var(–accent);}
-.form-input::placeholder{color:var(–muted);}
-select.form-input{cursor:pointer;}
+.form-input{width:100%;background:#1a1f28;border:1px solid var(–border);border-radius:6px;padding:10px 12px;color:var(–text);font-family:var(–font);font-size:13px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none;}
+.form-input:focus{border-color:var(–accent);background:#1e2530;}
+.form-input::placeholder{color:#4a5568;}
+.form-input:hover{border-color:#3d4755;}
+select.form-input{cursor:pointer;background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 24 24’ fill=‘none’ stroke=’%23848e9c’ stroke-width=‘2’%3E%3Cpolyline points=‘6 9 12 15 18 9’%3E%3C/polyline%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
 
 /* SECTION TITLE */
 .sec-title{font-size:14px;font-weight:700;color:var(–text);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
@@ -107,7 +108,7 @@ select.form-input{cursor:pointer;}
 /* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.8);align-items:center;justify-content:center;padding:16px;}
 .modal-bg.open{display:flex;}
-.modal{background:var(–bg2);border:1px solid var(–border);border-radius:10px;padding:28px;width:100%;max-width:400px;position:relative;animation:slideUp 0.2s ease;max-height:90vh;overflow-y:auto;}
+.modal{background:#0f1319;border:1px solid #2b3139;border-radius:10px;padding:28px;width:100%;max-width:400px;position:relative;animation:slideUp 0.2s ease;max-height:90vh;overflow-y:auto;}
 @keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
 .modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(–muted);cursor:pointer;font-size:18px;line-height:1;}
 .modal-close:hover{color:var(–text);}
@@ -160,7 +161,7 @@ select.form-input{cursor:pointer;}
 .step-title{font-size:14px;font-weight:700;}
 .net-tabs{display:flex;flex-wrap:wrap;gap:6px;}
 .net-tab{padding:5px 12px;background:var(–bg3);border:1px solid var(–border);border-radius:4px;cursor:pointer;font-family:var(–font);font-size:11px;font-weight:600;color:var(–muted);}
-.net-tab.active{background:rgba(240,185,11,0.1);border-color:var(–accent);color:var(–accent);}
+.net-tab.active{background:rgba(240,185,11,0.12);border-color:var(–accent);color:var(–accent);box-shadow:0 0 8px rgba(240,185,11,0.15);}
 .addr-box{display:flex;align-items:center;gap:8px;background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:10px 12px;}
 .addr-text{font-family:var(–mono);font-size:11px;flex:1;word-break:break-all;color:var(–accent);}
 .copy-btn{background:var(–accent);color:#000;border:none;border-radius:4px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;}
@@ -184,7 +185,7 @@ select.form-input{cursor:pointer;}
 .chat-msg-bot{background:var(–bg3);border-radius:8px 8px 8px 2px;padding:8px 11px;font-size:12px;max-width:85%;}
 .chat-msg-user{background:var(–accent);color:#000;border-radius:8px 8px 2px 8px;padding:8px 11px;font-size:12px;max-width:85%;align-self:flex-end;font-weight:500;}
 .chat-input-row{padding:10px;border-top:1px solid var(–border);display:flex;gap:7px;}
-.chat-input{flex:1;background:var(–bg3);border:1px solid var(–border);border-radius:6px;padding:8px 10px;color:var(–text);font-size:12px;outline:none;font-family:var(–font);}
+.chat-input{flex:1;background:#1a1f28;border:1px solid var(–border);border-radius:6px;padding:8px 10px;color:var(–text);font-size:12px;outline:none;font-family:var(–font);}.chat-input::placeholder{color:#4a5568;}
 .chat-send{background:var(–accent);color:#000;border:none;border-radius:6px;padding:8px 12px;font-weight:700;cursor:pointer;}
 .chat-fab{width:46px;height:46px;background:var(–accent);color:#000;border:none;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 16px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;margin-left:auto;}
 
@@ -320,7 +321,7 @@ select.form-input{cursor:pointer;}
 <div class="page" id="page-markets">
   <div class="wrap">
     <div class="sec-title" id="marketsTitle">Markets</div>
-    <input class="form-input" id="mktSearch" placeholder="Search... BTC, ETH" oninput="renderMarkets()" style="margin-bottom:12px;">
+    <input class="form-input" id="mktSearch" placeholder="🔍  Search... BTC, ETH" oninput="renderMarkets()" style="margin-bottom:12px;">
     <div class="card" style="padding:0;overflow:hidden;">
       <div class="mkt-head"><div>Coin</div><div>Price</div><div>24h %</div><div>Action</div></div>
       <div id="marketList"></div>
@@ -848,22 +849,22 @@ select.form-input{cursor:pointer;}
 
   <!-- Step 2: Email verification -->
   <div id="regStep2" style="display:none;">
-    <div style="text-align:center;margin-bottom:20px;">
-      <div style="font-size:32px;margin-bottom:8px;">✉️</div>
-      <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Verify Your Email</div>
-      <div style="font-size:12px;color:var(--muted);" id="verifyEmailHint">We sent a 6-digit code to your email</div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="width:56px;height:56px;background:rgba(240,185,11,0.1);border:1px solid rgba(240,185,11,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 10px;">🔐</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Email Verification</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;" id="verifyEmailHint">Your verification code is shown below. Enter it to complete registration.</div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Verification Code</label>
-      <input class="form-input" id="verifyCode" placeholder="Enter 6-digit code" maxlength="6" style="text-align:center;font-size:22px;font-family:var(--mono);letter-spacing:8px;font-weight:700;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    <div id="verifyMsg"></div>
+    <div class="form-group" style="margin-top:14px;">
+      <label class="form-label" style="text-align:center;display:block;">Enter Verification Code</label>
+      <input class="form-input" id="verifyCode" placeholder="• • • • • •" maxlength="6" style="text-align:center;font-size:26px;font-family:var(--mono);letter-spacing:10px;font-weight:800;background:#1a1f28;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
     </div>
     <div style="text-align:center;margin-bottom:14px;">
-      <span style="font-size:12px;color:var(--muted);">Didn't receive it? </span>
-      <span style="font-size:12px;color:var(--accent);cursor:pointer;" onclick="resendCode()">Resend code</span>
+      <span style="font-size:12px;color:var(--muted);">Need a new code? </span>
+      <span style="font-size:12px;color:var(--accent);cursor:pointer;font-weight:600;" onclick="resendCode()">Generate new code</span>
     </div>
-    <button class="btn btn-primary btn-full" onclick="verifyAndRegister()" style="padding:13px;font-size:14px;">Create Account</button>
-    <button onclick="backToStep1()" style="width:100%;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;margin-top:10px;">← Go back</button>
-    <div id="verifyMsg"></div>
+    <button class="btn btn-primary btn-full" onclick="verifyAndRegister()" style="padding:13px;font-size:14px;">✓ Verify & Create Account</button>
+    <button onclick="backToStep1()" style="width:100%;background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;margin-top:10px;padding:6px;">← Back to registration</button>
   </div>
 
   <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px;">By registering you agree to our <span style="color:var(--accent);">Terms of Service</span>.</div>
@@ -1033,6 +1034,7 @@ const TR = {
   depBtn:"+ Yatır", wdBtn:"↑ Çek", tradeBtn:"⇄ Al/Sat",
   depBalLabel:"Yatırılan", incomeBalLabel:"AI Geliri", bonusBalLabel:"Bonus",
   pendingBalLabel:"Beklemede", refStatsTitle:"Referans Performansı",
+  wRefCountLabel:"Davet Edilen",wRefEarnedLabel:"Ref. Kazanılan",
   refLinkTitle:"Davet Linkim", refLinkDesc:"Arkadaşını davet et — yatırımından %10 kazan!",
   copyRefBtn:"Kopyala", quickAccessTitle:"Hızlı Erişim",
   menuDeposit:"Yatır", menuDepositSub:"Kripto yatır",
@@ -1862,48 +1864,73 @@ function renderWallet(){
   if(!currentUser){showPage("home");return;}
   const fresh=getUsers().find(u=>u.username===currentUser.username);
   if(fresh){currentUser=fresh;localStorage.setItem("bm_session",JSON.stringify(fresh));}
-  const deps=getDeposits().filter(d=>d.username===currentUser.username&&d.status==="confirmed"&&d.type==="deposit");
-  const pendingDeps=getDeposits().filter(d=>d.username===currentUser.username&&d.status==="pending"&&d.type==="deposit");
-  const depositTotal=deps.reduce((s,d)=>s+d.amount,0);
+  
+  const allDeps=getDeposits().filter(d=>d.username===currentUser.username&&d.type==="deposit");
+  const confirmedDeps=allDeps.filter(d=>d.status==="confirmed");
+  const pendingDeps=allDeps.filter(d=>d.status==="pending");
+  const depositTotal=confirmedDeps.reduce((s,d)=>s+d.amount,0);
   const pendingTotal=pendingDeps.reduce((s,d)=>s+d.amount,0);
+  
   const income=calcIncome(currentUser.username);
   const bonusTotal=currentUser.bonusBalance||0;
+  
+  // Referral stats
   const refBonuses=getBonuses().filter(b=>b.referrer===currentUser.username);
   const refEarned=refBonuses.reduce((s,b)=>s+b.bonusAmount,0);
   const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
+  
+  // Grand total = confirmed deposits + AI income + bonuses
   const grandTotal=depositTotal+income.earned+bonusTotal;
-
+  
+  // Update UI
   document.getElementById("walletTotal").textContent=grandTotal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
   document.getElementById("wDepTotal").textContent=fmt(depositTotal);
-  document.getElementById("wIncomeTotal").textContent=fmt(income.earned);
-  document.getElementById("wBonusTotal").textContent=fmt(bonusTotal);
-  document.getElementById("wPendingTotal").textContent=fmt(pendingTotal);
+  document.getElementById("wIncomeTotal").textContent=income.earned>0?fmt(income.earned):"$0.00";
+  document.getElementById("wBonusTotal").textContent=bonusTotal>0?fmt(bonusTotal):"$0.00";
+  document.getElementById("wPendingTotal").textContent=pendingTotal>0?fmt(pendingTotal):"$0.00";
   document.getElementById("wRefCount").textContent=invitedCount;
-  document.getElementById("wRefEarned").textContent=fmt(refEarned);
-
-  // Assets
+  document.getElementById("wRefEarned").textContent=refEarned>0?fmt(refEarned):"$0.00";
+  
+  // Update breakdown labels with extra info
+  const incLabel=document.getElementById("incomeBalLabel");
+  if(incLabel&&income.cycles>0){incLabel.textContent="AI Income ("+income.cycles+" cycles)";}
+  
+  // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
-  wallet.USDT=(wallet.USDT||0)+depositTotal+bonusTotal+income.earned;
+  const totalUSDT=(wallet.USDT||0)+depositTotal+bonusTotal+income.earned;
+  
   const items=[];
-  if((wallet.USDT||0)>0.001){items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:wallet.USDT,usdVal:wallet.USDT});}
+  if(totalUSDT>0.001){
+    items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:totalUSDT,usdVal:totalUSDT,change:0});
+  }
   COINS.filter(c=>c.sym!=="USDT").forEach(c=>{
     const amt=wallet[c.sym]||0;
-    if(amt>0){const price=coinPrices[c.sym]?.price||0;items.push({...c,amount:amt,usdVal:amt*price});}
+    if(amt>0){
+      const price=coinPrices[c.sym]?.price||0;
+      const ch=parseFloat(coinPrices[c.sym]?.change||0);
+      items.push({sym:c.sym,name:c.name,icon:c.icon,color:c.color,amount:amt,usdVal:amt*price,change:ch});
+    }
   });
+  
   const list=document.getElementById("walletList");
   if(!items.length){
-    list.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted);font-size:13px;">No assets yet. Make a deposit to start!</div>';
+    list.innerHTML="<div style='text-align:center;padding:32px;color:var(--muted);font-size:13px;'>No assets yet.<br><br><button onclick="showPage('deposit')" class='btn btn-primary btn-sm'>Make a Deposit</button></div>";
   } else {
     list.innerHTML=items.map(item=>{
-      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">'
-        +'<div style="display:flex;align-items:center;gap:10px;">'
-        +'<div class="coin-icon" style="background:'+item.color+'22;color:'+item.color+'">'+item.icon+'</div>'
-        +'<div><div style="font-weight:600;font-size:13px;">'+item.name+'</div><div style="font-size:10px;color:var(--muted);font-family:var(--mono);">'+item.sym+'</div></div>'
-        +'</div>'
-        +'<div style="text-align:right;">'
-        +'<div style="font-family:var(--mono);font-size:13px;font-weight:500;">'+fmtCoin(item.amount)+' '+item.sym+'</div>'
-        +'<div style="font-size:11px;color:var(--muted);">'+fmt(item.usdVal)+'</div>'
-        +'</div></div>';
+      const pct=item.change||0;
+      return "<div style='display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);'>"
+        +"<div style='display:flex;align-items:center;gap:10px;'>"
+        +"<div class='coin-icon' style='background:"+item.color+"22;color:"+item.color+"'>"+item.icon+"</div>"
+        +"<div>"
+        +"<div style='font-weight:600;font-size:13px;'>"+item.name+"</div>"
+        +"<div style='font-size:10px;color:var(--muted);font-family:var(--mono);'>"+item.sym+"</div>"
+        +"</div></div>"
+        +"<div style='text-align:right;'>"
+        +"<div style='font-family:var(--mono);font-size:14px;font-weight:600;'>"+fmtCoin(item.amount)+" "+item.sym+"</div>"
+        +"<div style='display:flex;align-items:center;justify-content:flex-end;gap:6px;'>"
+        +"<span style='font-size:11px;color:var(--muted);'>"+fmt(item.usdVal)+"</span>"
+        +(item.sym!=="USDT"?"<span style='font-size:10px;font-family:var(--mono);color:"+(pct>=0?"var(--green)":"var(--red)")+"'>"+(pct>=0?"+":"")+pct+"%</span>":"")
+        +"</div></div></div>";
     }).join("");
   }
 }
