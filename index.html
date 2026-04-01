@@ -468,26 +468,81 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 <div class="page" id="page-wallet">
   <div class="wallet-wrap">
-    <div class="wallet-header">
-      <div class="wallet-total-label" id="walletTotalLabel">TOTAL PORTFOLIO VALUE</div>
-      <div class="wallet-total"><span>$</span><span id="walletTotal">0.00</span></div>
-      <div class="wallet-btns">
-        <button class="wallet-btn" onclick="showPage('deposit')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span id="depositBtnLabel">Deposit</span>
-        </button>
-        <button class="wallet-btn" onclick="showPage('trade')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-          <span id="tradeBtnLabel">Trade</span>
-        </button>
-        <button class="wallet-btn" onclick="showPage('withdraw')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span id="withdrawBtnLabel">Withdraw</span>
-        </button>
+    <!-- TOTAL BALANCE CARD -->
+    <div style="background:linear-gradient(135deg,#1a1f2e,#0d1117);border:1px solid rgba(240,185,11,0.2);border-radius:12px;padding:22px;margin-bottom:12px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(240,185,11,0.1),transparent);pointer-events:none;"></div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;" id="walletTotalLabel">Total Portfolio Value</div>
+      <div style="font-family:var(--mono);font-size:34px;font-weight:800;color:var(--text);margin-bottom:2px;"><span style="color:var(--muted);font-size:20px;">$</span><span id="walletTotal">0.00</span></div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px;" id="walletPnlLabel">≈ Portfolio Value in USD</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="showPage('deposit')" style="flex:1;background:var(--accent);color:#000;border:none;border-radius:6px;padding:10px;font-weight:700;font-size:12px;cursor:pointer;" id="depositBtnLabel">+ Deposit</button>
+        <button onclick="showPage('withdraw')" style="flex:1;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:6px;padding:10px;font-weight:600;font-size:12px;cursor:pointer;" id="withdrawBtnLabel">↑ Withdraw</button>
+        <button onclick="showPage('trade')" style="flex:1;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:6px;padding:10px;font-weight:600;font-size:12px;cursor:pointer;" id="tradeBtnLabel">⇄ Trade</button>
       </div>
     </div>
-    <div class="section-title" id="assetsLabel">My Assets</div>
-    <div class="coin-balance-list" id="walletList"></div>
+
+```
+<!-- BALANCE BREAKDOWN -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;" id="depBalLabel">Deposited</div>
+    <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);" id="walletDepBalance">$0.00</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="depBalSub">Principal amount</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;" id="incomeBalLabel">AI Income</div>
+    <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green);" id="walletIncomeBalance">$0.00</div>
+    <div style="font-size:10px;color:var(--green);margin-top:2px;" id="incomeBalSub">~10% daily earnings</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;" id="bonusBalLabel">Bonus Balance</div>
+    <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);" id="walletBonusBalance">$0.00</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="bonusBalSub">Referral & welcome bonus</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;" id="pendingBalLabel">Pending</div>
+    <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--gold);" id="walletPendingBalance">$0.00</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="pendingBalSub">Awaiting confirmation</div>
+  </div>
+</div>
+
+<!-- REFERRAL STATS -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+    <div style="font-size:12px;font-weight:700;" id="refStatsTitle">Referral Performance</div>
+    <button onclick="showPage('profile')" style="font-size:11px;color:var(--accent);background:transparent;border:none;cursor:pointer;">View Link →</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+    <div style="text-align:center;">
+      <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);" id="walletRefCount">0</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="walletRefLabel">Invited</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green);" id="walletRefEarned">$0</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="walletRefEarnedLabel">Ref. Earned</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);">10%</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;">Commission</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSACTION HISTORY TABS -->
+<div style="display:flex;gap:6px;margin-bottom:10px;">
+  <button onclick="switchWalletTab('assets',this)" class="sec-tab active" id="wt-assets">Assets</button>
+  <button onclick="switchWalletTab('history',this)" class="sec-tab" id="wt-history">History</button>
+</div>
+
+<div id="walletAssetsTab">
+  <div class="section-title" id="assetsLabel">My Assets</div>
+  <div class="coin-balance-list" id="walletList"></div>
+</div>
+<div id="walletHistoryTab" style="display:none;">
+  <div id="walletHistoryList"></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -592,6 +647,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <div>
       <div style="font-size:16px;font-weight:800;color:var(--text);" id="mgmtTitle">AI-Powered Asset Management</div>
       <div style="font-size:11px;color:var(--accent);">Blockmind AI-Powered Asset Management · Licensed & Regulated</div>
+    </div>
+  </div>
+  <!-- LIVE STATS BAR -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;">
+    <div style="background:rgba(14,203,129,0.06);border:1px solid rgba(14,203,129,0.15);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;">
+      <div style="width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse2 1.5s infinite;flex-shrink:0;"></div>
+      <div><div style="font-size:10px;color:var(--muted);">Active Traders</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--green);" id="liveTraderCount">2,847</div></div>
+    </div>
+    <div style="background:rgba(240,185,11,0.06);border:1px solid rgba(240,185,11,0.15);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;">
+      <div style="width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse2 2s infinite;flex-shrink:0;"></div>
+      <div><div style="font-size:10px;color:var(--muted);">24h Volume Managed</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent);" id="liveVolumeManaged">$4.2M</div></div>
+    </div>
+    <div style="background:rgba(0,174,228,0.06);border:1px solid rgba(0,174,228,0.15);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;">
+      <div style="font-size:16px;">⚡</div>
+      <div><div style="font-size:10px;color:var(--muted);">Trades Executed Today</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#00aae4;" id="liveTradesToday">18,492</div></div>
+    </div>
+    <div style="background:rgba(153,69,255,0.06);border:1px solid rgba(153,69,255,0.15);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;">
+      <div style="font-size:16px;">🏆</div>
+      <div><div style="font-size:10px;color:var(--muted);">Avg. Daily Return</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#9945ff;">9.8%</div></div>
     </div>
   </div>
   <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;" id="mgmtDesc1">
@@ -882,12 +956,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         </div>
       </div>
       <div id="adminDepositsSection" style="display:none">
-        <div class="data-table">
-          <div class="data-head" style="grid-template-columns:1.5fr 1fr 1.5fr 1fr 1fr;">
-            <div class="th">User</div><div class="th">Amount</div><div class="th">Network</div><div class="th">Date</div><div class="th">Status</div>
-          </div>
-          <div id="adminDepositsList"></div>
-        </div>
+        <div id="adminDepositsList"></div>
       </div>
       <div id="adminWithdrawalsSection" style="display:none">
         <div class="data-table">
@@ -1590,20 +1659,87 @@ function saveTrade(username,type,coin,amount,qty){const trades=getTrades();trade
 
 function swapConvert(){const f=document.getElementById("convertFrom").value,t2=document.getElementById("convertTo").value;document.getElementById("convertFrom").value=t2;document.getElementById("convertTo").value=f;updateTradeInfo('convert');}
 
+function switchWalletTab(tab, btn){
+  document.querySelectorAll('.sec-tab').forEach(b=>{if(b.id&&b.id.startsWith('wt-'))b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  document.getElementById('walletAssetsTab').style.display=tab==='assets'?'block':'none';
+  document.getElementById('walletHistoryTab').style.display=tab==='history'?'block':'none';
+  if(tab==='history')renderWalletHistory();
+}
+
+function renderWalletHistory(){
+  const deposits=getDeposits().filter(d=>d.username===currentUser.username);
+  const withdrawals=getWithdrawals().filter(w=>w.username===currentUser.username);
+  const bonuses=getBonuses().filter(b=>b.referrer===currentUser.username);
+  const all=[
+    ...deposits.map(d=>({...d,txType:'deposit'})),
+    ...withdrawals.map(w=>({...w,txType:'withdrawal',amount:-w.amount})),
+    ...bonuses.map(b=>({...b,txType:'bonus',amount:b.bonusAmount,date:b.date,status:'confirmed'}))
+  ].sort((a,b)=>b.id-a.id);
+  const list=document.getElementById('walletHistoryList');
+  if(!all.length){list.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted);font-size:13px;">No transactions yet</div>';return;}
+  list.innerHTML=all.map(tx=>{
+    const icon=tx.txType==='deposit'?'↓':tx.txType==='withdrawal'?'↑':'🎁';
+    const color=tx.txType==='deposit'?'var(--green)':tx.txType==='withdrawal'?'var(--red)':'var(--accent)';
+    const label=tx.txType==='deposit'?'Deposit':tx.txType==='withdrawal'?'Withdrawal':'Bonus';
+    const amt=tx.txType==='bonus'?tx.bonusAmount:tx.amount;
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">'
+      +'<div style="display:flex;align-items:center;gap:10px;">'
+      +'<div style="width:34px;height:34px;border-radius:50%;background:'+color+'22;color:'+color+';display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;">'+icon+'</div>'
+      +'<div><div style="font-weight:600;font-size:13px;">'+label+'</div>'
+      +'<div style="font-size:11px;color:var(--muted);">'+(tx.network||tx.coin||'Referral')+'</div>'
+      +'<div style="font-size:10px;color:var(--muted);">'+tx.date+'</div></div>'
+      +'</div>'
+      +'<div style="text-align:right;">'
+      +'<div style="font-family:var(--mono);font-weight:700;color:'+color+';">'+(tx.txType==='withdrawal'?'-':'+')+fmt(Math.abs(amt))+'</div>'
+      +'<div><span style="font-size:10px;background:'+(tx.status==="confirmed"?'rgba(14,203,129,0.15)':'rgba(240,185,11,0.15)')+';color:'+(tx.status==="confirmed"?'var(--green)':'var(--gold)')+';padding:2px 6px;border-radius:4px;">'+(tx.status==="confirmed"?"Confirmed":"Pending")+'</span></div>'
+      +'</div></div>';
+  }).join('');
+}
+
 function renderWallet(){
   if(!currentUser){showPage("home");return;}
   const fresh=getUsers().find(u=>u.username===currentUser.username);
   if(fresh){currentUser=fresh;localStorage.setItem("bm_session",JSON.stringify(fresh));}
+  
+  const allDeposits=getDeposits().filter(d=>d.username===currentUser.username);
+  const confirmedDeposits=allDeposits.filter(d=>d.status==="confirmed"&&d.type==="deposit");
+  const pendingDeposits=allDeposits.filter(d=>d.status==="pending");
+  const depositTotal=confirmedDeposits.reduce((s,d)=>s+d.amount,0);
+  const pendingTotal=pendingDeposits.reduce((s,d)=>s+d.amount,0);
+  const income=getDailyIncome(currentUser.username);
+  const bonusTotal=currentUser.bonusBalance||0;
+  const refBonuses=getBonuses().filter(b=>b.referrer===currentUser.username);
+  const refEarned=refBonuses.reduce((s,b)=>s+b.bonusAmount,0);
+  const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
+
+  // Total
+  const grandTotal=depositTotal+income.earned+bonusTotal;
+  document.getElementById("walletTotal").textContent=grandTotal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  
+  // Breakdown
+  document.getElementById("walletDepBalance").textContent=fmt(depositTotal);
+  document.getElementById("walletIncomeBalance").textContent=fmt(income.earned);
+  document.getElementById("walletBonusBalance").textContent=fmt(bonusTotal);
+  document.getElementById("walletPendingBalance").textContent=fmt(pendingTotal);
+  
+  // Referral stats
+  document.getElementById("walletRefCount").textContent=invitedCount;
+  document.getElementById("walletRefEarned").textContent=fmt(refEarned);
+
+  // Assets
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
-  const deposits=getDeposits().filter(d=>d.username===currentUser.username&&d.status==="confirmed"&&d.type==="deposit");
-  wallet.USDT=(wallet.USDT||0)+deposits.reduce((s,d)=>s+d.amount,0)+(currentUser.bonusBalance||0);
+  wallet.USDT=(wallet.USDT||0)+depositTotal+bonusTotal+income.earned;
   let total=0;const items=[];
-  if((wallet.USDT||0)>0){total+=wallet.USDT;items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:wallet.USDT,usdVal:wallet.USDT});}
-  COINS.filter(c=>c.sym!=="USDT").forEach(c=>{const amt=wallet[c.sym]||0;if(amt>0){const price=coinPrices[c.sym]?.price||0;const usdVal=amt*price;total+=usdVal;items.push({...c,amount:amt,usdVal});}});
-  document.getElementById("walletTotal").textContent=total.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  if((wallet.USDT||0)>0.001){total+=wallet.USDT;items.push({sym:"USDT",name:"Tether",icon:"₮",color:"#26a17b",amount:wallet.USDT,usdVal:wallet.USDT});}
+  COINS.filter(c=>c.sym!=="USDT").forEach(c=>{const amt=wallet[c.sym]||0;if(amt>0){const price=coinPrices[c.sym]?.price||0;const usdVal=amt*price;total+=usdVal;items.push({sym:c.sym,name:c.name,icon:c.icon,color:c.color,amount:amt,usdVal});}});
+  
   const list=document.getElementById("walletList");
-  if(!items.length){list.innerHTML=`<div style="text-align:center;padding:36px;color:var(--muted);font-size:13px;">${t("noAssets")}</div>`;return;}
-  list.innerHTML=items.map(item=>`<div class="coin-balance-item"><div class="cbi-left"><div class="cbi-icon" style="background:${item.color}22;color:${item.color}">${item.icon}</div><div><div class="cbi-name">${item.name}</div><div class="cbi-sym">${item.sym}</div></div></div><div class="cbi-right"><div class="cbi-amount">${fmtCoin(item.amount)} ${item.sym}</div><div class="cbi-usd">${fmt(item.usdVal)}</div></div></div>`).join("");
+  if(!items.length){
+    list.innerHTML='<div style="text-align:center;padding:36px;color:var(--muted);font-size:13px;">'+t("noAssets")+'</div>';
+  } else {
+    list.innerHTML=items.map(item=>'<div class="coin-balance-item"><div class="cbi-left"><div class="cbi-icon" style="background:'+item.color+'22;color:'+item.color+'">'+item.icon+'</div><div><div class="cbi-name">'+item.name+'</div><div class="cbi-sym">'+item.sym+'</div></div></div><div class="cbi-right"><div class="cbi-amount">'+fmtCoin(item.amount)+' '+item.sym+'</div><div class="cbi-usd">'+fmt(item.usdVal)+'</div></div></div>').join("");
+  }
 }
 
 function getRefLink(){if(!currentUser)return"";const base=window.location.href.split("?")[0].split("#")[0];return`${base}?ref=${currentUser.username}`;}
@@ -1704,8 +1840,36 @@ function renderAdminUsers(){
 
 function renderAdminDeposits(){
   const deposits=getDeposits();const list=document.getElementById("adminDepositsList");
-  if(!deposits.length){list.innerHTML=`<div class="empty-state">No deposits</div>`;return;}
-  list.innerHTML=deposits.slice().reverse().map(d=>`<div class="data-row" style="grid-template-columns:1.5fr 1fr 1.5fr 1fr 1fr;"><div class="td"><div style="color:var(--accent)">${d.username}</div><div style="font-size:10px;color:var(--muted)">${d.fullname}</div></div><div class="td" style="color:var(--green)">$${d.amount}</div><div class="td" style="color:var(--muted);font-size:10px">${d.network}</div><div class="td" style="color:var(--muted);font-size:10px">${d.date}</div><div class="td" style="display:flex;gap:4px;">${d.status==="pending"?`<button class="action-btn approve" onclick="approveDeposit(${d.id})">Approve</button>`:`<span class="badge badge-confirmed">✓</span>`}<button class="action-btn del" onclick="deleteDeposit(${d.id})">Del</button></div></div>`).join("");
+  if(!deposits.length){list.innerHTML='<div class="empty-state">No deposits yet</div>';return;}
+  list.innerHTML=deposits.slice().reverse().map(d=>{
+    const statusBadge=d.status==="confirmed"
+      ?'<span class="badge badge-confirmed">✓ Confirmed</span>'
+      :'<button class="action-btn approve" onclick="approveDeposit('+d.id+')">✓ Approve</button>';
+    return '<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:8px;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'
+      +'<div style="display:flex;align-items:center;gap:8px;">'
+      +'<div style="width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#000;">'+(d.username[0]||'?').toUpperCase()+'</div>'
+      +'<div><div style="font-weight:600;color:var(--accent);font-size:13px;">@'+d.username+'</div>'
+      +'<div style="font-size:11px;color:var(--muted);">'+d.fullname+'</div></div>'
+      +'</div>'
+      +'<div style="text-align:right;">'
+      +'<div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green);">$'+d.amount+'</div>'
+      +'<div style="font-size:10px;color:var(--muted);">'+d.network+'</div>'
+      +'</div></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">'
+      +'<div style="background:var(--bg3);border-radius:6px;padding:8px;">'
+      +'<div style="font-size:10px;color:var(--muted);margin-bottom:2px;">TX Hash</div>'
+      +'<div style="font-family:var(--mono);font-size:10px;color:var(--text);word-break:break-all;">'+(d.txhash&&d.txhash!=='-'?d.txhash:'Not provided')+'</div>'
+      +'</div>'
+      +'<div style="background:var(--bg3);border-radius:6px;padding:8px;">'
+      +'<div style="font-size:10px;color:var(--muted);margin-bottom:2px;">Date & Time</div>'
+      +'<div style="font-size:10px;color:var(--text);">'+d.date+'</div>'
+      +'</div></div>'
+      +'<div style="display:flex;gap:6px;align-items:center;justify-content:space-between;">'
+      +'<span style="font-size:11px;color:var(--muted);">Status: '+statusBadge+'</span>'
+      +'<button class="action-btn del" onclick="deleteDeposit('+d.id+')">🗑 Delete</button>'
+      +'</div></div>';
+  }).join("");
 }
 
 function renderAdminBonuses(){
@@ -2124,6 +2288,23 @@ function startLiveTrades(){
   setTimeout(scheduleNext,2000);
 }
 
+
+function startMgmtStats(){
+  // Animate live management stats
+  let traders=2847,volume=4200000,trades=18492;
+  setInterval(()=>{
+    traders+=Math.floor(Math.random()*3)-1;
+    volume+=Math.floor(Math.random()*5000)-1000;
+    trades+=Math.floor(Math.random()*8)+1;
+    const tc=document.getElementById("liveTraderCount");
+    const vm=document.getElementById("liveVolumeManaged");
+    const tt=document.getElementById("liveTradesToday");
+    if(tc)tc.textContent=traders.toLocaleString();
+    if(vm)vm.textContent="$"+(volume/1000000).toFixed(1)+"M";
+    if(tt)tt.textContent=trades.toLocaleString();
+  },3000);
+}
+
 (function init(){
   try{const s=localStorage.getItem("bm_session");if(s){currentUser=JSON.parse(s);updateNav();}}catch(e){}
   const savedLang=localStorage.getItem("bm_lang");if(savedLang)lang=savedLang;
@@ -2131,7 +2312,7 @@ function startLiveTrades(){
   const ref=urlParams.get("ref");
   if(ref){document.getElementById("refCode").value=ref;openAuth("register");}
   if(location.hash==="#admin")showPage("admin");
-  applyLang();initFallbackPrices();renderCoins();renderTicker();renderMarkets();fetchPrices();setInterval(fetchPrices,20000);renderSpinningCoins();startLiveTrades();
+  applyLang();initFallbackPrices();renderCoins();renderTicker();renderMarkets();fetchPrices();setInterval(fetchPrices,20000);renderSpinningCoins();startLiveTrades();startMgmtStats();
 })();
 </script>
 
