@@ -1964,6 +1964,7 @@ function renderWallet(){
     });
     list.innerHTML=rows.join("");
   }
+}
 
 function renderWalletHistory(){
   const deposits=getDeposits().filter(d=>d.username===currentUser.username);
