@@ -1655,13 +1655,18 @@ function openLangModal(){document.getElementById("langModal").classList.add("ope
 function closeLangModal(){document.getElementById("langModal").classList.remove("open");}
 
 function renderLangGrid(){
-  document.getElementById("langGrid").innerHTML=LANGUAGES.map(l=>`
-    <div class="lang-item ${l.code===lang?'active':''} ${!l.active?'inactive':''}" onclick="${l.active?`setLang('${l.code}')`:''}" >
-      <span class="lang-flag">${l.flag}</span>
-      <span class="lang-name">${l.name}</span>
-      ${l.code===lang?`<span class="lang-badge">✓</span>`:''}
-      ${!l.active&&l.code!==lang?`<span class="lang-soon">Soon</span>`:''}
-    </div>`).join("");
+  document.getElementById("langGrid").innerHTML=LANGUAGES.map(l=>{
+    const isActive=l.code===lang;
+    const cls="lang-item"+(isActive?" active":"")+(!l.active?" inactive":"");
+    const onclick=l.active?"setLang('"+l.code+"')":'';
+    const badge=isActive?'<span class="lang-badge">✓</span>':'';
+    const soon=(!l.active&&!isActive)?'<span class="lang-soon">Soon</span>':'';
+    return'<div class="'+cls+'" onclick="'+onclick+'">'
+      +'<span class="lang-flag">'+l.flag+'</span>'
+      +'<span class="lang-name">'+l.name+'</span>'
+      +badge+soon
+      +'</div>';
+  }).join("");
 }
 
 function setLang(code){
