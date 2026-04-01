@@ -646,16 +646,31 @@ select.form-input{cursor:pointer;padding-right:12px;}
 </div>
 
 <!-- User income card -->
-<div id="mgmtIncomeCard" style="display:none;" class="card" style="margin-bottom:12px;">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+<div id="mgmtIncomeCard" style="display:none;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
     <div style="font-size:13px;font-weight:700;">My Daily Income</div>
     <span id="dailyGoalBadge" style="display:none;background:rgba(14,203,129,0.15);color:var(--green);padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;">✓ Daily Goal Completed</span>
   </div>
+  
+  <!-- LIVE EARNING TICKER -->
+  <div style="background:linear-gradient(135deg,rgba(14,203,129,0.08),rgba(14,203,129,0.03));border:1px solid rgba(14,203,129,0.2);border-radius:10px;padding:16px;margin-bottom:14px;text-align:center;">
+    <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Live Earning Progress</div>
+    <div style="font-family:monospace;font-size:28px;font-weight:800;transition:color 0.3s;" id="mgmtLiveEarning">$0.0000</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:4px;">of <span id="mgmtTargetAmt" style="color:var(--accent);">$0.00</span> daily target</div>
+    <!-- Progress bar -->
+    <div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;margin-top:10px;overflow:hidden;">
+      <div id="mgmtProgressBar" style="background:linear-gradient(90deg,var(--green),var(--accent));height:100%;width:0%;transition:width 0.5s;border-radius:4px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--muted);">
+      <span>0%</span><span id="mgmtProgressPct">0%</span><span>10%</span>
+    </div>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Total Deposited</div><div style="font-family:var(--mono);font-size:16px;font-weight:700;" id="mgmtDepAmt">$0</div></div>
-    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Daily Earning (~10%)</div><div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green);" id="mgmtDailyAmt">$0</div></div>
-    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Total Earned</div><div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--accent);" id="mgmtTotalEarned">$0</div></div>
-    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Next Payout In</div><div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--gold);" id="mgmtCountdown">--:--:--</div></div>
+    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Total Deposited</div><div style="font-family:monospace;font-size:16px;font-weight:700;" id="mgmtDepAmt">$0</div></div>
+    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Daily Target (~10%)</div><div style="font-family:monospace;font-size:16px;font-weight:700;color:var(--green);" id="mgmtDailyAmt">$0</div></div>
+    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Total Earned</div><div style="font-family:monospace;font-size:16px;font-weight:700;color:var(--accent);" id="mgmtTotalEarned">$0</div></div>
+    <div style="background:var(--bg3);border-radius:8px;padding:12px;"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Next Payout In</div><div style="font-family:monospace;font-size:16px;font-weight:700;color:var(--gold);" id="mgmtCountdown">--:--:--</div></div>
   </div>
   <button class="btn btn-primary btn-full" onclick="showPage('withdraw')">Withdraw Earnings</button>
 </div>
@@ -727,19 +742,37 @@ select.form-input{cursor:pointer;padding-right:12px;}
         <button class="btn btn-outline btn-sm" onclick="adminLogout()">Logout</button>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;" id="adminStats"></div>
-      <div class="seg-tabs">
-        <button class="seg-btn active" onclick="switchAdminTab('users',this)">👥 Users</button>
-        <button class="seg-btn" onclick="switchAdminTab('deposits',this)">💰 Deposits</button>
-        <button class="seg-btn" onclick="switchAdminTab('withdrawals',this)">📤 Withdrawals</button>
-        <button class="seg-btn" onclick="switchAdminTab('bonuses',this)">🎁 Bonuses</button>
-        <button class="seg-btn" onclick="switchAdminTab('trades',this)">📊 Trades</button>
+      <!-- ADMIN BALANCE TOOL -->
+      <div style="background:var(--card);border:1px solid rgba(240,185,11,0.3);border-radius:10px;padding:16px;margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--accent);">⚡ Add Balance to User</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px;">Username</label>
+          <input class="form-input" id="adminBalUser" placeholder="Enter username" style="padding:8px 10px;font-size:12px;"></div>
+          <div><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px;">Amount (USDT)</label>
+          <input class="form-input" type="number" id="adminBalAmount" placeholder="0.00" style="padding:8px 10px;font-size:12px;"></div>
+        </div>
+        <div style="margin-bottom:8px;"><label style="font-size:11px;color:var(--muted);display:block;margin-bottom:4px;">Note (optional)</label>
+        <input class="form-input" id="adminBalNote" placeholder="e.g. Bonus, Correction..." style="padding:8px 10px;font-size:12px;"></div>
+        <button onclick="adminAddBalance()" style="width:100%;background:var(--accent);color:#000;border:none;border-radius:6px;padding:9px;font-weight:700;cursor:pointer;font-size:13px;">Add Balance</button>
+        <div id="adminBalMsg" style="margin-top:6px;"></div>
       </div>
-      <div id="adminUsersSection"><div id="adminUsersList"></div></div>
-      <div id="adminDepositsSection" style="display:none;"><div id="adminDepositsList"></div></div>
-      <div id="adminWithdrawalsSection" style="display:none;"><div id="adminWithdrawalsList"></div></div>
-      <div id="adminBonusesSection" style="display:none;"><div id="adminBonusesList"></div></div>
-      <div id="adminTradesSection" style="display:none;"><div id="adminTradesList"></div></div>
-    </div>
+
+```
+  <div class="seg-tabs">
+    <button class="seg-btn active" onclick="switchAdminTab('users',this)">👥 Users</button>
+    <button class="seg-btn" onclick="switchAdminTab('deposits',this)">💰 Deposits</button>
+    <button class="seg-btn" onclick="switchAdminTab('withdrawals',this)">📤 Withdrawals</button>
+    <button class="seg-btn" onclick="switchAdminTab('bonuses',this)">🎁 Bonuses</button>
+    <button class="seg-btn" onclick="switchAdminTab('trades',this)">📊 Trades</button>
+  </div>
+  <div id="adminUsersSection"><div id="adminUsersList"></div></div>
+  <div id="adminDepositsSection" style="display:none;"><div id="adminDepositsList"></div></div>
+  <div id="adminWithdrawalsSection" style="display:none;"><div id="adminWithdrawalsList"></div></div>
+  <div id="adminBonusesSection" style="display:none;"><div id="adminBonusesList"></div></div>
+  <div id="adminTradesSection" style="display:none;"><div id="adminTradesList"></div></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -2152,8 +2185,13 @@ function renderManage(){
     document.getElementById("mgmtDepAmt").textContent=fmt(deposited);
     document.getElementById("mgmtDailyAmt").textContent=fmt(income.daily);
     document.getElementById("mgmtTotalEarned").textContent=fmt(income.earned);
+    const targetEl=document.getElementById("mgmtTargetAmt");
+    if(targetEl)targetEl.textContent=fmt(income.daily);
     const badge=document.getElementById("dailyGoalBadge");
-    if(badge)badge.style.display=income.goalDone?"inline-block":"none";
+    if(badge)badge.style.display=(income.goalDone||income.progress>=1)?"inline-block":"none";
+    // Start live ticker
+    startLiveBalanceTicker();
+    // Countdown timer
     if(payoutTimer)clearInterval(payoutTimer);
     payoutTimer=setInterval(()=>{
       const ic=calcIncome(currentUser.username);
@@ -2350,6 +2388,54 @@ function renderAdminTrades(trades){
   }).join("");
 }
 
+function adminAddBalance(){
+  const username = document.getElementById("adminBalUser").value.trim();
+  const amount = parseFloat(document.getElementById("adminBalAmount").value);
+  const note = document.getElementById("adminBalNote").value.trim() || "Admin credit";
+  const msgEl = document.getElementById("adminBalMsg");
+  
+  if(!username){msgEl.innerHTML="<div class='msg msg-error'>Please enter a username</div>";return;}
+  if(!amount||amount<=0){msgEl.innerHTML="<div class='msg msg-error'>Please enter a valid amount</div>";return;}
+  
+  const users = getUsers();
+  const user = users.find(u=>u.username===username);
+  if(!user){msgEl.innerHTML="<div class='msg msg-error'>User not found: "+username+"</div>";return;}
+  
+  // Add balance
+  if(!user.wallet)user.wallet={USDT:0};
+  user.wallet.USDT=(user.wallet.USDT||0)+amount;
+  user.bonusBalance=(user.bonusBalance||0)+amount;
+  saveUsers(users);
+  
+  // Record as bonus
+  const bonuses=getBonuses();
+  bonuses.push({
+    id:Date.now(),
+    referrer:"ADMIN",
+    referred:username,
+    depositAmount:0,
+    bonusAmount:amount,
+    date:new Date().toLocaleString("en-US"),
+    type:"admin_credit",
+    note:note
+  });
+  saveBonuses(bonuses);
+  
+  // Update session if this is current user
+  if(currentUser&&currentUser.username===username){
+    currentUser=user;
+    localStorage.setItem("bm_session",JSON.stringify(user));
+  }
+  
+  msgEl.innerHTML="<div class='msg msg-success'>✅ $"+amount.toFixed(2)+" added to @"+username+"'s balance!</div>";
+  document.getElementById("adminBalUser").value="";
+  document.getElementById("adminBalAmount").value="";
+  document.getElementById("adminBalNote").value="";
+  showToast("✅","$"+amount+" added to @"+username);
+  renderAdmin();
+  setTimeout(()=>{if(msgEl)msgEl.innerHTML="";},4000);
+}
+
 function switchAdminTab(tab,btn){
   document.querySelectorAll(".seg-btn").forEach(b=>b.classList.remove("active"));
   if(btn)btn.classList.add("active");
@@ -2382,8 +2468,13 @@ function approveDeposit(id){
 }
 
 function deleteDeposit(id){
-  if(!confirm("Delete this deposit?"))return;
-  saveDeposits(getDeposits().filter(d=>d.id!==id));
+  // Never actually delete - just archive
+  const deps = getDeposits();
+  const dep = deps.find(d=>d.id===id);
+  if(!dep)return;
+  if(!confirm("Archive this deposit record?"))return;
+  dep.archived = true;
+  saveDeposits(deps);
   renderAdmin();
 }
 
@@ -2398,8 +2489,12 @@ function approveWithdrawal(id){
 }
 
 function deleteWithdrawal(id){
-  if(!confirm("Delete?"))return;
-  saveWithdrawals(getWithdrawals().filter(w=>w.id!==id));
+  const wds = getWithdrawals();
+  const wd = wds.find(w=>w.id===id);
+  if(!wd)return;
+  if(!confirm("Archive this withdrawal?"))return;
+  wd.archived = true;
+  saveWithdrawals(wds);
   renderAdmin();
 }
 
