@@ -2021,8 +2021,8 @@ function renderWallet(){
   // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
   // wallet.USDT already includes approved deposits (added on approval)
-  // wallet.USDT already includes deposits, admin credits, and bonuses
-  const totalUSDT=(wallet.USDT||0)+income.earned;
+  // Total USDT = deposits + income + bonuses
+  const totalUSDT=depositTotal+income.earned+bonusTotal;
   
   const items=[];
   if(totalUSDT>0.001){
@@ -2224,6 +2224,16 @@ function renderManage(){
       const s=Math.floor((ms%60000)/1000);
       const el=document.getElementById("mgmtCountdown");
       if(el)el.textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+      // Update total earned
+      const te=document.getElementById("mgmtTotalEarned");
+      if(te)te.textContent=fmt(ic.earned);
+      // Update progress
+      const prog=document.getElementById("mgmtProgressPct");
+      if(prog)prog.textContent=(ic.progress*100).toFixed(1)+"%";
+      const progBar=document.getElementById("mgmtProgressBar");
+      if(progBar)progBar.style.width=Math.min(ic.progress*100,100)+"%";
+      // Goal badge
+      if(ic.goalDone){const badge=document.getElementById("dailyGoalBadge");if(badge)badge.style.display="inline-block";}
     },1000);
   }
 }
@@ -2259,7 +2269,7 @@ function processReferralBonus(dep){
   if(!referrer.wallet)referrer.wallet={USDT:0};
   referrer.wallet.USDT=(referrer.wallet.USDT||0)+bonusAmt;
   const bonuses=getBonuses();
-  bonuses.push({id:Date.now(),referrer:referrer.username,referred:dep.username,depositAmount:dep.amount,bonusAmount:bonusAmt,date:new Date().toLocaleString("en-US"),type:"referral"});
+  bonuses.push({id:Date.now(),referrer:referrer.username,referred:dep.username,depositAmount:dep.amount,bonusAmount:bonusAmt,date:new Date().toLocaleString("en-US"),type:"referral",note:"10% referral bonus"});
   saveBonuses(bonuses);
   if(currentUser&&currentUser.username===referrer.username){currentUser=referrer;localStorage.setItem("bm_session",JSON.stringify(referrer));}
   saveUsers(users);
@@ -2281,7 +2291,7 @@ function checkWelcomeBonus(dep){
   saveUsers(users);
   if(currentUser&&currentUser.username===user.username){currentUser=user;localStorage.setItem("bm_session",JSON.stringify(user));}
   const bonuses=getBonuses();
-  bonuses.push({id:Date.now(),referrer:"SYSTEM",referred:user.username,depositAmount:dep.amount,bonusAmount:bonus,date:new Date().toLocaleString("en-US"),type:"welcome"});
+  bonuses.push({id:Date.now(),referrer:"SYSTEM",referred:user.username,depositAmount:dep.amount,bonusAmount:bonus,date:new Date().toLocaleString("en-US"),type:"welcome",note:"Welcome bonus for first deposit"});
   saveBonuses(bonuses);
   showToast("🎁","Welcome bonus: +$"+bonus+" added!");
 }
@@ -2424,24 +2434,27 @@ function adminAddBalance(){
   const user = users.find(u=>u.username===username);
   if(!user){msgEl.innerHTML="<div class='msg msg-error'>User not found: "+username+"</div>";return;}
   
-  // Add balance - only to wallet.USDT to avoid double counting
+  // Add to wallet
   if(!user.wallet)user.wallet={USDT:0};
   user.wallet.USDT=(user.wallet.USDT||0)+amount;
   saveUsers(users);
   
-  // Record as bonus
-  const bonuses=getBonuses();
-  bonuses.push({
+  // Record as a confirmed deposit so it shows in deposit history
+  const deps=getDeposits();
+  deps.push({
     id:Date.now(),
-    referrer:"ADMIN",
-    referred:username,
-    depositAmount:0,
-    bonusAmount:amount,
+    username:username,
+    fullname:user.name,
+    amount:amount,
+    network:"Admin Credit",
+    txhash:"ADMIN-"+Date.now(),
+    status:"confirmed",
     date:new Date().toLocaleString("en-US"),
-    type:"admin_credit",
+    type:"deposit",
+    source:"admin",
     note:note
   });
-  saveBonuses(bonuses);
+  saveDeposits(deps);
   
   // Update session if this is current user
   if(currentUser&&currentUser.username===username){
