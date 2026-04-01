@@ -657,6 +657,7 @@ select.form-input{cursor:pointer;padding-right:12px;}
     <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Live Earning Progress</div>
     <div style="font-family:monospace;font-size:28px;font-weight:800;transition:color 0.3s;" id="mgmtLiveEarning">$0.0000</div>
     <div style="font-size:10px;color:var(--muted);margin-top:4px;">of <span id="mgmtTargetAmt" style="color:var(--accent);">$0.00</span> daily target</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="mgmtPaymentInfo">Payments: 0/0</div>
     <!-- Progress bar -->
     <div style="background:rgba(255,255,255,0.08);border-radius:4px;height:6px;margin-top:10px;overflow:hidden;">
       <div id="mgmtProgressBar" style="background:linear-gradient(90deg,var(--green),var(--accent));height:100%;width:0%;transition:width 0.5s;border-radius:4px;"></div>
@@ -2021,7 +2022,7 @@ function renderWallet(){
   // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
   // wallet.USDT already includes approved deposits (added on approval)
-  // Total USDT = deposits + income + bonuses
+  // Total USDT = deposits(user+admin) + income + bonuses(welcome+referral only)
   const totalUSDT=depositTotal+income.earned+bonusTotal;
   
   const items=[];
@@ -2132,6 +2133,7 @@ function renderProfile(){
 // INCOME SYSTEM
 // ============================================================
 function getUserDepositTotal(username){
+  // Include both user deposits and admin credits (both are confirmed deposits)
   return getDeposits().filter(d=>d.username===username&&d.status==="confirmed"&&d.type==="deposit").reduce((s,d)=>s+d.amount,0);
 }
 
@@ -2207,6 +2209,9 @@ function renderManage(){
     const income=calcIncome(currentUser.username);
     document.getElementById("mgmtDepAmt").textContent=fmt(deposited);
     document.getElementById("mgmtDailyAmt").textContent=fmt(income.daily);
+    // Show payment progress
+    const progInfo=document.getElementById("mgmtPaymentInfo");
+    if(progInfo)progInfo.textContent="Payments today: "+income.paidCount+"/"+income.totalPayments;
     document.getElementById("mgmtTotalEarned").textContent=fmt(income.earned);
     const targetEl=document.getElementById("mgmtTargetAmt");
     if(targetEl)targetEl.textContent=fmt(income.daily);
