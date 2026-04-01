@@ -2002,7 +2002,8 @@ function renderWallet(){
   const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
   
   // Grand total = wallet USDT (includes deposits) + AI income + bonuses
-  const grandTotal=(currentUser.wallet?.USDT||0)+income.earned+bonusTotal;
+  // wallet.USDT already includes all credits including bonuses
+  const grandTotal=(currentUser.wallet?.USDT||0)+income.earned;
   
   // Update UI
   document.getElementById("walletTotal").textContent=grandTotal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -2020,7 +2021,8 @@ function renderWallet(){
   // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
   // wallet.USDT already includes approved deposits (added on approval)
-  const totalUSDT=(wallet.USDT||0)+bonusTotal+income.earned;
+  // wallet.USDT already includes deposits, admin credits, and bonuses
+  const totalUSDT=(wallet.USDT||0)+income.earned;
   
   const items=[];
   if(totalUSDT>0.001){
@@ -2422,10 +2424,9 @@ function adminAddBalance(){
   const user = users.find(u=>u.username===username);
   if(!user){msgEl.innerHTML="<div class='msg msg-error'>User not found: "+username+"</div>";return;}
   
-  // Add balance
+  // Add balance - only to wallet.USDT to avoid double counting
   if(!user.wallet)user.wallet={USDT:0};
   user.wallet.USDT=(user.wallet.USDT||0)+amount;
-  user.bonusBalance=(user.bonusBalance||0)+amount;
   saveUsers(users);
   
   // Record as bonus
