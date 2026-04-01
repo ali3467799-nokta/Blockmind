@@ -600,36 +600,73 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 <div class="page" id="page-deposit">
   <div class="deposit-wrap">
     <div style="font-size:20px;font-weight:700;margin-bottom:4px;" id="depositTitle">Deposit Crypto</div>
-    <p style="color:var(--muted);margin-bottom:18px;font-size:13px;" id="depositSub">Select network, send to address, then confirm below.</p>
-    <div class="network-tabs">
-      <button class="net-tab active" data-net="usdt_erc20" onclick="selectNet(this)">USDT ERC20</button>
-      <button class="net-tab" data-net="usdt_trc20" onclick="selectNet(this)">USDT TRC20</button>
-      <button class="net-tab" data-net="usdt_sol" onclick="selectNet(this)">USDT SOL</button>
-      <button class="net-tab" data-net="btc" onclick="selectNet(this)">BTC</button>
-      <button class="net-tab" data-net="eth" onclick="selectNet(this)">ETH</button>
-      <button class="net-tab" data-net="bnb" onclick="selectNet(this)">BNB</button>
-    </div>
-    <div class="address-card">
-      <div class="addr-label" id="addrLabelText">Deposit Address</div>
-      <div class="addr-box">
-        <span class="addr-text" id="addrText">0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e</span>
-        <button class="copy-btn" onclick="copyAddr()" id="copyAddrBtn">Copy</button>
-      </div>
-      <div style="margin-top:8px;font-size:11px;color:var(--red);" id="addrNote">⚠️ Send only on this network. Wrong network = permanent loss.</div>
-    </div>
-    <div class="confirm-section">
-      <div style="font-size:15px;font-weight:600;margin-bottom:4px;" id="confirmTitle">Confirm Deposit</div>
-      <p style="color:var(--muted);font-size:12px;margin-bottom:16px;" id="confirmSub">Fill in after completing the transfer.</p>
-      <div class="confirm-grid">
-        <div class="form-group"><label class="form-label" id="depUserLabel">Username</label><input class="form-input" id="depUsername" placeholder="username" /></div>
-        <div class="form-group"><label class="form-label" id="depNameLabel">Full Name</label><input class="form-input" id="depName" placeholder="Full Name" /></div>
-        <div class="form-group"><label class="form-label" id="depAmtLabel">Amount (USDT)</label><input class="form-input" id="depAmount" type="number" placeholder="100" /></div>
-        <div class="form-group"><label class="form-label" id="depNetLabel">Network</label><input class="form-input" id="depNetwork" readonly style="color:var(--accent)" value="USDT ERC20" /></div>
-      </div>
-      <div class="form-group"><label class="form-label" id="depTxLabel">TX Hash (optional)</label><input class="form-input" id="depTxHash" placeholder="0x..." /></div>
-      <button class="btn btn-primary btn-full" onclick="submitDeposit()" id="depSubmitBtn">Submit Deposit</button>
-      <div id="depMsg"></div>
-    </div>
+    <p style="color:var(--muted);margin-bottom:16px;font-size:13px;" id="depositSub">Fill in your details, select network, then send to the address shown.</p>
+
+```
+<!-- STEP 1: USER INFO -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">1</div>
+    <div style="font-size:14px;font-weight:700;" id="depStep1Title">Enter Your Details</div>
+  </div>
+  <div class="confirm-grid">
+    <div class="form-group"><label class="form-label" id="depUserLabel">Username *</label><input class="form-input" id="depUsername" placeholder="your_username" /></div>
+    <div class="form-group"><label class="form-label" id="depNameLabel">Full Name *</label><input class="form-input" id="depName" placeholder="First Last Name" /></div>
+  </div>
+  <div class="form-group"><label class="form-label" id="depAmtLabel">Amount (USDT) *</label><input class="form-input" id="depAmount" type="number" placeholder="100" oninput="updateDepositPreview()" /></div>
+  <div id="depAmtPreview" style="display:none;background:var(--bg3);border-radius:6px;padding:8px 12px;margin-top:4px;font-size:12px;color:var(--muted);"></div>
+</div>
+
+<!-- STEP 2: SELECT NETWORK -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">2</div>
+    <div style="font-size:14px;font-weight:700;" id="depStep2Title">Select Network</div>
+  </div>
+  <div class="network-tabs">
+    <button class="net-tab active" data-net="usdt_erc20" onclick="selectNet(this)">USDT ERC20</button>
+    <button class="net-tab" data-net="usdt_trc20" onclick="selectNet(this)">USDT TRC20</button>
+    <button class="net-tab" data-net="usdt_sol" onclick="selectNet(this)">USDT SOL</button>
+    <button class="net-tab" data-net="btc" onclick="selectNet(this)">BTC</button>
+    <button class="net-tab" data-net="eth" onclick="selectNet(this)">ETH</button>
+    <button class="net-tab" data-net="bnb" onclick="selectNet(this)">BNB</button>
+  </div>
+  <input type="hidden" id="depNetwork" value="USDT ERC20" />
+</div>
+
+<!-- STEP 3: SEND TO ADDRESS -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">3</div>
+    <div style="font-size:14px;font-weight:700;" id="depStep3Title">Send to This Address</div>
+  </div>
+  <div style="background:rgba(246,70,93,0.08);border:1px solid rgba(246,70,93,0.2);border-radius:6px;padding:10px;margin-bottom:10px;font-size:11px;color:var(--red);" id="addrNote">⚠️ Send only via selected network. Wrong network = permanent loss of funds.</div>
+  <div class="addr-label" id="addrLabelText" style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Deposit Address</div>
+  <div class="addr-box">
+    <span class="addr-text" id="addrText">0xe6b60bd4d6c00dd8b2814b9f7616e28c292dd41e</span>
+    <button class="copy-btn" onclick="copyAddr()" id="copyAddrBtn">Copy</button>
+  </div>
+</div>
+
+<!-- STEP 4: CONFIRM TX -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:12px;">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">4</div>
+    <div style="font-size:14px;font-weight:700;" id="depStep4Title">Confirm Transfer</div>
+  </div>
+  <p style="color:var(--muted);font-size:12px;margin-bottom:14px;" id="confirmSub">After sending, enter your TX hash below and submit. Your balance will be credited after admin confirmation.</p>
+  <div class="form-group"><label class="form-label" id="depTxLabel">TX Hash / Transaction ID *</label><input class="form-input" id="depTxHash" placeholder="Paste your transaction hash here..." /></div>
+  <button class="btn btn-primary btn-full" onclick="submitDeposit()" id="depSubmitBtn" style="font-size:14px;padding:13px;">📤 Submit Deposit Request</button>
+  <div id="depMsg"></div>
+</div>
+
+<!-- PENDING DEPOSITS -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;">
+  <div style="font-size:13px;font-weight:700;margin-bottom:10px;" id="pendingDepTitle">My Deposit Requests</div>
+  <div id="userDepositList"></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -1334,7 +1371,10 @@ function showPage(name){
   if(name==="admin")renderAdmin();
   if(name==="withdraw"){if(!currentUser){openAuth('login');return;}renderWithdrawHistory();updateWithdrawInfo();}
   if(name==="manage"){renderManagePage();}
-  if(name==="deposit"&&currentUser)document.getElementById("depUsername").value=currentUser.username;
+  if(name==="deposit"&&currentUser){
+    document.getElementById("depUsername").value=currentUser.username;
+    setTimeout(renderUserDepositList,100);
+  }
   window.scrollTo(0,0);
 }
 
@@ -1514,22 +1554,84 @@ function selectNet(btn){
 }
 function copyAddr(){navigator.clipboard.writeText(document.getElementById("addrText").textContent);showToast("📋","Address copied!");}
 
+function updateDepositPreview(){
+  const amt=parseFloat(document.getElementById("depAmount").value)||0;
+  const preview=document.getElementById("depAmtPreview");
+  if(amt>=100){
+    let bonus=amt>=1000?25:13;
+    preview.style.display="block";
+    preview.innerHTML="💰 You will receive: <strong style='color:var(--green);'>$"+amt.toFixed(2)+"</strong> + <strong style='color:var(--accent);'>$"+bonus+" welcome bonus</strong>";
+  } else if(amt>0){
+    preview.style.display="block";
+    preview.innerHTML="<span style='color:var(--muted);'>Minimum $100 required for welcome bonus</span>";
+  } else {
+    preview.style.display="none";
+  }
+}
+
+function renderUserDepositList(){
+  if(!currentUser) return;
+  const deposits=getDeposits().filter(d=>d.username===currentUser.username&&d.type==="deposit");
+  const list=document.getElementById("userDepositList");
+  if(!list) return;
+  if(!deposits.length){
+    list.innerHTML="<div style='text-align:center;padding:20px;color:var(--muted);font-size:12px;'>No deposit requests yet.</div>";
+    return;
+  }
+  list.innerHTML=deposits.slice().reverse().map(d=>{
+    const isPending=d.status==="pending";
+    return "<div style='display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);'>"
+      +"<div>"
+      +"<div style='font-size:13px;font-weight:600;'>$"+d.amount+" "+d.network+"</div>"
+      +"<div style='font-size:11px;color:var(--muted);'>"+d.date+"</div>"
+      +(d.txhash&&d.txhash!=="-"?"<div style='font-size:10px;color:var(--muted);font-family:var(--mono);'>TX: "+d.txhash.substring(0,20)+"...</div>":"")
+      +"</div>"
+      +"<span style='background:"+(isPending?"rgba(240,185,11,0.15)":"rgba(14,203,129,0.15)")
+      +";color:"+(isPending?"var(--gold)":"var(--green)")
+      +";padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;white-space:nowrap;'>"
+      +(isPending?"⏳ Pending":"✓ Confirmed")+"</span>"
+      +"</div>";
+  }).join("");
+}
+
 function submitDeposit(){
-  if(!currentUser){openAuth('login');return;}
+  if(!currentUser){openAuth("login");return;}
   const username=document.getElementById("depUsername").value.trim();
   const fullname=document.getElementById("depName").value.trim();
   const amount=parseFloat(document.getElementById("depAmount").value);
   const network=document.getElementById("depNetwork").value;
   const txhash=document.getElementById("depTxHash").value.trim();
   const msg=document.getElementById("depMsg");
-  if(!username||!fullname||!amount||amount<=0){showMsg(msg,t("fillAll"),"error");return;}
-  const user=getUsers().find(u=>u.username===username);
+
+  if(!username){showMsg(msg,lang==="tr"?"Kullanıcı adı zorunludur":"Username is required","error");return;}
+  if(!fullname){showMsg(msg,lang==="tr"?"Ad soyad zorunludur":"Full name is required","error");return;}
+  if(!amount||amount<=0){showMsg(msg,lang==="tr"?"Geçerli bir tutar girin":"Enter a valid amount","error");return;}
+  if(!txhash){showMsg(msg,lang==="tr"?"TX Hash zorunludur. Transferi tamamladıktan sonra girin.":"TX Hash is required. Enter it after completing your transfer.","error");return;}
+
+  const users=getUsers();
+  const user=users.find(u=>u.username===username);
   if(!user){showMsg(msg,t("userNotFound"),"error");return;}
-  const dep={id:Date.now(),username,fullname,amount,network,txhash:txhash||"-",status:"pending",date:new Date().toLocaleString("en-US"),type:"deposit"};
+
+  // Check if user already has a pending deposit with same amount
+  const existing=getDeposits().find(d=>d.username===username&&d.status==="pending"&&d.txhash===txhash);
+  if(existing){showMsg(msg,"This TX hash has already been submitted.","error");return;}
+
+  const dep={
+    id:Date.now(),username,fullname,amount,network,
+    txhash:txhash,status:"pending",
+    date:new Date().toLocaleString("en-US"),type:"deposit"
+  };
   const deposits=getDeposits();deposits.push(dep);saveDeposits(deposits);
-  showMsg(msg,t("depReceived"),"success");
-  document.getElementById("depAmount").value="";document.getElementById("depTxHash").value="";
-  showToast("💰","Deposit submitted!");
+
+  showMsg(msg,"<div style='background:rgba(14,203,129,0.1);border:1px solid rgba(14,203,129,0.2);border-radius:8px;padding:12px;'>"
+    +"<div style='font-weight:700;color:var(--green);margin-bottom:4px;'>✅ Deposit Request Submitted!</div>"
+    +"<div style='font-size:12px;color:var(--muted);'>Your deposit of <strong style='color:var(--text);'>$"+amount+"</strong> via <strong style='color:var(--text);'>"+network+"</strong> is pending admin confirmation.</div>"
+    +"<div style='font-size:11px;color:var(--muted);margin-top:6px;'>⏱ Processing time: 1-24 hours. Your balance will update automatically.</div>"
+    +"</div>","success");
+
+  document.getElementById("depTxHash").value="";
+  renderUserDepositList();
+  showToast("⏳","Deposit pending confirmation");
 }
 
 function populateTradeCoinSelects(){
