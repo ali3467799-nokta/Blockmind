@@ -1947,8 +1947,8 @@ function renderWallet(){
   const refEarned=refBonuses.reduce((s,b)=>s+b.bonusAmount,0);
   const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
   
-  // Grand total = confirmed deposits + AI income + bonuses
-  const grandTotal=depositTotal+income.earned+bonusTotal;
+  // Grand total = wallet USDT (includes deposits) + AI income + bonuses
+  const grandTotal=(currentUser.wallet?.USDT||0)+income.earned+bonusTotal;
   
   // Update UI
   document.getElementById("walletTotal").textContent=grandTotal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -1965,7 +1965,8 @@ function renderWallet(){
   
   // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
-  const totalUSDT=(wallet.USDT||0)+depositTotal+bonusTotal+income.earned;
+  // wallet.USDT already includes approved deposits (added on approval)
+  const totalUSDT=(wallet.USDT||0)+bonusTotal+income.earned;
   
   const items=[];
   if(totalUSDT>0.001){
