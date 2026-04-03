@@ -2003,24 +2003,29 @@ function renderWallet(){
   const refEarned=refBonuses.reduce((s,b)=>s+b.bonusAmount,0);
   const invitedCount=getUsers().filter(u=>u.referredBy===currentUser.username).length;
   
-  // Grand total = confirmed deposits + AI income + bonuses
+  // Grand total = deposits + AI income + bonuses
   const grandTotal=depositTotal+income.earned+bonusTotal;
   
   // Update UI
   document.getElementById("walletTotal").textContent=grandTotal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
   document.getElementById("wDepTotal").textContent=fmt(depositTotal);
   document.getElementById("wIncomeTotal").textContent=fmt(income.earned);
-  document.getElementById("wBonusTotal").textContent=bonusTotal>0?fmt(bonusTotal):"$0.00";
+  document.getElementById("wBonusTotal").textContent=fmt(bonusTotal);
+  // Update bonus sub-label with breakdown
+  const bonusLabelEl=document.getElementById("bonusBalLabel");
+  if(bonusLabelEl){
+    if(welcomeTotal>0&&referralTotal>0) bonusLabelEl.textContent="Welcome $"+welcomeTotal.toFixed(0)+" + Referral $"+referralTotal.toFixed(0);
+    else if(welcomeTotal>0) bonusLabelEl.textContent="Welcome bonus";
+    else if(referralTotal>0) bonusLabelEl.textContent="Referral bonus";
+    else bonusLabelEl.textContent="Referral & welcome";
+  }
   document.getElementById("wPendingTotal").textContent=pendingTotal>0?fmt(pendingTotal):"$0.00";
   document.getElementById("wRefCount").textContent=invitedCount;
   document.getElementById("wRefEarned").textContent=refEarned>0?fmt(refEarned):"$0.00";
   
   // Update breakdown labels with extra info
   const incLabel=document.getElementById("incomeBalLabel");
-  if(incLabel){
-    if(income.paidCount>0){incLabel.textContent="AI Income ("+income.paidCount+"/"+income.totalPayments+" payments)";}
-    else{incLabel.textContent="AI Income (~10% daily)";}
-  }
+  if(incLabel) incLabel.textContent="AI Income (~10% daily)";
   
   // Assets list
   const wallet=JSON.parse(JSON.stringify(currentUser.wallet||{USDT:0}));
@@ -2141,96 +2146,99 @@ function getUserDepositTotal(username){
 }
 
 function calcIncome(username){
-  const data=getIncomeData();
-  const deposited=getUserDepositTotal(username);
-  if(deposited<=0)return{earned:0,nextIn:0,goalDone:false,daily:0,progress:0,liveEarned:0,target:0,paidCount:0,totalPayments:10};
+  const data = getIncomeData();
+  const deposited = getUserDepositTotal(username);
+  if(deposited <= 0) return {earned:0,nextIn:0,goalDone:false,daily:0,progress:0,liveEarned:0,target:0,paidCount:0,totalPayments:10};
   
-  const now=Date.now();
-  const dayMs=24*3600000;
-  const targetDaily=deposited*0.10; // Exactly 10% per day - never more
+  const now = Date.now();
+  const dayMs = 24 * 3600000;
+  const targetDaily = deposited * 0.10; // Exactly 10% per 24h
   
   if(!data[username]){
-    const seed=username.split("").reduce((s,c)=>s+c.charCodeAt(0),0);
-    const numPayments=8+Math.floor((seed*13)%8);
-    const payments=[];
-    for(let i=0;i<numPayments;i++){
-      payments.push(Math.floor(((seed*(i+3)*7919)%dayMs)));
+    // First time - create schedule
+    // 10 payments spread evenly over 24h, first one at 0 (immediate)
+    const numPayments = 10;
+    const payments = [];
+    for(let i = 0; i < numPayments; i++){
+      // Even distribution: 0, 2.4h, 4.8h, 7.2h, ... 21.6h
+      payments.push(Math.floor((i / numPayments) * dayMs));
     }
-    payments.sort((a,b)=>a-b);
-    data[username]={dayStart:now,payments,totalEarned:0,paidPayments:[],dayCount:0};
+    data[username] = {
+      dayStart: now,
+      payments: payments,
+      totalEarned: 0,
+      paidPayments: [],
+      dayCount: 0
+    };
     saveIncomeData(data);
   }
   
-  const d=data[username];
-  let {dayStart,payments,totalEarned,paidPayments,dayCount}=d;
+  const d = data[username];
+  let {dayStart, payments, totalEarned, paidPayments, dayCount} = d;
   
-  if(!payments||!payments.length){
-    const seed=username.split("").reduce((s,c)=>s+c.charCodeAt(0),0);
-    const numPayments=10;
-    payments=[];
-    for(let i=0;i<numPayments;i++) payments.push(Math.floor(((seed*(i+3)*7919)%dayMs)));
-    payments.sort((a,b)=>a-b);
-    paidPayments=[];
+  if(!payments || !payments.length){
+    payments = [];
+    for(let i = 0; i < 10; i++) payments.push(Math.floor((i/10)*dayMs));
+    paidPayments = [];
   }
   
-  // Reset for new day
-  let updated=false;
-  while(now-dayStart>=dayMs){
-    dayStart+=dayMs;
-    paidPayments=[];
+  // Check for new days
+  let updated = false;
+  while(now - dayStart >= dayMs){
+    dayStart += dayMs;
+    paidPayments = [];
     dayCount++;
-    updated=true;
+    updated = true;
   }
   
-  // Calculate today's earned amount based on paid payments
-  // Each payment = targetDaily / totalPayments (so total = exactly 10%)
-  const elapsed=now-dayStart;
-  const sliceAmount=targetDaily/payments.length;
+  // Pay due payments
+  const elapsed = now - dayStart;
+  const sliceAmount = targetDaily / payments.length;
   
-  payments.forEach((_,idx2)=>{
-    if(elapsed>=payments[idx2]&&!paidPayments.includes(idx2)){
-      totalEarned+=sliceAmount; // Fixed slice, no variance - exact 10% total
+  payments.forEach((offset, idx2) => {
+    if(elapsed >= offset && !paidPayments.includes(idx2)){
+      totalEarned += sliceAmount;
       paidPayments.push(idx2);
-      updated=true;
+      updated = true;
     }
   });
   
   if(updated){
-    data[username]={...d,dayStart,payments,totalEarned,paidPayments,dayCount};
+    data[username] = {...d, dayStart, payments, totalEarned, paidPayments, dayCount};
     saveIncomeData(data);
-    const prevTotal=d.totalEarned||0;
-    if(totalEarned>prevTotal){
-      const users=getUsers();
-      const user=users.find(u=>u.username===username);
+    const prevTotal = d.totalEarned || 0;
+    if(totalEarned > prevTotal){
+      const users = getUsers();
+      const user = users.find(u => u.username === username);
       if(user){
-        user.incomeBalance=(user.incomeBalance||0)+(totalEarned-prevTotal);
+        user.incomeBalance = (user.incomeBalance||0) + (totalEarned - prevTotal);
         saveUsers(users);
-        if(currentUser&&currentUser.username===username){
-          currentUser=user;
-          localStorage.setItem("bm_session",JSON.stringify(user));
+        if(currentUser && currentUser.username === username){
+          currentUser = user;
+          localStorage.setItem("bm_session", JSON.stringify(user));
         }
       }
     }
   }
   
-  const progress=payments.length>0?paidPayments.length/payments.length:0;
-  const goalDone=paidPayments.length>=payments.length;
-  const nextOffset=payments.find((_,idx2)=>!paidPayments.includes(idx2));
-  const nextIn=nextOffset!==undefined?(dayStart+nextOffset)-now:dayMs-elapsed;
-  const noise=(Math.sin(now/9000)*0.002+Math.cos(now/4000)*0.001);
-  const liveEarned=Math.max(0,totalEarned*(1+noise));
+  const progress = paidPayments.length / payments.length;
+  const goalDone = paidPayments.length >= payments.length;
+  const nextOffset = payments.find((_,idx2) => !paidPayments.includes(idx2));
+  const nextIn = nextOffset !== undefined ? (dayStart + nextOffset) - now : dayMs - elapsed;
+  const noise = (Math.sin(now/9000)*0.002 + Math.cos(now/4000)*0.001);
+  const liveEarned = Math.max(0, totalEarned * (1 + noise));
   
-  return{
-    earned:totalEarned,
-    nextIn:Math.max(0,nextIn),
+  return {
+    earned: totalEarned,
+    nextIn: Math.max(0, nextIn),
     goalDone,
-    cycles:dayCount,
-    daily:targetDaily,
+    cycles: dayCount,
+    daily: targetDaily,
     progress,
     liveEarned,
-    target:targetDaily,
-    paidCount:paidPayments.length,
-    totalPayments:payments.length
+    target: targetDaily,
+    paidCount: paidPayments.length,
+    totalPayments: payments.length
   };
 }
 
@@ -2268,8 +2276,7 @@ function renderManage(){
     document.getElementById("mgmtDepAmt").textContent=fmt(deposited);
     document.getElementById("mgmtDailyAmt").textContent=fmt(income.daily);
     // Show payment progress
-    const progInfo=document.getElementById("mgmtPaymentInfo");
-    if(progInfo)progInfo.textContent="Payments today: "+income.paidCount+"/"+income.totalPayments;
+
     document.getElementById("mgmtTotalEarned").textContent=fmt(income.earned);
     const targetEl=document.getElementById("mgmtTargetAmt");
     if(targetEl)targetEl.textContent=fmt(income.daily);
